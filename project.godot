@@ -14,6 +14,13 @@ config/name="Capstone"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AudioControl="*uid://b0uihg2jx14t7"
+UIcontrol="*uid://ccsxql8uikuyv"
+Utils="*uid://c8ovyotr1thsw"
+PlayerManager="*uid://1bh4kx4aooev"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -22,3 +22,8 @@ func create_timer(client_func : Callable, delay :float) -> void:
 	new_timer.timeout.connect(client_func)
 	add_child(new_timer)
 	new_timer.start(delay)
+
+
+
+
+# Save function TODO

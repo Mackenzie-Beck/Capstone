@@ -1,13 +1,9 @@
 class_name SoundEffect 
 extends Resource
-## Sound effect resource, used to configure unique sound effects for use with the AudioManager. Passed to [method AudioManager.create_2d_audio_at_location()] and [method AudioManager.create_audio()] to play sound effects.
+## Sound effect resource, used to configure unique sound effects for use with the AudioControl. Passed to [method AudioControl.create_2d_audio_at_location()] and [method AudioControl.create_audio()] to play sound effects.
 
-## Stores the different types of sounds effects available to be played to distinguish them from another. Each new SoundEffect resource created should add to this enum, to allow them to be easily instantiated via [method AudioManager.create_2d_audio_at_location()] and [method AudioManager.create_audio()].
+## Stores the different types of sounds effects available to be played to distinguish them from another. Each new SoundEffect resource created should add to this enum, to allow them to be easily instantiated via [method AudioControl.create_2d_audio_at_location()] and [method AudioControl.create_audio()].
 enum SOUND_EFFECT_TYPE {
-	FOOTSTEPS_DIRT_1,
-	FOOTSTEPS_DIRT_2,
-	FOOTSTEPS_DIRT_3,
-	FOOTSTEPS_DIRT_4
 }
 
 @export_range(0, 10) var limit: int = 5 ## Maximum number of this SoundEffect to play simultaneously before culled.

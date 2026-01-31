@@ -1,9 +1,9 @@
 extends Node2D
-## Audio manager node. Inteded to be globally loaded as a 2D Scene. Handles [method create_2d_audio_at_location()] and [method create_audio()] to handle the playback and culling of simultaneous sound effects.
+## Audio control node. Inteded to be globally loaded as a 2D Scene. Handles [method create_2d_audio_at_location()] and [method create_audio()] to handle the playback and culling of simultaneous sound effects.
 ##
-## To properly use, define [enum SoundEffect.SOUND_EFFECT_TYPE] for each unique sound effect, create a Node3D scene for this AudioManager script add those SoundEffect resources to this globally loaded script's [member sound_effects], and setup your individual SoundEffect resources. Then, use [method create_3d_audio_at_location()] and [method create_audio()] to play those sound effects either at a specific location or globally.
+## To properly use, define [enum SoundEffect.SOUND_EFFECT_TYPE] for each unique sound effect, create a Node2D scene for this AudioControl script add those SoundEffect resources to this globally loaded script's [member sound_effects], and setup your individual SoundEffect resources. Then, use [method create_2d_audio_at_location()] and [method create_audio()] to play those sound effects either at a specific location or globally.
 ## 
-## See https://github.com/Aarimous/AudioManager for more information.
+## See https://github.com/Aarimous/AudioControl for more information.
 ##
 ## @tutorial: https://www.youtube.com/watch?v=Egf2jgET3nQ
 
@@ -34,7 +34,7 @@ func create_2d_audio_at_location(location: Vector2, type: SoundEffect.SOUND_EFFE
 			new_2D_audio.play()
 			
 	else:
-		push_error("Audio Manager failed to find setting for type ", type)
+		push_error("Audio Control failed to find setting for type ", type)
 
 
 ## Creates a sound effect if the limit has not been reached. Pass [param type] for the SoundEffect to be queued.
@@ -53,4 +53,4 @@ func create_audio(type: SoundEffect.SOUND_EFFECT_TYPE) -> void:
 			new_audio.finished.connect(new_audio.queue_free)
 			new_audio.play()
 	else:
-		push_error("Audio Manager failed to find setting for type ", type)
+		push_error("Audio Control failed to find setting for type ", type)

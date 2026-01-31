@@ -1,8 +1,8 @@
 class_name SoundPool extends Node2D
 
 #component added to scenes where you want one of several sounds to play after an event.
-# stores a list of SOUND_EFFECT_TYPEs which and then picks one at random to play,
-# had a timer so that sounds do not overlap
+# stores a list of SOUND_EFFECT_TYPEs and then picks one at random to play,
+# has a timer so that sounds do not overlap
 
 
 
@@ -26,7 +26,7 @@ func play_random_sound() -> void:
 		while index == lastindex:
 			index = Utils.rng.randf_range(0, sound_effects.size()-1)
 		
-		AudioManager.create_3d_audio_at_location(get_parent().position, sound_effects[index])
+		AudioControl.create_2d_audio_at_location(get_parent().position, sound_effects[index])
 
 		lastindex = index
 		timer.start(delay)

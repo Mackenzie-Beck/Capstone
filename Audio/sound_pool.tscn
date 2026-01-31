@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://buy18qfu60xjx"]
+
+[ext_resource type="Script" uid="uid://b4ac2r5mtguvy" path="res://Audio/SoundPool.gd" id="1_tqvea"]
+
+[node name="sound_pool" type="Node3D" unique_id=1762753302]
+script = ExtResource("1_tqvea")
+
+[node name="Timer" type="Timer" parent="." unique_id=297853484]
+one_shot = true

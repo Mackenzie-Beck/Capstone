@@ -16,10 +16,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AudioControl="*uid://b0uihg2jx14t7"
 UIcontrol="*uid://ccsxql8uikuyv"
 Utils="*uid://c8ovyotr1thsw"
 PlayerManager="*uid://1bh4kx4aooev"
+AudioControl="*uid://mvql55jtgi0b"
 
 [physics]
 

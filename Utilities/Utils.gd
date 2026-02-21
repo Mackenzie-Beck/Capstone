@@ -26,7 +26,6 @@ func create_timer(client_func : Callable, delay :float) -> void:
 
 
 
-# Save function TODO
 
 func save() -> void:
 	var saved_game:SavedGame = SavedGame.new()
@@ -41,4 +40,11 @@ func save() -> void:
 	ResourceSaver.save(saved_game, "user://savegame.tres") # only one save file for now, in the future I can change this so that the user is prompted to enter a save name for multiple saves
 
 func load() -> void:
-	pass
+	var saved_gmae:SavedGame = load("user://savegame.tres") as SavedGame
+	
+	get_tree().call_group("persist", "on_before_load_game") 
+	# call this function on every persistent node to do any prep work before loading game, ie. clearing enemies from a scene or resetting UI components
+	
+	#at this point I think I need to discuss with the team, the way our archietcture is set up all of the saved data should be collected and loaded by the combat_grid and player_manager
+	# however I think it may be better to have individual nodes in the combat_grid implement the sav/load contract instead, that should make it much easier to add new dynamic
+	# saved objects	

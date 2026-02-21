@@ -5,7 +5,7 @@ extends Node
 
 
 
-var player_save_data:PlayerSavedData = []
+var player_save_data:PlayerSavedData
 
 
 

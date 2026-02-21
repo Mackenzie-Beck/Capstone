@@ -8,6 +8,8 @@ var rng = RandomNumberGenerator.new()
 # global consts or enums can go here
 
 
+var save_nodes = get_tree().get_nodes_in_group("persist")
+# "persist is the group that any state object must be added to to be saved"
 
 
 #flags
@@ -27,3 +29,12 @@ func create_timer(client_func : Callable, delay :float) -> void:
 
 
 # Save function TODO
+
+#store var function -> useful for storing any variable
+#JSON.stringify for converting godot data into JSON
+#file.get_as_text to turn json file into a string, use JSON.parse_string to convert that string into a dictionary
+func save() -> void:
+	pass
+
+func load() -> void:
+	pass

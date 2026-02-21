@@ -28,16 +28,17 @@ func create_timer(client_func : Callable, delay :float) -> void:
 
 # Save function TODO
 
-#store var function -> useful for storing any variable
-
-
-# use resources instead of json
-# _on_save_game on every saveable object
-# _on_befre_load game for loading portion of contract
-# _on_load_game function(saved_data:SavedData)
-# SavedData resource
 func save() -> void:
-	pass
+	var saved_game:SavedGame = SavedGame.new()
+	
+	var saved_data:Array[SavedData] = []
+	
+	get_tree().call_group("persist", "on_save_game", saved_data)
+	# this walks over all the nodes in the game tree to be saved, and then calls teh on_save_game function (which a savable node MUST have). 
+	# And stores the data in the saved_data array
+	saved_game.saved_data = saved_data	
+	
+	ResourceSaver.save(saved_game, "user://savegame.tres") # only one save file for now, in the future I can change this so that the user is prompted to enter a save name for multiple saves
 
 func load() -> void:
 	pass

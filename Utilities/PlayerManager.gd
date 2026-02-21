@@ -11,9 +11,9 @@ extends Node
 
 
 
-func _on_save_game(saved_data:SavedData) -> void:
+func on_save_game(saved_data:SavedData) -> void:
 	pass
 	
 	
-func _on_load_game(saved_data:SavedData) -> void:
+func on_load_game(saved_data:SavedData) -> void:
 	pass

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://nsoqx2q3i1fc"
+path="res://.godot/imported/SciFi_UI_Button_1.ogg-83b60d995a118b9a0dd90171a2d94242.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Button_1.ogg"
+dest_files=["res://.godot/imported/SciFi_UI_Button_1.ogg-83b60d995a118b9a0dd90171a2d94242.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

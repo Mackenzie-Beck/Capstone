@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cuo5lk3upv5er"
+path="res://.godot/imported/SciFi_Console_1.mp3-e1291a52deb71d817dee9bb70c54f3a8.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/MP3/SciFi_Console_1.mp3"
+dest_files=["res://.godot/imported/SciFi_Console_1.mp3-e1291a52deb71d817dee9bb70c54f3a8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

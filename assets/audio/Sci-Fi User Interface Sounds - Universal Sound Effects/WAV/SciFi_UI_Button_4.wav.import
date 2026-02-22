@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cvssbrjtjpwce"
+path="res://.godot/imported/SciFi_UI_Button_4.wav-168c398cafeda8494df04fb82c008834.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/WAV/SciFi_UI_Button_4.wav"
+dest_files=["res://.godot/imported/SciFi_UI_Button_4.wav-168c398cafeda8494df04fb82c008834.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

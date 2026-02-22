@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b7t7jpul0iga6"
+path="res://.godot/imported/SciFi_UI_Button_1.mp3-2ec7441aabd9ea16aebf0e4cae7a18fa.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/MP3/SciFi_UI_Button_1.mp3"
+dest_files=["res://.godot/imported/SciFi_UI_Button_1.mp3-2ec7441aabd9ea16aebf0e4cae7a18fa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

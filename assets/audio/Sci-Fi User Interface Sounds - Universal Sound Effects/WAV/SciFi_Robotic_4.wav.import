@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bdh3yd0jdlkdg"
+path="res://.godot/imported/SciFi_Robotic_4.wav-f08862c031649c10a803b16c0269ac1f.sample"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/WAV/SciFi_Robotic_4.wav"
+dest_files=["res://.godot/imported/SciFi_Robotic_4.wav-f08862c031649c10a803b16c0269ac1f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

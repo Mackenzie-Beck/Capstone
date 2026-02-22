@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cu4yvcnxbneln"
+path="res://.godot/imported/SciFi_Console_1.ogg-806c4061f91eb70ed7a48792b0bb9cc3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Console_1.ogg"
+dest_files=["res://.godot/imported/SciFi_Console_1.ogg-806c4061f91eb70ed7a48792b0bb9cc3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

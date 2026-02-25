@@ -1,0 +1,212 @@
+[gd_scene load_steps=12 format=3 uid="uid://cm723ap6pxluj"]
+
+[ext_resource type="PackedScene" uid="uid://dppm1d8qt2pa3" path="res://UI/draggable_term.tscn" id="1_2602y"]
+[ext_resource type="Script" uid="uid://b8geelxkqt3s1" path="res://UI/player_control_ui.gd" id="1_g550f"]
+[ext_resource type="PackedScene" uid="uid://1hsrbuxsxjso" path="res://UI/expression_slot.tscn" id="2_g550f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6ywj"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258847, 0.686752, 0.659721, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t1vn"]
+bg_color = Color(0.121569, 0.121569, 0.14902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhjqs"]
+bg_color = Color(0.817922, 0.529193, 0.0385676, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xqn4"]
+bg_color = Color(0.819608, 0.529412, 0.0392157, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqkjk"]
+bg_color = Color(0.819608, 0.529412, 0.0392157, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7mmb"]
+bg_color = Color(0.782594, 0.0475591, 0.319205, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3btl6"]
+bg_color = Color(0.784314, 0.0470588, 0.317647, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qidax"]
+bg_color = Color(0.314316, 0.314316, 0.314316, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlayerControlUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g550f")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p6ywj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ship Control System"
+horizontal_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 300
+dragging_enabled = false
+
+[node name="LeftPanel" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TermPoolLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Available Terms"
+
+[node name="TermPoolPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1t1vn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel"]
+layout_mode = 2
+
+[node name="TermPool" type="GridContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="Term_x" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" instance=ExtResource("1_2602y")]
+layout_mode = 2
+
+[node name="Term_2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "2"
+term_type = "number"
+
+[node name="Term_+" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "+"
+term_type = "operator"
+
+[node name="Term_sin" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "sin"
+term_type = "function"
+
+[node name="RightPanel" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="MovementSlot" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" instance=ExtResource("2_g550f")]
+layout_mode = 2
+
+[node name="ShootingSlot" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" instance=ExtResource("2_g550f")]
+layout_mode = 2
+slot_name = "Shooting"
+
+[node name="WeaponControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="WeaponLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Weapon Type: "
+vertical_alignment = 1
+
+[node name="WeaponToggle" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_qhjqs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6xqn4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gqkjk")
+toggle_mode = true
+text = "🔫 Laser"
+
+[node name="ExtraControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ClearButton" type="Button" parent="MarginContainer/VBoxContainer/ExtraControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Clear All"
+
+[node name="ExecuteButton" type="Button" parent="MarginContainer/VBoxContainer/ExtraControls"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_a7mmb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3btl6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qidax")
+text = "Execute"

@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://1hsrbuxsxjso"]
+
+[ext_resource type="Script" uid="uid://c7jdj2lbklkd3" path="res://UI/expression_slot.gd" id="1_vibaj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm3j4"]
+bg_color = Color(0.747775, 0.326635, 0.056998, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vc8ur"]
+bg_color = Color(0.786879, 0.192272, 0.284201, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ExpressionSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(500, 150)
+offset_right = 500.0
+offset_bottom = 189.0
+script = ExtResource("1_vibaj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Movement Command"
+
+[node name="TermsContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/h_separation = 8
+columns = 7
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/TermsContainer"]
+visible = false
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm3j4")
+
+[node name="TermsContainerAlt" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="ExpressionBackground" type="Panel" parent="MarginContainer/VBoxContainer/TermsContainerAlt"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vc8ur")
+
+[node name="ExpressionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Movement: empty"
+autowrap_mode = 3
+
+[node name="ValidationLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Empty"

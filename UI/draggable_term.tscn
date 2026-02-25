@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dppm1d8qt2pa3"]
+
+[ext_resource type="Script" uid="uid://1xh7s8k4es4h" path="res://UI/draggable_term.gd" id="1_q41pn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41pn"]
+bg_color = Color(0.0794497, 0.39199, 0.491574, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="DraggableTerm" type="PanelContainer"]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 60.0
+offset_bottom = 50.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_q41pn")
+script = ExtResource("1_q41pn")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1

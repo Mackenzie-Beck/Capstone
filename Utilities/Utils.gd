@@ -8,7 +8,7 @@ var rng = RandomNumberGenerator.new()
 # global consts or enums can go here
 
 
-var save_nodes = get_tree().get_nodes_in_group("persist")
+#var save_nodes = get_tree().get_nodes_in_group("persist")
 # "persist is the group that any state object must be added to to be saved"
 
 

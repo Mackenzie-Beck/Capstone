@@ -3,4 +3,6 @@ extends Resource
 
 # Saved game class which stores game data in file
 
-var saved_data:Array[SavedData] = []
+
+
+@export var saved_data:Array[SavedData] = []

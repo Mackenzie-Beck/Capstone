@@ -10,8 +10,10 @@ var rng = RandomNumberGenerator.new()
 
 
 # can store a reference to the 'main' scene here, this would basically just be the parent node of the world grid and environment etc.
-# right now I have a direct path reference, so when we merge everything and decide where main goes this will have to be moved
-var main_scene = preload("uid://5klo3y5bav62")
+# In the main scenes ready function it can just assign itself to this variable
+var main_scene :Node2D
+
+
 
 #flags
 # put global flags here, global flags are generally bad practice but they can be useful in a pinch, so if we must use them its good to have a central location to store them. 
@@ -35,20 +37,23 @@ func create_timer(client_func : Callable, delay :float) -> void:
 
 
 func save() -> void:
+
 	var saved_game:SavedGame = SavedGame.new()
 	
 	var saved_data:Array[SavedData] = []
-	
 	get_tree().call_group("persist", "on_save_game", saved_data)
+	print("saved data after call", saved_data)
 	# this walks over all the nodes in the game tree to be saved, and then calls the on_save_game function (which a savable node MUST have). 
 	# And stores the data in the saved_data array
 	saved_game.saved_data = saved_data	
-	
-	ResourceSaver.save(saved_game, "user://savegame.tres") # only one save file for now, in the future I can change this so that the user is prompted to enter a save name for multiple saves
 
-func load() -> void:
-	var saved_game:SavedGame = load("user://savegame.tres") as SavedGame
-	
+	DirAccess.make_dir_recursive_absolute("user://saves")
+	#this should be user:// but for some reason I cant actually find the save file, for now this will do
+	ResourceSaver.save(saved_game, "user://saves/savegame.tres") # only one save file for now, in the future I can change this so that the user is prompted to enter a save name for multiple saves
+
+
+func load_game() -> void:
+	var saved_game:SavedGame = load("user://saves/savegame.tres") as SavedGame
 	get_tree().call_group("persist", "on_before_load_game") 
 	# call this function on every persistent node to do any prep work before loading game, ie. clearing enemies from a scene or resetting UI components
 	

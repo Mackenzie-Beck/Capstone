@@ -5,4 +5,8 @@ extends Control
 
 
 func _on_button_pressed() -> void:
-	UIcontrol.switch_view(UIcontrol.VIEWS.PAUSE)
+	Utils.save()
+
+
+func _on_button_2_pressed() -> void:
+	Utils.load_game()

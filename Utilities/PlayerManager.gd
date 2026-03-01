@@ -5,8 +5,11 @@ extends Node
 
 
 
-var player_save_data:PlayerSavedData
+@export var player_save_data:PlayerSavedData
 	
+
+func _ready() -> void:
+	player_save_data = PlayerSavedData.new()
 
 #getters and setters
 func get_health() -> int:
@@ -30,7 +33,7 @@ func set_position(pos:Vector2) -> void:
 
 
 
-func on_save_game(saved_data:SavedData) -> void:
+func on_save_game(saved_data:Array[SavedData]) -> void:
 	saved_data.append(player_save_data)
 	
 	

@@ -4,5 +4,5 @@ extends SavedData
 # this stores all of the player specific data to be saved
 
 
-var health : int
-var fuel : int 
+@export var health : int
+@export var fuel : int 

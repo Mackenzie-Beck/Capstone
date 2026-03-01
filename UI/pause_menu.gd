@@ -9,3 +9,19 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_main_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_save_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_exit_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_exit_button_mouse_entered() -> void:
+	print("test")

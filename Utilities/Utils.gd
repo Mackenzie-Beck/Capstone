@@ -55,11 +55,8 @@ func load() -> void:
 	for item in saved_game.saved_data:
 		var scene = load(item.scene_path) as PackedScene
 		var restored_node = scene.instantiate()
-		
+		main_scene.add_child(restored_node)
 		if restored_node.has_method("on_load_game"):
 			restored_node.on_load_game(item)
 	
 	
-	#at this point I think I need to discuss with the team, the way our archietcture is set up all of the saved data should be collected and loaded by the combat_grid and player_manager
-	# however I think it may be better to have individual nodes in the combat_grid implement the sav/load contract instead, that should make it much easier to add new dynamic
-	# saved objects	

@@ -40,7 +40,7 @@ func save() -> void:
 	var saved_data:Array[SavedData] = []
 	
 	get_tree().call_group("persist", "on_save_game", saved_data)
-	# this walks over all the nodes in the game tree to be saved, and then calls teh on_save_game function (which a savable node MUST have). 
+	# this walks over all the nodes in the game tree to be saved, and then calls the on_save_game function (which a savable node MUST have). 
 	# And stores the data in the saved_data array
 	saved_game.saved_data = saved_data	
 	
@@ -53,10 +53,13 @@ func load() -> void:
 	# call this function on every persistent node to do any prep work before loading game, ie. clearing enemies from a scene or resetting UI components
 	
 	for item in saved_game.saved_data:
-		var scene = load(item.scene_path) as PackedScene
-		var restored_node = scene.instantiate()
-		main_scene.add_child(restored_node)
-		if restored_node.has_method("on_load_game"):
-			restored_node.on_load_game(item)
+		if item is PlayerSavedData:
+			PlayerManager.on_load_game(item)
+		else:
+			var scene = load(item.scene_path) as PackedScene
+			var restored_node = scene.instantiate()
+			main_scene.add_child(restored_node)
+			if restored_node.has_method("on_load_game"):
+				restored_node.on_load_game(item)
 	
 	

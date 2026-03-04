@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b6uf0bagls6d8"]
+
+[ext_resource type="Script" uid="uid://dvhhl3afjg56n" path="res://UI/pause_menu.gd" id="1_ltd3m"]
+
+[node name="PauseMenu" type="PanelContainer" unique_id=2093296234]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ltd3m")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=301445834]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=299824183]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=994692136]
+layout_mode = 2
+text = "Pause"
+horizontal_alignment = 1
+
+[node name="MainButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=771019643]
+layout_mode = 2
+text = "Return to Main Menu"
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=786202124]
+layout_mode = 2
+text = "Save Game"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=141939909]
+layout_mode = 2
+text = "Exit Game
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MainButton" to="." method="_on_main_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

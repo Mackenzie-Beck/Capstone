@@ -1,0 +1,258 @@
+[gd_scene format=3 uid="uid://cm723ap6pxluj"]
+
+[ext_resource type="PackedScene" uid="uid://dppm1d8qt2pa3" path="res://UI/draggable_term.tscn" id="1_2602y"]
+[ext_resource type="Script" uid="uid://b8geelxkqt3s1" path="res://UI/player_control_ui.gd" id="1_g550f"]
+[ext_resource type="PackedScene" uid="uid://1hsrbuxsxjso" path="res://UI/expression_slot.tscn" id="2_g550f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6ywj"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258847, 0.686752, 0.659721, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t1vn"]
+bg_color = Color(0.121569, 0.121569, 0.14902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqkjk"]
+bg_color = Color(0.819608, 0.529412, 0.0392157, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xqn4"]
+bg_color = Color(0.819608, 0.529412, 0.0392157, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhjqs"]
+bg_color = Color(0.817922, 0.529193, 0.0385676, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qidax"]
+bg_color = Color(0.314316, 0.314316, 0.314316, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3btl6"]
+bg_color = Color(0.784314, 0.0470588, 0.317647, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7mmb"]
+bg_color = Color(0.782594, 0.0475591, 0.319205, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlayerControlUI" type="Control" unique_id=127201212]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g550f")
+
+[node name="Background" type="Panel" parent="." unique_id=661388165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p6ywj")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=494688560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=775374770]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1601999304]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ship Control System"
+horizontal_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer" unique_id=205164549]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(300)
+dragging_enabled = false
+split_offset = 300
+
+[node name="LeftPanel" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer" unique_id=2108584750]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TermPoolLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel" unique_id=1170620038]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Available Terms"
+
+[node name="TermPoolPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel" unique_id=1510053317]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1t1vn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel" unique_id=1717230635]
+layout_mode = 2
+
+[node name="TermPool" type="GridContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer" unique_id=2014690038]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="Term_x" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=778579490 instance=ExtResource("1_2602y")]
+layout_mode = 2
+
+[node name="Term_2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1708428643 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "2"
+term_type = "number"
+
+[node name="Term_3" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=298731275 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "3"
+term_type = "number"
+
+[node name="Term_+" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=581060011 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "+"
+term_type = "operator"
+
+[node name="Term_4" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1867304480 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "4"
+term_type = "number"
+
+[node name="Term_5" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=285302734 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "5"
+term_type = "number"
+
+[node name="Term_6" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=305188105 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "6"
+term_type = "number"
+
+[node name="Term_7" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=802998315 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "7"
+term_type = "number"
+
+[node name="Term_8" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1844616910 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "8"
+term_type = "number"
+
+[node name="Term_9" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1945037818 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "9"
+term_type = "number"
+
+[node name="Term_10" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=799084335 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "10"
+term_type = "number"
+
+[node name="Term_-" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1479511691 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "-"
+term_type = "operator"
+
+[node name="Term_*" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1977232882 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "*"
+term_type = "operator"
+
+[node name="RightPanel" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer" unique_id=1723880404]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="MovementSlot" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" unique_id=2008084926 instance=ExtResource("2_g550f")]
+layout_mode = 2
+
+[node name="ShootingSlot" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" unique_id=1993212601 instance=ExtResource("2_g550f")]
+layout_mode = 2
+slot_name = "Shooting"
+
+[node name="WeaponControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" unique_id=372796690]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="WeaponLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls" unique_id=1522511767]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Weapon Type: "
+vertical_alignment = 1
+
+[node name="WeaponToggle" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls" unique_id=1222805621]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_gqkjk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6xqn4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qhjqs")
+toggle_mode = true
+text = "🔫 Laser"
+
+[node name="ExtraControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=451143493]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ClearButton" type="Button" parent="MarginContainer/VBoxContainer/ExtraControls" unique_id=966547068]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Clear All"
+
+[node name="ExecuteButton" type="Button" parent="MarginContainer/VBoxContainer/ExtraControls" unique_id=1155615829]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_qidax")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3btl6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a7mmb")
+text = "Execute"

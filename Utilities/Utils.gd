@@ -8,6 +8,8 @@ var rng = RandomNumberGenerator.new()
 # global consts or enums can go here
 
 
+#var save_nodes = get_tree().get_nodes_in_group("persist")
+# "persist is the group that any state object must be added to to be saved"
 
 # can store a reference to the 'main' scene here, this would basically just be the parent node of the world grid and environment etc.
 # In the main scenes ready function it can just assign itself to this variable

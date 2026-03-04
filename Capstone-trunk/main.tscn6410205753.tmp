@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://h6hlf65en0ak"]
+
+[ext_resource type="Script" uid="uid://bj4mesca8ldc0" path="res://main.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dd8i1har53tvh" path="res://art/grid.png" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://4oa4tj0x8vpj" path="res://player.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://ckxuoa1jcs4mq" path="res://enemy.tscn" id="4_272bh"]
+
+[sub_resource type="GDScript" id="GDScript_h2yge"]
+script/source = "extends Marker2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Main" type="Node" unique_id=623001143]
+script = ExtResource("1_1bvp3")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1981662255]
+z_index = -5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_h2yge")
+stretch_mode = 1
+
+[node name="Origin" type="Marker2D" parent="TextureRect" unique_id=1394436033]
+position = Vector2(576, 324)
+
+[node name="Player" parent="." unique_id=1912713505 instance=ExtResource("3_7mycd")]
+top_level = true
+position = Vector2(-96, 0)
+scale = Vector2(0.4, 0.4)
+
+[node name="StartPosition" type="Marker2D" parent="Player" unique_id=182408695]
+script = SubResource("GDScript_h2yge")
+
+[node name="HealthBar" type="ProgressBar" parent="Player" unique_id=633608191]
+z_index = 10
+offset_left = -47.5
+offset_top = 50.0
+offset_right = 142.49997
+offset_bottom = 77.0
+scale = Vector2(0.5, 0.5)
+step = 1.0
+show_percentage = false
+
+[node name="Enemy" parent="." unique_id=1452845296 instance=ExtResource("4_272bh")]
+position = Vector2(-39.999992, -1.9073486e-06)
+scale = Vector2(0.4, 0.4)

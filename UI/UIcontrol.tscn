@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://ccsxql8uikuyv"]
 
 [ext_resource type="Script" uid="uid://cidpoylndwjq7" path="res://UI/UIcontrol.gd" id="1_bsnyy"]
+[ext_resource type="PackedScene" uid="uid://b6uf0bagls6d8" path="res://UI/pause_menu.tscn" id="2_b5g8g"]
+[ext_resource type="PackedScene" uid="uid://dru3kngqrlsyf" path="res://UI/test.tscn" id="3_cq43x"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,3 +15,9 @@ grow_vertical = 2
 script = ExtResource("1_bsnyy")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=620140360]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=2093296234 instance=ExtResource("2_b5g8g")]
+process_mode = 3
+visible = false
+
+[node name="Test" parent="CanvasLayer" unique_id=980783978 instance=ExtResource("3_cq43x")]

@@ -16,3 +16,23 @@ extends Control
 
 # All of the views should be added as children of this canvas layer. So they are all on the same 'level'
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var pause_menu: PanelContainer = $CanvasLayer/PauseMenu
+
+
+enum VIEWS {
+	PAUSE
+}
+
+
+
+func hide_views() -> void:
+	for view in canvas_layer.get_children():
+		view.hide()
+
+
+func switch_view(view: VIEWS) -> void:
+	match view:
+		VIEWS.PAUSE:
+			hide_views()
+			pause_menu.show()
+			print(pause_menu.visible)

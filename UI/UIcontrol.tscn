@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cidpoylndwjq7" path="res://UI/UIcontrol.gd" id="1_bsnyy"]
 [ext_resource type="PackedScene" uid="uid://b6uf0bagls6d8" path="res://UI/pause_menu.tscn" id="2_b5g8g"]
-[ext_resource type="PackedScene" uid="uid://dru3kngqrlsyf" path="res://UI/test.tscn" id="3_cq43x"]
+[ext_resource type="PackedScene" uid="uid://cm723ap6pxluj" path="res://UI/player_control_ui.tscn" id="2_cq43x"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
 process_mode = 3
@@ -16,8 +16,8 @@ script = ExtResource("1_bsnyy")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=620140360]
 
+[node name="PlayerControlUI" parent="CanvasLayer" unique_id=127201212 instance=ExtResource("2_cq43x")]
+
 [node name="PauseMenu" parent="CanvasLayer" unique_id=2093296234 instance=ExtResource("2_b5g8g")]
 process_mode = 3
 visible = false
-
-[node name="Test" parent="CanvasLayer" unique_id=980783978 instance=ExtResource("3_cq43x")]

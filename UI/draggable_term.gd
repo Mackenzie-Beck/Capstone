@@ -9,7 +9,7 @@ signal drag_ended(term)
 
 var is_dragging: bool = false
 var original_position: Vector2 #Not currently used for anything
-var original_parent: Node = get_parent() #Better than using position
+var original_parent: Node 
 var drag_offset: Vector2
 
 @onready var label: Label = $Label
@@ -58,13 +58,12 @@ func _start_drag(click_position: Vector2) -> void:
 	drag_offset = click_position
 	
 	# Move to canvas layer or root to draw on top
-	var root = get_tree().root
 	var current_global_pos = global_position
 	get_parent().remove_child(self)
-	root.add_child(self)
+	UIcontrol.player_control_ui.add_child(self)
 	global_position = current_global_pos
 	
-	z_index = 100  # Draw on top
+	#z_index = 1000  # Draw on top
 	modulate = Color(1, 1, 1, 0.7)  # Semi-transparent while dragging
 	
 	drag_started.emit(self)

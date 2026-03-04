@@ -17,10 +17,12 @@ extends Control
 # All of the views should be added as children of this canvas layer. So they are all on the same 'level'
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
 @onready var pause_menu: PanelContainer = $CanvasLayer/PauseMenu
+@onready var player_control_ui: PlayerControlUI = $CanvasLayer/PlayerControlUI
 
 
 enum VIEWS {
-	PAUSE
+	PAUSE,
+	PLAYER
 }
 
 
@@ -35,4 +37,8 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.PAUSE:
 			hide_views()
 			pause_menu.show()
-			print(pause_menu.visible)
+			#print(pause_menu.visible)
+		VIEWS.PLAYER:
+			hide_views()
+			player_control_ui.show()
+			

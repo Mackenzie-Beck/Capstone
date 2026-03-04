@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 # Declare the variable at class level
 var control_ui
@@ -6,13 +6,12 @@ var control_ui
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
-	control_ui = load("res://UI/player_control_UI.tscn").instantiate()
-	add_child(control_ui)
+	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
 	
 	# Connect to signals
-	control_ui.movement_expression_applied.connect(_on_movement_applied)
-	control_ui.shooting_expression_applied.connect(_on_shooting_applied)
-	control_ui.weapon_type_changed.connect(_on_weapon_changed)
+	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_applied)
+	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
+	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

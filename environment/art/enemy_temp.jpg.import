@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd8i1har53tvh"
-path="res://.godot/imported/grid.png-ce224899f27a603baf0b79bc644d7d36.ctex"
+uid="uid://c03kn6wwtdpsg"
+path="res://.godot/imported/enemy_temp.jpg-4ffaf97dcea88075e57c37844e91d90d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/grid.png"
-dest_files=["res://.godot/imported/grid.png-ce224899f27a603baf0b79bc644d7d36.ctex"]
+source_file="res://environment/art/enemy_temp.jpg"
+dest_files=["res://.godot/imported/enemy_temp.jpg-4ffaf97dcea88075e57c37844e91d90d.ctex"]
 
 [params]
 

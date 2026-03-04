@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv8o7dk2c1rj6"
-path="res://.godot/imported/sci-fi.png-ca57353619541eac1209a3010162262b.ctex"
+uid="uid://d08klnkecw5rv"
+path="res://.godot/imported/death.jpg-cf8989b5751c5ae3a8696feb6742f03b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/sci-fi.png"
-dest_files=["res://.godot/imported/sci-fi.png-ca57353619541eac1209a3010162262b.ctex"]
+source_file="res://environment/art/death.jpg"
+dest_files=["res://.godot/imported/death.jpg-cf8989b5751c5ae3a8696feb6742f03b.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dppm1d8qt2pa3"]
+[gd_scene format=3 uid="uid://dppm1d8qt2pa3"]
 
 [ext_resource type="Script" uid="uid://1xh7s8k4es4h" path="res://UI/draggable_term.gd" id="1_q41pn"]
 
@@ -13,7 +13,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="DraggableTerm" type="PanelContainer"]
+[node name="DraggableTerm" type="PanelContainer" unique_id=1867304480]
 custom_minimum_size = Vector2(50, 50)
 offset_right = 60.0
 offset_bottom = 50.0
@@ -21,7 +21,7 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_q41pn")
 script = ExtResource("1_q41pn")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=2064094702]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "x"

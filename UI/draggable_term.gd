@@ -8,8 +8,8 @@ signal drag_ended(term)
 @export var term_type: String = "variable"  # Types: "variable", "number", "operator", "function"
 
 var is_dragging: bool = false
-var original_position: Vector2
-var original_parent: Node
+var original_position: Vector2 #Not currently used for anything
+var original_parent: Node = get_parent() #Better than using position
 var drag_offset: Vector2
 
 @onready var label: Label = $Label
@@ -22,6 +22,10 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	# Enable input processing
 	set_process_input(true)
+	
+	#Set parent to return to later
+	original_parent = get_parent()
+	
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -50,7 +54,7 @@ func _start_drag(click_position: Vector2) -> void:
 	is_dragging = true
 	#original_position = global_position
 	original_position = position
-	original_parent = get_parent()
+	#original_parent = get_parent()
 	drag_offset = click_position
 	
 	# Move to canvas layer or root to draw on top
@@ -125,30 +129,33 @@ func _find_expression_slot_under_mouse(drop_pos: Vector2) -> ExpressionSlot:
 
 func _return_to_original() -> void:
 	print("Returning to original position")
+	if get_parent() == original_parent:
+		return
 	
-	# Remove from current parent (root)
-	if get_parent():
+	if get_parent() != original_parent:
+		# Remove from current parent (root)
 		get_parent().remove_child(self)
-	
-	# Add back to original parent
-	if original_parent:
+		# Add back to original parent
 		original_parent.add_child(self)
-		
+		"""
 		# Animate back to position
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_OUT)
 		tween.set_trans(Tween.TRANS_BACK)
 		tween.tween_property(self, "position", original_position, 0.3)
+		"""
 	else:
 		push_error("Original parent is null! Cannot return term.")
 		queue_free()
 
 
 # Create a copy of this term for use in expression slots
+# No longer used, thought just moving term to new parent seems to work better
 func clone() -> DraggableTerm:
 	var new_term = duplicate()
 	new_term.term_value = term_value
 	new_term.term_type = term_type
+	new_term.original_position = original_position
 	return new_term
 
 	

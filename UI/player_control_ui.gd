@@ -83,7 +83,7 @@ func is_laser_weapon() -> bool:
 	return is_laser_mode
 
 func set_read_only(read_only: bool) -> void:
-	"""Disable/enable the UI (e.g., during gameplay)"""
+	"""Disable/enable the UI"""
 	execute_button.disabled = read_only
 	clear_button.disabled = read_only
 	weapon_toggle.disabled = read_only

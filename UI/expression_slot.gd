@@ -68,7 +68,7 @@ func add_term(term: DraggableTerm) -> void:
 	if not can_accept_term(term):
 		print("  add_term: can_accept_term returned false")
 		return
-	
+	""" Cloning is annoying but might help with controlling what can be dragged or not
 	# Create a copy of the term for this slot
 	var term_copy = term.clone()
 	
@@ -86,7 +86,22 @@ func add_term(term: DraggableTerm) -> void:
 	
 	# Connect remove signal to right click
 	term_copy.gui_input.connect(_on_term_clicked.bind(term_copy))
+	"""
+	#Remove from current parent and add to slot
+	if term.get_parent():
+		term.get_parent().remove_child(term)
+		
+	#Add to container and array
+	terms_container.add_child(term)
+	terms.append(term)
 	
+	#Make non-draggable (optional)
+	#term.set_process_input(false)
+	
+	#Connect remove signal for right click removal
+	term.gui_input.connect(_on_term_clicked.bind(term))
+	
+	#Emit signals
 	_update_expression()
 	_update_display()
 	
@@ -96,7 +111,11 @@ func remove_term(term: DraggableTerm) -> void:
 	var index = terms.find(term)
 	if index >= 0:
 		terms.remove_at(index)
-		term.queue_free()
+		print(term.original_position)
+		term._return_to_original()
+		#Disconnect the signal for right click removal
+		term.gui_input.disconnect(_on_term_clicked)
+		#term.queue_free()
 		_update_expression()
 		_update_display()
 		
@@ -154,7 +173,7 @@ func _update_display() -> void:
 func clear_expression() -> void:
 	"""Clear all terms from this slot"""
 	for term in terms:
-		term.queue_free()
+		term._return_to_original()
 	terms.clear()
 	_update_expression()
 	_update_display()
@@ -164,7 +183,8 @@ func get_expression() -> String:
 	return expression_string
 
 
-func _draw() -> void:
+"func _draw() -> void:
 	# Draw a debug rectangle showing the hit area
 	if OS.is_debug_build():
 		draw_rect(Rect2(Vector2.ZERO, size), Color.GREEN, false, 2.0)
+"

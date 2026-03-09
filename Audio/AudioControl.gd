@@ -11,6 +11,15 @@ var sound_effect_dict: Dictionary = {} ## Loads all registered SoundEffects on r
 
 @export var sound_effects: Array[SoundEffect] ## Stores all possible SoundEffects that can be played.
 
+
+
+
+
+
+
+
+
+
 func _ready() -> void:
 	for sound_effect: SoundEffect in sound_effects:
 		sound_effect_dict[sound_effect.type] = sound_effect

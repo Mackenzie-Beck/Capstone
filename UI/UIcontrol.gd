@@ -20,6 +20,16 @@ extends Control
 @onready var player_control_ui: PlayerControlUI = $CanvasLayer/PlayerControlUI
 
 
+
+"""
+Whenever a new view (ui_scene) must be added
+
+1. Add an enum to VIEWS
+2. Add the view (ui scene) as a child of the UIcontrols canvas layer, 
+and create an onready reference to that node in UIcontrol.gd (as above)
+3. Add a case to the match statement in switch_views(view:VIEWS) which will reveal that view after hiding the others
+"""
+
 enum VIEWS {
 	PAUSE,
 	PLAYER

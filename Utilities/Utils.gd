@@ -38,6 +38,33 @@ func create_timer(client_func : Callable, delay :float) -> void:
 
 
 
+
+
+# SAVE/LOAD procedure
+
+# When you have some object that you want to be able to save load, follow these steps:
+"""
+1. Add the node to the global 'persist' group 
+2. Implement the save/load contract by giving the persist node the following functions:
+	
+	
+	
+	
+	on_save_game(saved_data:SavedData) -> here you implement the save logic for the node
+		What id SavedData does not have fields for the data I need to save?
+			create a child class of SavedData to implement the fields specific to that type of node
+	
+	
+	on_before_load_game() -> performs any function that must be done before loading, 
+	for example clearing a scene of enemies so you can populate it with new enemies
+	
+	on_load_game() -> implement load logic for the node, moving it to correct position in game world, placing it in the scene tree, etc.
+	
+	
+	
+"""
+
+
 func save() -> void:
 
 	var saved_game:SavedGame = SavedGame.new()

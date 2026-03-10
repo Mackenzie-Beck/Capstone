@@ -28,7 +28,6 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 	
-	
 	newgame()
 
 func _process(delta: float) -> void:

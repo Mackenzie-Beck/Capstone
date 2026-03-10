@@ -16,6 +16,7 @@ extends Control
 
 # All of the views should be added as children of this canvas layer. So they are all on the same 'level'
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var main_menu: PanelContainer = $CanvasLayer/MainMenu
 @onready var pause_menu: PanelContainer = $CanvasLayer/PauseMenu
 @onready var player_control_ui: PlayerControlUI = $CanvasLayer/PlayerControlUI
 
@@ -32,6 +33,7 @@ and create an onready reference to that node in UIcontrol.gd (as above)
 
 enum VIEWS {
 	PAUSE,
+	MAIN,
 	PLAYER
 }
 
@@ -51,4 +53,7 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.PLAYER:
 			hide_views()
 			player_control_ui.show()
+		VIEWS.MAIN:
+			hide_views()
+			main_menu.show()
 			

@@ -144,9 +144,10 @@ func _validate_expression() -> bool:
 		is_valid = false
 		error_message = "Expression is empty"
 	else:
-		# Check for basic syntax errors
-		# This is a simplified check - you'd want more robust parsing
+		#Contains a variable
 		var has_variable = expression_string.contains("x") or expression_string.contains("y")
+		#Operators must be followed by a number or a variable
+		#
 		if not has_variable and slot_name == "Movement":
 			is_valid = false
 			error_message = "Expression should contain a variable"

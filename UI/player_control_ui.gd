@@ -7,7 +7,7 @@ signal weapon_type_changed(is_laser: bool)
 
 @onready var movement_slot: ExpressionSlot = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/MovementSlot
 @onready var shooting_slot: ExpressionSlot = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ShootingSlot
-@onready var weapon_toggle: Button = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls/WeaponToggle
+@onready var weapon_toggle: Button = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/WeaponToggle
 @onready var execute_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ExecuteButton
 @onready var clear_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ClearButton
 

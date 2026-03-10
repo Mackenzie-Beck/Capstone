@@ -28,6 +28,10 @@ func set_health(health:int) -> void:
 func set_fuel(fuel:int) -> void:
 	player_save_data.fuel = fuel
 
+
+
+#NOTE, this function could be used to actually move the player node, right now it just tracks 
+# player pos for saving 
 func set_position(pos:Vector2) -> void:
 	player_save_data.position = pos
 

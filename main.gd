@@ -99,7 +99,18 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg():
+func playerHitReg(formula = "5x+1"): #inputs are placeholders for signal send
+	var x = $Player.position[0]
+	var error = expression.parse(formula, PackedStringArray(['x']))
+	if error != OK:
+		print(expression.get_error_text())
+		return
+	var result = expression.execute(PackedStringArray([x]))
+	print(result)
+	var line = Line2D.new()
+	line.add_point($Player.position)
+	line.add_point(Vector2($Player.position[0], result)*100)
+	line.default_color = Color(0,5,1)
 	pass
 
 

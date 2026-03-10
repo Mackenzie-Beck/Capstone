@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cm723ap6pxluj"]
 
 [ext_resource type="PackedScene" uid="uid://dppm1d8qt2pa3" path="res://UI/draggable_term.tscn" id="1_2602y"]
-[ext_resource type="Script" uid="uid://b8geelxkqt3s1" path="res://UI/player_control_ui.gd" id="1_g550f"]
+[ext_resource type="Script" path="res://UI/player_control_ui.gd" id="1_g550f"]
 [ext_resource type="PackedScene" uid="uid://1hsrbuxsxjso" path="res://UI/expression_slot.tscn" id="2_g550f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6ywj"]
@@ -47,6 +47,14 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydgm7"]
+bg_color = Color(0.69803923, 0.63529414, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6860724, 0.15850762, 0.24707669, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qidax"]
 bg_color = Color(0.314316, 0.314316, 0.314316, 1)
@@ -216,18 +224,18 @@ layout_mode = 2
 layout_mode = 2
 slot_name = "Shooting"
 
-[node name="WeaponControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" unique_id=372796690]
+[node name="ExtraControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel" unique_id=372796690]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="WeaponLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls" unique_id=1522511767]
+[node name="WeaponLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls" unique_id=1522511767]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Weapon Type: "
 vertical_alignment = 1
 
-[node name="WeaponToggle" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/WeaponControls" unique_id=1222805621]
+[node name="WeaponToggle" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls" unique_id=1222805621]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -236,6 +244,23 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_6xqn4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qhjqs")
 toggle_mode = true
 text = "🔫 Laser"
+
+[node name="FuelLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls" unique_id=283152861]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Fuel:"
+vertical_alignment = 1
+
+[node name="FuelCounter" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls" unique_id=1491907213]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ydgm7")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/FuelCounter" unique_id=103080176]
+layout_mode = 2
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ExtraControls" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=451143493]
 layout_mode = 2

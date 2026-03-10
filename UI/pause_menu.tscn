@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6uf0bagls6d8"]
 
-[ext_resource type="Script" uid="uid://dvhhl3afjg56n" path="res://UI/pause_menu.gd" id="1_ltd3m"]
+[ext_resource type="Script" path="res://UI/pause_menu.gd" id="1_ltd3m"]
 
 [node name="PauseMenu" type="PanelContainer" unique_id=2093296234]
 anchors_preset = 15

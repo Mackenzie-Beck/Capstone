@@ -100,18 +100,32 @@ func enemyHitReg():
 		gameEnd()
 		
 func playerHitReg(formula = "5x+1"): #inputs are placeholders for signal send
-	var x = $Player.position[0]
-	var error = expression.parse(formula, PackedStringArray(['x']))
-	if error != OK:
-		print(expression.get_error_text())
-		return
-	var result = expression.execute(PackedStringArray([x]))
-	print(result)
 	var line = Line2D.new()
-	line.add_point($Player.position)
-	line.add_point(Vector2($Player.position[0], result)*100)
-	line.default_color = Color(0,5,1)
-	pass
-
-
+	for i in range(0,20): #for each x value
+		#these ifs are to convert the x in the formula into the x-value
+		if formula.contains("*x"):
+			formula.replace("*x","*"+str(i))
+		if formula.contains("+x"):
+			formula.replace("+x","+"+str(i))
+		if formula.contains("-x"):
+			formula.replace("-x","-"+str(i))
+		if formula.begins_with("x"):
+			formula.replace("x",str(i))
+		if formula.contains("x"):
+			formula.replace("x","*"+str(i))
+		var error = expression.parse(formula, PackedStringArray())
+		if error != OK:
+			print(expression.get_error_text())
+			return
+		var result = expression.execute(PackedStringArray())
+		print(result)
+		line.add_point(Vector2(i,result))
+		line.default_color = Color(1,0.8,0)
+	self.add_child(line)
+	
+	
+	
+	
+	
+	
 	

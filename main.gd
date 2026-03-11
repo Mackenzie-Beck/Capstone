@@ -6,7 +6,7 @@ var control_ui
 
 
 #@export var enemy_scene: PackedScene
-var expression
+var expression = Expression.new()
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
@@ -52,21 +52,22 @@ func _on_weapon_changed(is_laser: bool) -> void:
 # Environment functions
 
 func newgame():
-	enemy_action = $Enemy.start($Player.position)
 	player_location = $Player.makeLocation()
 	$Player.move(player_location)
+	enemy_action = $Enemy.start($Player.position)
 	#todo: clamp movement to screen -1 tile rather than screen
 	turnStart()
 	
 func gameEnd():
 	$DeathPopup.show()
-	pass
+	#todo: disable play features after loss, signal to menus that game is over
 	
 func turnStart():
 	enemyDisplayAttack(enemy_action[1])
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
+	playerHitReg()
 	$Enemy.move(enemy_action[0])
 	enemy_action = $Enemy.turnEnd($Player.position)
 	enemyHitReg()
@@ -99,27 +100,33 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(formula = "5x+1"): #inputs are placeholders for signal send
+func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for signal send
 	var line = Line2D.new()
 	for i in range(0,20): #for each x value
+		var formula = expression_string
 		#these ifs are to convert the x in the formula into the x-value
 		if formula.contains("*x"):
-			formula.replace("*x","*"+str(i))
+			#print("star mult")
+			formula = expression_string.replace("*x","*"+str(i))
 		if formula.contains("+x"):
-			formula.replace("+x","+"+str(i))
+			#print("add")
+			formula = expression_string.replace("+x","+"+str(i))
 		if formula.contains("-x"):
-			formula.replace("-x","-"+str(i))
+			#print("subtract")
+			formula = expression_string.replace("-x","-"+str(i))
 		if formula.begins_with("x"):
-			formula.replace("x",str(i))
+			#print("start")
+			formula = expression_string.replace("x",str(i))
 		if formula.contains("x"):
-			formula.replace("x","*"+str(i))
-		var error = expression.parse(formula, PackedStringArray())
+			#print("base mult")
+			formula = expression_string.replace("x","*"+str(i))
+		var error = expression.parse(formula)
 		if error != OK:
 			print(expression.get_error_text())
 			return
-		var result = expression.execute(PackedStringArray())
+		var result = expression.execute()
 		print(result)
-		line.add_point(Vector2(i,result))
+		line.add_point(Vector2(i*22,result))
 		line.default_color = Color(1,0.8,0)
 	self.add_child(line)
 	

@@ -63,5 +63,4 @@ func switch_view(view: VIEWS) -> void:
 
 
 func _on_start_game():
-	#switch_view(VIEWS.PLAYER)
-	hide_views()
+	switch_view(VIEWS.PLAYER)

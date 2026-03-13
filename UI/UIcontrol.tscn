@@ -18,6 +18,7 @@ script = ExtResource("1_bsnyy")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=620140360]
 
 [node name="PlayerControlUI" parent="CanvasLayer" unique_id=127201212 instance=ExtResource("2_cq43x")]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -35,4 +36,3 @@ process_mode = 3
 visible = false
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=567213599 instance=ExtResource("4_62gio")]
-visible = false

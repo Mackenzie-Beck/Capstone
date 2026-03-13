@@ -7,7 +7,7 @@ extends TileMapLayer
 @export var player_coords : Vector2 = Vector2(0,0)
 @export var enemy_coords : Vector2 = Vector2(10,-10)
 
-@export var tile_map_bounds : Vector2 = Vector2(17,10)
+@export var tile_map_bounds : Vector2 = Vector2(40,40)
 
 
 func _ready() -> void:

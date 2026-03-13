@@ -9,8 +9,8 @@ extends Camera2D
 @export var max_zoom: float = 2.0
 @export var zoom_smoothness: float = 8.0
 #world-border var's
-@export var world_min: Vector2 = Vector2(-1000, -600)
-@export var world_max: Vector2 = Vector2(1000, 600)
+@export var world_min: Vector2 = Vector2(-2000, -2000)
+@export var world_max: Vector2 = Vector2(2000, 2000)
 
 @onready var cam: Camera2D = $"."
 
@@ -34,10 +34,10 @@ func _process(delta: float) -> void:
 	var direction := Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up"))
-	global_position += direction * move_speed * cam.zoom * delta
-	
 	if direction.length() > 0:
 		direction = direction.normalized()
+	global_position += direction * move_speed * cam.zoom * delta
+	
 		
 	#Zoom
 	var current_zoom: float = cam.zoom.x
@@ -57,9 +57,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		zoom_focus_world = cam.get_global_mouse_position()
 		# need to assig these names to mouse wheel down and mouse wheel up respectivley 
-		if Input.is_action_just_pressed("zoom_out"):
+		if event.is_action("zoom_out"):
 			target_zoom -= zoom_step
-		elif Input.is_action_just_pressed("zoom_in"):
+		elif event.is_action("zoom_in"):
 			target_zoom += zoom_step
 		else:
 			return
@@ -68,6 +68,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 #world-border function
 func _clamp_to_world() -> void:
-	global_position.x = clamp(global_position.x, world_min.x, world_max.x)
+	var half_viewport: Vector2 = get_viewport_rect().size / 2 / cam.zoom
+	
+	if half_viewport.x < (world_max.x - world_min.x) / 2:
+		global_position.x = clamp(
+			global_position.x,
+			world_min.x + half_viewport.x,
+			world_max.x - half_viewport.x
+			)
+	else:
+		global_position.x = (world_min.x + world_max.x) / 2  # center it
 
-	global_position.y = clamp(global_position.y, world_min.y, world_max.y)
+	if half_viewport.y < (world_max.y - world_min.y) / 2:
+		global_position.y = clamp(
+		global_position.y,
+		world_min.y + half_viewport.y,
+		world_max.y - half_viewport.y
+		)
+	else:
+		global_position.y = (world_min.y + world_max.y) / 2  # center it

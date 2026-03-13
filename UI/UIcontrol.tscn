@@ -18,7 +18,16 @@ script = ExtResource("1_bsnyy")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=620140360]
 
 [node name="PlayerControlUI" parent="CanvasLayer" unique_id=127201212 instance=ExtResource("2_cq43x")]
-visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -864.0
+offset_top = -492.0
+offset_right = -864.0
+offset_bottom = -492.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
 size_flags_horizontal = 8
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=2093296234 instance=ExtResource("2_b5g8g")]
@@ -26,3 +35,4 @@ process_mode = 3
 visible = false
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=567213599 instance=ExtResource("4_62gio")]
+visible = false

@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Capstone"
-run/main_scene="uid://h6hlf65en0ak"
+run/main_scene="uid://bquf6we83wa0d"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

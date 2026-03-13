@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bquf6we83wa0d"]
 
 [ext_resource type="Script" uid="uid://bt56ujvyoowi1" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://b4j5qd7vnouat" path="res://assets/sprites/Spaceship Pack/ship_1.png" id="2_5vw27"]
-[ext_resource type="Texture2D" uid="uid://npeu0pgjlyew" path="res://assets/sprites/Spaceship Pack/ship_2.png" id="2_272bh"]
+[ext_resource type="Texture2D" uid="uid://b4j5qd7vnouat" path="res://assets/sprites/Spaceship Pack/enemy_ship.png" id="2_5vw27"]
+[ext_resource type="Texture2D" uid="uid://npeu0pgjlyew" path="res://assets/sprites/Spaceship Pack/player_ship.png" id="2_272bh"]
 [ext_resource type="Texture2D" uid="uid://dd8i1har53tvh" path="res://environment/art/grid_temp.png" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://4oa4tj0x8vpj" path="res://environment/player.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://eqbr33tbg5pl" path="res://environment/object_layer.gd" id="4_kek77"]
@@ -44,6 +44,8 @@ script = ExtResource("1_ig7tw")
 [node name="ObjectLayer" type="TileMapLayer" parent="." unique_id=768193495]
 tile_set = SubResource("TileSet_5vw27")
 script = ExtResource("4_kek77")
+
+[node name="BackGroundLayer" type="TileMapLayer" parent="." unique_id=867030095]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1981662255]
 visible = false
@@ -93,3 +95,5 @@ offset_right = 584.0
 offset_bottom = 326.0
 scale = Vector2(2, 2)
 texture = ExtResource("6_4c57u")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=489169775]

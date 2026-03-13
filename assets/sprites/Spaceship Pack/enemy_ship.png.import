@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://npeu0pgjlyew"
-path="res://.godot/imported/ship_2.png-bc0120029fa575c1fa1b80bd23dfb8dd.ctex"
+uid="uid://b4j5qd7vnouat"
+path="res://.godot/imported/enemy_ship.png-5f35c5db860d8a2277c03e8ceca0ac64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Spaceship Pack/ship_2.png"
-dest_files=["res://.godot/imported/ship_2.png-bc0120029fa575c1fa1b80bd23dfb8dd.ctex"]
+source_file="res://assets/sprites/Spaceship Pack/enemy_ship.png"
+dest_files=["res://.godot/imported/enemy_ship.png-5f35c5db860d8a2277c03e8ceca0ac64.ctex"]
 
 [params]
 

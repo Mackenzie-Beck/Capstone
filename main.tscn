@@ -120,14 +120,15 @@ z_index = -5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 8.0
+offset_right = 1152.0
+offset_bottom = 648.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_272bh")
 stretch_mode = 1
 
 [node name="Origin" type="Marker2D" parent="TextureRect" unique_id=1394436033]
-position = Vector2(576, 324)
+position = Vector2(541, 317)
 
 [node name="Player" parent="." unique_id=1912713505 instance=ExtResource("4_5vw27")]
 top_level = true

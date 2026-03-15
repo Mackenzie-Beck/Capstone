@@ -9,7 +9,7 @@ extends TileMapLayer
 
 @export var tile_map_bounds : Vector2 = Vector2(40,40)
 
-@onready var highlight_layer: TileMapLayer = $"../HighlightLayer"
+@export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2.ZERO
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 

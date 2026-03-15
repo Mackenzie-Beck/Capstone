@@ -67,9 +67,9 @@ func turnStart():
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
-	playerHitReg()
 	$Enemy.move(enemy_action[0])
 	enemy_action = $Enemy.turnEnd($Player.position)
+	playerHitReg()
 	enemyHitReg()
 	
 	
@@ -126,7 +126,7 @@ func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for sig
 			return
 		var result = expression.execute()
 		print(result)
-		line.add_point(Vector2(i*22,result))
+		line.add_point(Vector2(result,i*5))
 		line.default_color = Color(1,0.8,0)
 	self.add_child(line)
 	

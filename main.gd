@@ -6,7 +6,7 @@ var control_ui
 
 
 #@export var enemy_scene: PackedScene
-
+var expression
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
@@ -20,7 +20,7 @@ signal hit
 func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
-	
+	SB.start_game.connect(_on_start_game)
 	
 	
 	# Connect to signals
@@ -28,12 +28,14 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 	
-	newgame()
+	visible = false
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("NextTurn"):
 		turnEnd()
 		turnStart()
+	elif Input.is_action_just_pressed("pause"):
+		UIcontrol.switch_view(UIcontrol.VIEWS.PAUSE)
 	
 
 # Signal handler functions
@@ -47,30 +49,30 @@ func _on_weapon_changed(is_laser: bool) -> void:
 	print("Weapon changed to: ", "Laser" if is_laser else "Bomb")
 	# Update weapon system here
 
-
+func _on_start_game() -> void:
+	visible=true
+	newgame()
 
 # Environment functions
 
 func newgame():
+	enemy_action = $Enemy.start($Player.position)
 	player_location = $Player.makeLocation()
 	$Player.move(player_location)
-	enemy_action = $Enemy.start($Player.position)
 	#todo: clamp movement to screen -1 tile rather than screen
 	turnStart()
 	
 func gameEnd():
 	$DeathPopup.show()
-	#todo: disable play features after loss, signal to menus that game is over
+	pass
 	
 func turnStart():
 	enemyDisplayAttack(enemy_action[1])
 	enemyDisplayMove(enemy_action[0])
-	playerHitReg()
 	
 func turnEnd():
 	$Enemy.move(enemy_action[0])
 	enemy_action = $Enemy.turnEnd($Player.position)
-	
 	enemyHitReg()
 	
 	
@@ -101,31 +103,8 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
+func playerHitReg():
+	pass
 
-func playerHitReg(expression_string = "5x"): #inputs are placeholders for signal send
-	var expression = Expression.new()
-	var line = Line2D.new()
-	for i in range(0,1200,25): #for each x value
-		var formula = expression_string
-		print(formula)
-		var error = expression.parse(formula,['x'])
-		if error != OK:
-			print(expression.get_error_text())
-			return
-		#var result = expression.execute()
-		var x = i
-		var result = expression.execute([x])
-		#print(result)
-		if expression.has_execute_failed():
-			print(expression.get_error_text())
-			return
-		line.add_point(Vector2(i,result))
-		line.default_color = Color(1,0.8,0)
-	self.add_child(line)
-	
-	
-	
-	
-	
-	
+
 	

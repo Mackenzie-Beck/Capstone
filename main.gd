@@ -6,7 +6,7 @@ var control_ui
 
 
 #@export var enemy_scene: PackedScene
-var expression = Expression.new()
+
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
@@ -65,11 +65,12 @@ func gameEnd():
 func turnStart():
 	enemyDisplayAttack(enemy_action[1])
 	enemyDisplayMove(enemy_action[0])
+	playerHitReg()
 	
 func turnEnd():
 	$Enemy.move(enemy_action[0])
 	enemy_action = $Enemy.turnEnd($Player.position)
-	playerHitReg()
+	
 	enemyHitReg()
 	
 	
@@ -100,12 +101,13 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for signal send
+func playerHitReg(expression_string = "x/3"): #inputs are placeholders for signal send
+	var expression = Expression.new()
 	var line = Line2D.new()
-	for i in range(0,20): #for each x value
+	for i in range(0,1200,25): #for each x value
 		var formula = expression_string
 		#these ifs are to convert the x in the formula into the x-value
-		if formula.contains("*x"):
+		'''if formula.contains("*x"):
 			#print("star mult")
 			formula = expression_string.replace("*x","*"+str(i))
 		if formula.contains("+x"):
@@ -120,13 +122,21 @@ func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for sig
 		if formula.contains("x"):
 			#print("base mult")
 			formula = expression_string.replace("x","*"+str(i))
-		var error = expression.parse(formula)
+		'''
+		#var error = expression.parse(formula)
+		print(formula)
+		var error = expression.parse(formula,['x'])
 		if error != OK:
 			print(expression.get_error_text())
 			return
-		var result = expression.execute()
-		print(result)
-		line.add_point(Vector2(result,i*5))
+		#var result = expression.execute()
+		var x = i
+		var result = expression.execute([x])
+		#print(result)
+		if expression.has_execute_failed():
+			print(expression.get_error_text())
+			return
+		line.add_point(Vector2(i,result))
 		line.default_color = Color(1,0.8,0)
 	self.add_child(line)
 	

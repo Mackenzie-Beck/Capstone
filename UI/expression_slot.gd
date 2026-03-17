@@ -146,11 +146,28 @@ func _validate_expression() -> bool:
 	else:
 		#Contains a variable
 		var has_variable = expression_string.contains("x") or expression_string.contains("y")
-		#Operators must be followed by a number or a variable
-		#
-		if not has_variable and slot_name == "Movement":
+		if not has_variable:
 			is_valid = false
-			error_message = "Expression should contain a variable"
+			error_message = "Expression should contain a variable (x or y)"
+
+		elif _has_consecutive_operators(expression_string):
+			is_valid = false
+			error_message = "Consecutive operators are not allowed (+,-,* ...)"
+
+		elif _has_leading_trailing_operators(expression_string):
+			is_valid = false
+			error_message = "Expression starts or ends with an operator (+,-,* ...)"
+			
+		elif _has_missing_operator(expression_string):
+			is_valid = false
+			error_message = "Expression missing an operator (+,-,* ...)"
+			
+		else:
+			var expr = Expression.new()
+			var parse_result = expr.parse(expression_string, ["x", "y"])
+			if parse_result != OK:
+				is_valid = false
+				error_message = "Invalid syntax: " + expr.get_error_text()
 	
 	validation_label.text = error_message if not is_valid else "Valid"
 	validation_label.modulate = Color.RED if not is_valid else Color.GREEN
@@ -158,6 +175,21 @@ func _validate_expression() -> bool:
 	expression_validated.emit(is_valid, expression_string)
 	return is_valid
 	
+func _has_consecutive_operators(expr: String) -> bool:
+	var regex = RegEx.new()
+	regex.compile("[+*/]{2,}|[+*/]-{2,}")
+	return regex.search(expr) != null
+
+func _has_leading_trailing_operators(expr: String) -> bool:
+	var regex = RegEx.new()
+	regex.compile("^[+*/]|[+\\-*/]$")
+	return regex.search(expr) != null
+
+func _has_missing_operator(expr: String) -> bool:
+	var regex = RegEx.new()
+	# digit followed by variable, or variable followed by digit or variable
+	regex.compile("\\d[xy]|[xy][\\dxy]")
+	return regex.search(expr) != null
 
 func _update_display() -> void:
 	"""Update the visual display of the expression"""

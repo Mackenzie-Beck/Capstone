@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cm723ap6pxluj"]
 
 [ext_resource type="PackedScene" uid="uid://dppm1d8qt2pa3" path="res://UI/draggable_term.tscn" id="1_2602y"]
-[ext_resource type="Script" path="res://UI/player_control_ui.gd" id="1_g550f"]
+[ext_resource type="Script" uid="uid://b8geelxkqt3s1" path="res://UI/player_control_ui.gd" id="1_g550f"]
 [ext_resource type="PackedScene" uid="uid://1hsrbuxsxjso" path="res://UI/expression_slot.tscn" id="2_g550f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6ywj"]
@@ -152,6 +152,17 @@ columns = 5
 [node name="Term_x" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=778579490 instance=ExtResource("1_2602y")]
 layout_mode = 2
 
+[node name="Term_x2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1867304480 instance=ExtResource("1_2602y")]
+layout_mode = 2
+
+[node name="Term_y" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=289386546 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "y"
+
+[node name="Term_y2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=207793624 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "y"
+
 [node name="Term_2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1708428643 instance=ExtResource("1_2602y")]
 layout_mode = 2
 term_value = "2"
@@ -167,7 +178,7 @@ layout_mode = 2
 term_value = "+"
 term_type = "operator"
 
-[node name="Term_4" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1867304480 instance=ExtResource("1_2602y")]
+[node name="Term_4" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=2145531074 instance=ExtResource("1_2602y")]
 layout_mode = 2
 term_value = "4"
 term_type = "number"

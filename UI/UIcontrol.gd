@@ -38,6 +38,9 @@ enum VIEWS {
 }
 
 
+func _ready() -> void:
+	SB.start_game.connect(_on_start_game)
+
 
 func hide_views() -> void:
 	for view in canvas_layer.get_children():
@@ -57,3 +60,7 @@ func switch_view(view: VIEWS) -> void:
 			hide_views()
 			main_menu.show()
 			
+
+
+func _on_start_game():
+	switch_view(VIEWS.PLAYER)

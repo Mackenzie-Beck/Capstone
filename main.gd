@@ -34,6 +34,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("NextTurn"):
 		turnEnd()
 		turnStart()
+	elif Input.is_action_just_pressed("pause"):
+		UIcontrol.switch_view(UIcontrol.VIEWS.PAUSE)
 	
 
 # Signal handler functions

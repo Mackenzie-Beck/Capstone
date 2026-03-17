@@ -101,7 +101,8 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string = "x/3"): #inputs are placeholders for signal send
+
+func playerHitReg(expression_string = "5x"): #inputs are placeholders for signal send
 	var expression = Expression.new()
 	var line = Line2D.new()
 	for i in range(0,1200,25): #for each x value

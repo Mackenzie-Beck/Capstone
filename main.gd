@@ -106,24 +106,6 @@ func playerHitReg(expression_string = "x/3"): #inputs are placeholders for signa
 	var line = Line2D.new()
 	for i in range(0,1200,25): #for each x value
 		var formula = expression_string
-		#these ifs are to convert the x in the formula into the x-value
-		'''if formula.contains("*x"):
-			#print("star mult")
-			formula = expression_string.replace("*x","*"+str(i))
-		if formula.contains("+x"):
-			#print("add")
-			formula = expression_string.replace("+x","+"+str(i))
-		if formula.contains("-x"):
-			#print("subtract")
-			formula = expression_string.replace("-x","-"+str(i))
-		if formula.begins_with("x"):
-			#print("start")
-			formula = expression_string.replace("x",str(i))
-		if formula.contains("x"):
-			#print("base mult")
-			formula = expression_string.replace("x","*"+str(i))
-		'''
-		#var error = expression.parse(formula)
 		print(formula)
 		var error = expression.parse(formula,['x'])
 		if error != OK:

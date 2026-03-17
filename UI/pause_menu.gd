@@ -5,7 +5,7 @@ extends PanelContainer
 
 
 func _on_main_button_pressed() -> void:
-	pass # Replace with function body.
+	UIcontrol.switch_view(UIcontrol.VIEWS.MAIN)
 
 
 func _on_save_button_pressed() -> void:

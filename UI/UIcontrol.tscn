@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cidpoylndwjq7" path="res://UI/UIcontrol.gd" id="1_bsnyy"]
 [ext_resource type="PackedScene" uid="uid://b6uf0bagls6d8" path="res://UI/pause_menu.tscn" id="2_b5g8g"]
-[ext_resource type="PackedScene" uid="uid://cm723ap6pxluj" path="res://UI/player_control_ui.tscn" id="2_cq43x"]
-[ext_resource type="PackedScene" uid="uid://hy0evxgos04h" path="res://UI/main_menu.tscn" id="4_62gio"]
+[ext_resource type="PackedScene" uid="uid://c24so5wuoeecb" path="res://UI/player_control_ui.tscn" id="2_cq43x"]
+[ext_resource type="PackedScene" uid="uid://cgy1fewdpy18n" path="res://UI/main_menu.tscn" id="4_62gio"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
 process_mode = 3
@@ -34,4 +34,3 @@ process_mode = 3
 visible = false
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=567213599 instance=ExtResource("4_62gio")]
-visible = false

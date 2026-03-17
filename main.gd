@@ -20,7 +20,7 @@ signal hit
 func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
-	
+	SB.start_game.connect(_on_start_game)
 	
 	
 	# Connect to signals
@@ -28,12 +28,14 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 	
-	newgame()
+	visible = false
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("NextTurn"):
 		turnEnd()
 		turnStart()
+	elif Input.is_action_just_pressed("pause"):
+		UIcontrol.switch_view(UIcontrol.VIEWS.PAUSE)
 	
 
 # Signal handler functions
@@ -47,7 +49,9 @@ func _on_weapon_changed(is_laser: bool) -> void:
 	print("Weapon changed to: ", "Laser" if is_laser else "Bomb")
 	# Update weapon system here
 
-
+func _on_start_game() -> void:
+	visible=true
+	newgame()
 
 # Environment functions
 

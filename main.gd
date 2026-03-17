@@ -8,6 +8,7 @@ var control_ui
 #@export var enemy_scene: PackedScene
 var expression = Expression.new()
 var enemy_action = [Vector2(0,0),1] #[move,attack]
+var player_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
 
@@ -63,22 +64,23 @@ func gameEnd():
 	#todo: disable play features after loss, signal to menus that game is over
 	
 func turnStart():
-	enemyDisplayAttack(enemy_action[1])
-	enemyDisplayMove(enemy_action[0])
-	
-func turnEnd():
-	$Enemy.move(enemy_action[0])
-	enemy_action = $Enemy.turnEnd($Player.position)
-	playerHitReg()
-	enemyHitReg()
-	
-	
-func enemyDisplayAttack(attacks):
 	#remove previous attack indicator
 	var main_children = self.get_children()
 	for child in main_children:
 		if child is Line2D:
 			child.queue_free()
+	#generate new actions
+	enemyDisplayAttack(enemy_action[1])
+	enemyDisplayMove(enemy_action[0])
+	playerHitReg()
+	
+func turnEnd():
+	$Enemy.move(enemy_action[0])
+	enemy_action = $Enemy.turnEnd($Player.position)
+	enemyHitReg()
+	
+	
+func enemyDisplayAttack(attacks):
 	#add new attack indicator
 	for attack in attacks:
 		add_child(attack)
@@ -100,9 +102,9 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for signal send
-	var line = Line2D.new()
-	for i in range(0,20): #for each x value
+func playerHitReg(expression_string = "100"): #inputs are placeholders for signal send
+	'''var line = Line2D.new()
+	for i in range(0,5): #for each x value
 		var formula = expression_string
 		#these ifs are to convert the x in the formula into the x-value
 		if formula.contains("*x"):
@@ -126,9 +128,11 @@ func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for sig
 			return
 		var result = expression.execute()
 		print(result)
-		line.add_point(Vector2(result,i*5))
-		line.default_color = Color(1,0.8,0)
-	self.add_child(line)
+		line.add_point(Vector2(576+result*2,324+i*100))
+	line.default_color = Color(1,0.8,0)
+	'''
+	var line = $TextureRect/Origin.displayPlayerAction(expression_string)
+	add_child(line)
 	
 	
 	

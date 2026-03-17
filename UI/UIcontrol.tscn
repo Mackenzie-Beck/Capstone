@@ -21,16 +21,18 @@ script = ExtResource("1_bsnyy")
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
-offset_left = -419.0
-offset_top = -286.0
-offset_right = -419.0
-offset_bottom = -286.0
+offset_left = -881.0
+offset_top = -500.0
+offset_right = -881.0
+offset_bottom = -500.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(1.0400002, 1)
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 8
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=2093296234 instance=ExtResource("2_b5g8g")]
 process_mode = 3
 visible = false
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=567213599 instance=ExtResource("4_62gio")]
+visible = false

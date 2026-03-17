@@ -25,7 +25,7 @@ UIcontrol="*uid://ccsxql8uikuyv"
 Utils="*uid://c8ovyotr1thsw"
 AudioControl="*uid://mvql55jtgi0b"
 PlayerManager="*uid://db216sas1kqoe"
-SB="*uid://bmnhyilrrx0po"
+SB="*res://Utilities/SignalBus.gd"
 
 [display]
 

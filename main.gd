@@ -100,11 +100,12 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for signal send
+func playerHitReg(expression_string = "5x"): #inputs are placeholders for signal send
 	var line = Line2D.new()
 	for i in range(0,20): #for each x value
 		var formula = expression_string
 		#these ifs are to convert the x in the formula into the x-value
+		'''
 		if formula.contains("*x"):
 			#print("star mult")
 			formula = expression_string.replace("*x","*"+str(i))
@@ -120,13 +121,17 @@ func playerHitReg(expression_string = "-5x+1"): #inputs are placeholders for sig
 		if formula.contains("x"):
 			#print("base mult")
 			formula = expression_string.replace("x","*"+str(i))
+		'''
+		#var error = expression.parse(formula,['x'])
 		var error = expression.parse(formula)
 		if error != OK:
 			print(expression.get_error_text())
 			return
+		var x = str(i)
+		var result = expression.execute([x])
 		var result = expression.execute()
 		print(result)
-		line.add_point(Vector2(result,i*5))
+		line.add_point(Vector2(i,result))
 		line.default_color = Color(1,0.8,0)
 	self.add_child(line)
 	

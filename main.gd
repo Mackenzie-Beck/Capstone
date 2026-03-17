@@ -102,11 +102,12 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string = "100"): #inputs are placeholders for signal send
-	'''var line = Line2D.new()
-	for i in range(0,5): #for each x value
+func playerHitReg(expression_string = "5*x"): #inputs are placeholders for signal send
+	var line = Line2D.new()
+	for i in range(0,1200,25): #for each x value
 		var formula = expression_string
 		#these ifs are to convert the x in the formula into the x-value
+		'''
 		if formula.contains("*x"):
 			#print("star mult")
 			formula = expression_string.replace("*x","*"+str(i))
@@ -122,16 +123,20 @@ func playerHitReg(expression_string = "100"): #inputs are placeholders for signa
 		if formula.contains("x"):
 			#print("base mult")
 			formula = expression_string.replace("x","*"+str(i))
+		'''
+		#var error = expression.parse(formula,['x'])
 		var error = expression.parse(formula)
 		if error != OK:
 			print(expression.get_error_text())
 			return
-		var result = expression.execute()
+		var x = str(i)
+		var result = expression.execute([x])
+		#var result = expression.execute()
+		if expression.has_execute_failed():
+			print(expression.get_error_text())
 		print(result)
-		line.add_point(Vector2(576+result*2,324+i*100))
+		line.add_point(Vector2(i,result))
 	line.default_color = Color(1,0.8,0)
-	'''
-	var line = $TextureRect/Origin.displayPlayerAction(expression_string)
 	add_child(line)
 	
 	

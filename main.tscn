@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dv8o7dk2c1rj6" path="res://environment/art/sci-fi.png" id="2_7mycd"]
 [ext_resource type="Texture2D" uid="uid://dd8i1har53tvh" path="res://environment/art/grid_temp.png" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://4oa4tj0x8vpj" path="res://environment/player.tscn" id="4_5vw27"]
-[ext_resource type="Script" uid="uid://v2moxrorduhf" path="res://origin.gd" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://ckxuoa1jcs4mq" path="res://environment/enemy.tscn" id="5_kek77"]
 [ext_resource type="Texture2D" uid="uid://d08klnkecw5rv" path="res://environment/art/death.jpg" id="6_4c57u"]
 
@@ -130,7 +129,6 @@ stretch_mode = 1
 
 [node name="Origin" type="Marker2D" parent="TextureRect" unique_id=1394436033]
 position = Vector2(541, 317)
-script = ExtResource("4_272bh")
 
 [node name="Player" parent="." unique_id=1912713505 instance=ExtResource("4_5vw27")]
 top_level = true

@@ -6,7 +6,7 @@ var control_ui
 
 
 #@export var enemy_scene: PackedScene
-var expression = Expression.new()
+var expression
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 var player_action = [Vector2(0,0),1] #[move,attack]
 var player_location
@@ -21,7 +21,7 @@ signal hit
 func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
-	
+	SB.start_game.connect(_on_start_game)
 	
 	
 	# Connect to signals
@@ -29,12 +29,14 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 	
-	newgame()
+	visible = false
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("NextTurn"):
 		turnEnd()
 		turnStart()
+	elif Input.is_action_just_pressed("pause"):
+		UIcontrol.switch_view(UIcontrol.VIEWS.PAUSE)
 	
 
 # Signal handler functions
@@ -48,20 +50,22 @@ func _on_weapon_changed(is_laser: bool) -> void:
 	print("Weapon changed to: ", "Laser" if is_laser else "Bomb")
 	# Update weapon system here
 
-
+func _on_start_game() -> void:
+	visible=true
+	newgame()
 
 # Environment functions
 
 func newgame():
+	enemy_action = $Enemy.start($Player.position)
 	player_location = $Player.makeLocation()
 	$Player.move(player_location)
-	enemy_action = $Enemy.start($Player.position)
 	#todo: clamp movement to screen -1 tile rather than screen
 	turnStart()
 	
 func gameEnd():
 	$DeathPopup.show()
-	#todo: disable play features after loss, signal to menus that game is over
+	pass
 	
 func turnStart():
 	#remove previous attack indicator
@@ -104,44 +108,22 @@ func enemyHitReg():
 		
 func playerHitReg(expression_string = "5*x"): #inputs are placeholders for signal send
 	var line = Line2D.new()
-	for i in range(0,1200,25): #for each x value
+	for x in range(0,1200,25): #for each x value
 		var formula = expression_string
 		#these ifs are to convert the x in the formula into the x-value
-		'''
-		if formula.contains("*x"):
-			#print("star mult")
-			formula = expression_string.replace("*x","*"+str(i))
-		if formula.contains("+x"):
-			#print("add")
-			formula = expression_string.replace("+x","+"+str(i))
-		if formula.contains("-x"):
-			#print("subtract")
-			formula = expression_string.replace("-x","-"+str(i))
-		if formula.begins_with("x"):
-			#print("start")
-			formula = expression_string.replace("x",str(i))
-		if formula.contains("x"):
-			#print("base mult")
-			formula = expression_string.replace("x","*"+str(i))
-		'''
 		#var error = expression.parse(formula,['x'])
 		var error = expression.parse(formula)
 		if error != OK:
 			print(expression.get_error_text())
 			return
-		var x = str(i)
 		var result = expression.execute([x])
 		#var result = expression.execute()
 		if expression.has_execute_failed():
 			print(expression.get_error_text())
 		print(result)
-		line.add_point(Vector2(i,result))
+		line.add_point(Vector2(x,result))
 	line.default_color = Color(1,0.8,0)
 	add_child(line)
 	
-	
-	
-	
-	
-	
+
 	

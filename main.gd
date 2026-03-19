@@ -6,7 +6,6 @@ var control_ui
 
 
 #@export var enemy_scene: PackedScene
-var expression
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 var player_action = [Vector2(0,0),1] #[move,attack]
 var player_location
@@ -107,12 +106,12 @@ func enemyHitReg():
 		gameEnd()
 		
 func playerHitReg(expression_string = "5*x"): #inputs are placeholders for signal send
+	var expression = Expression.new()
 	var line = Line2D.new()
 	for x in range(0,1200,25): #for each x value
 		var formula = expression_string
-		#these ifs are to convert the x in the formula into the x-value
-		#var error = expression.parse(formula,['x'])
-		var error = expression.parse(formula)
+		var error = expression.parse(formula,['x'])
+		#var error = expression.parse(formula)
 		if error != OK:
 			print(expression.get_error_text())
 			return

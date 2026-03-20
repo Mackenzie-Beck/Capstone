@@ -21,6 +21,7 @@ func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
 	SB.start_game.connect(_on_start_game)
+	SB.expression_changed.connect(_on_new_player_function)
 	
 	
 	# Connect to signals
@@ -52,6 +53,12 @@ func _on_weapon_changed(is_laser: bool) -> void:
 func _on_start_game() -> void:
 	visible=true
 	newgame()
+	
+func _on_new_player_function(expression_string) -> void:
+	if expression_string.slot_name == "Shooting":
+		playerHitReg(expression_string)
+	else:
+		pass #do movement generation
 
 # Environment functions
 
@@ -68,14 +75,13 @@ func gameEnd():
 	
 func turnStart():
 	#remove previous attack indicator
-	var main_children = self.get_children()
-	for child in main_children:
+	for child in self.get_children():
 		if child is Line2D:
-			child.queue_free()
+			if child.default_color == Color(0,1,0) or child.default_color == Color(1,0,0):
+				child.queue_free()
 	#generate new actions
 	enemyDisplayAttack(enemy_action[1])
 	enemyDisplayMove(enemy_action[0])
-	playerHitReg()
 	
 func turnEnd():
 	$Enemy.move(enemy_action[0])
@@ -105,21 +111,25 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string = "5*x"): #inputs are placeholders for signal send
+func playerHitReg(expression_string):
+	for child in self.get_children():
+		if child is Line2D && child.default_color == Color(1,0.8,0):
+			child.queue_free()
 	var expression = Expression.new()
 	var line = Line2D.new()
-	for x in range(0,1200,25): #for each x value
-		var formula = expression_string
+	for x in range(0,1200,100): #eventually for each x value
+		var formula = expression_string.expression
+		print(formula)
 		var error = expression.parse(formula,['x'])
-		#var error = expression.parse(formula)
 		if error != OK:
 			print(expression.get_error_text())
 			return
 		var result = expression.execute([x])
-		#var result = expression.execute()
 		if expression.has_execute_failed():
 			print(expression.get_error_text())
-		print(result)
+			return
+		#print(result)
+		#print(x)
 		line.add_point(Vector2(x,result))
 	line.default_color = Color(1,0.8,0)
 	add_child(line)

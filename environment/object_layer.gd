@@ -15,11 +15,22 @@ extends TileMapLayer
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 
 
+var movement_tile : Vector2i
+var shoot_tile : Vector2i
+
+
 
 func _ready() -> void:
+	#connect signals from UI
+	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_expression_applied)
+	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_expression_applied)
+	
+	
+	
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
 	bomb(Vector2i(3,3))
+	
 
 # Will need to change the second arg of set_cell when the tilemap resource is created
 func set_player_coords(coords : Vector2i):
@@ -39,10 +50,12 @@ func _process(_delta: float) -> void:
 	if hovered_tile == last_hovered_tile:
 		return
 		
-
-	
 	if highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_coords:
 			highlight_layer.erase_cell(last_hovered_tile)
+
+
+	if Input.is_action_just_pressed("mouse_click"):
+		print("click!")
 
 	if hovered_tile.x >= -tile_map_bounds.x and hovered_tile.x < tile_map_bounds.x and \
 	hovered_tile.y >= -tile_map_bounds.y and hovered_tile.y < tile_map_bounds.y and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_coords:
@@ -65,3 +78,13 @@ func bomb(center_coord: Vector2i) ->void:
 	for x in range(-1,2):
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
+
+
+func _on_movement_expression_applied(movement_expr:String) -> void:
+	pass
+	
+func _on_shooting_expression_applied(shooting_expr:String) -> void:
+	if UIcontrol.player_control_ui.is_laser_mode:
+		pass
+	else:
+		pass

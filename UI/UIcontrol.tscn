@@ -31,6 +31,7 @@ grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
 size_flags_horizontal = 8
+mouse_filter = 1
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=2093296234 instance=ExtResource("2_b5g8g")]
 process_mode = 3

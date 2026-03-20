@@ -2,12 +2,25 @@
 
 [ext_resource type="Script" uid="uid://c71v08ri0ryq" path="res://UI/main_menu.gd" id="1_p8ccj"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8ccj"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.10980392, 0.019607844, 0.2901961, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="MainMenu" type="PanelContainer" unique_id=567213599]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p8ccj")
 script = ExtResource("1_p8ccj")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=241384934]

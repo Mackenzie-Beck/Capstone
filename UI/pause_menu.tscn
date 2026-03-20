@@ -1,6 +1,19 @@
 [gd_scene format=3 uid="uid://b6uf0bagls6d8"]
 
-[ext_resource type="Script" path="res://UI/pause_menu.gd" id="1_ltd3m"]
+[ext_resource type="Script" uid="uid://dvhhl3afjg56n" path="res://UI/pause_menu.gd" id="1_ltd3m"]
+[ext_resource type="Texture2D" uid="uid://bkrfurdnb5a58" path="res://assets/backgrounds/Untitled3.png" id="2_jfm1e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ltd3m"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.15294118, 0.03137255, 0.21960784, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="PauseMenu" type="PanelContainer" unique_id=2093296234]
 anchors_preset = 15
@@ -8,7 +21,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ltd3m")
 script = ExtResource("1_ltd3m")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1485562064]
+layout_mode = 2
+texture = ExtResource("2_jfm1e")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=301445834]
 layout_mode = 2
@@ -26,6 +44,10 @@ layout_mode = 2
 text = "Pause"
 horizontal_alignment = 1
 
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1814951766]
+layout_mode = 2
+text = "Resume Game"
+
 [node name="MainButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=771019643]
 layout_mode = 2
 text = "Return to Main Menu"
@@ -39,6 +61,7 @@ layout_mode = 2
 text = "Exit Game
 "
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MainButton" to="." method="_on_main_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]

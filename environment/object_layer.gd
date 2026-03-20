@@ -8,6 +8,7 @@ extends TileMapLayer
 @export var enemy_coords : Vector2 = Vector2(10,-10)
 
 @export var tile_map_bounds : Vector2 = Vector2(40,40)
+@export var global_tile_size : Vector2 = to_global(map_to_local(Vector2i(1,1)))
 
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2.ZERO

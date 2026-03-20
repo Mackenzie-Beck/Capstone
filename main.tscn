@@ -52,24 +52,12 @@ texture_region_size = Vector2i(48, 48)
 tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_dg77c")
 
-[sub_resource type="GDScript" id="GDScript_h2yge"]
-script/source = "extends Marker2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
 [node name="Main" type="Node2D" unique_id=668301661]
 script = ExtResource("1_ig7tw")
 
 [node name="ObjectLayer" type="TileMapLayer" parent="." unique_id=768193495 node_paths=PackedStringArray("highlight_layer")]
+top_level = true
+z_index = 19
 tile_set = SubResource("TileSet_5vw27")
 script = ExtResource("4_kek77")
 highlight_layer = NodePath("../HighlightLayer")
@@ -101,10 +89,10 @@ visible = false
 top_level = true
 position = Vector2(-101, 0.99999994)
 scale = Vector2(0.4, 0.4)
+script = null
 
 [node name="StartPosition" type="Marker2D" parent="Player" unique_id=182408695]
 visible = false
-script = SubResource("GDScript_h2yge")
 
 [node name="HealthBar" type="ProgressBar" parent="Player" unique_id=633608191]
 visible = false
@@ -120,6 +108,8 @@ show_percentage = false
 visible = false
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
+health = null
+damage = null
 
 [node name="DeathPopup" type="TextureRect" parent="." unique_id=1666793433]
 visible = false

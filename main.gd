@@ -21,7 +21,7 @@ func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
 	SB.start_game.connect(_on_start_game)
-	SB.expression_changed.connect(_on_new_player_function)
+	SB.expression_changed.connect(_on_new_player_expression)
 	
 	
 	# Connect to signals
@@ -54,13 +54,13 @@ func _on_start_game() -> void:
 	visible=true
 	newgame()
 	
-func _on_new_player_function(expression_data) -> void:
+func _on_new_player_expression(expression_data) -> void:
 	playerActionDisplay(expression_data)
 
 # Environment functions
 
 func newgame():
-	enemy_action = $Enemy.start($Player.position)
+	enemy_action = $Enemy.start($"/root/PlayerManager".get_position())
 	turnStart()
 	
 func gameEnd():
@@ -79,9 +79,8 @@ func turnStart():
 	
 func turnEnd():
 	$Enemy.move(enemy_action[0])
-	enemy_action = $Enemy.turnEnd($Player.position)
+	enemy_action = $Enemy.turnEnd($"/root/PlayerManager".get_position())
 	enemyHitReg()
-	
 	
 func enemyDisplayAttack(attacks):
 	#add new attack indicator
@@ -101,7 +100,7 @@ func enemyHitReg():
 	for i in enemy_action[1]:
 		for j in range(0,3):
 			if i.get_point_position(j) == player_location:
-				var alive = $Player.playerHealth($Enemy.damage)
+				$"/root/PlayerManager".set_health($Enemy.damage)
 	if not $"/root/PlayerManager".get_health() <= 0:
 		gameEnd()
 

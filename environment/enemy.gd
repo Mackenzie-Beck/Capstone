@@ -5,7 +5,6 @@ extends Area2D
 
 var screen_size
 var rng = RandomNumberGenerator.new() #temp
-var tile_size = 22.620689655172413793103448275862 #this is a near-arbitrary value based on the size of the grid png's tiles
 var startLoc
 
 
@@ -34,11 +33,13 @@ func newAttack(player_location):
 	type = 0
 	if type == 0: #line attack
 		var line = Line2D.new()
-		line.add_point(position)
-		line.add_point(player_location)
+		var xOffset = to_global($"../ObjectLayer".map_to_local(Vector2i(0.5,0)))
 		line.default_color = Color(1,0,0)
-		var angle = player_location - position
-		line.add_point(angle*100)
+		var angle = player_location - position + xOffset
+		var xLength = to_global($"../ObjectLayer".map_to_local(Vector2i(40,0)))
+		for x in range(-xLength[0],xLength[0],xLength[0]/80):
+			var result = x*angle
+			line.add_point(result)
 		attacks.append(line)
 	else: #area attack
 		pass 
@@ -47,13 +48,15 @@ func newAttack(player_location):
 	return attacks
 
 func makeLocation():
-	screen_size = get_viewport_rect().size
-	var loc = position
-	var locX = rng.randi_range(loc[0]-5*tile_size,loc[0]+5*tile_size)
-	var locY = rng.randi_range(loc[1]-5*tile_size,loc[1]+5*tile_size)
-	locX = clamp(floor(locX/tile_size)*tile_size,0,screen_size[0])
-	locY = clamp(floor(locY/tile_size)*tile_size,0,screen_size[1])
-	return Vector2(locX, locY)
+	var tile_size = $"../ObjectLayer".global_tile_size
+	var upperLimit = $"../ObjectLayer".tile_map_bounds
+	var grid_size = to_global($"../ObjectLayer".map_to_local(upperLimit))
+	var offset = to_global($"../ObjectLayer".map_to_local(Vector2(0.5,0.5)))
+	var locX = rng.randi_range(position[0]-tile_size[0]*5,position[0]+tile_size[0]*5)
+	var locY = rng.randi_range(position[1]-tile_size[1]*5,position[1]+tile_size[1]*5)
+	locX = clamp(floor(locX/tile_size[0])*tile_size[0],-grid_size[0],grid_size[0])
+	locY = clamp(floor(locY/tile_size[1])*tile_size[1],-grid_size[1],grid_size[1])
+	return Vector2(locX, locY)+offset
 
 func move(pos):
 	position = pos

@@ -6,7 +6,6 @@ var control_ui
 
 
 #@export var enemy_scene: PackedScene
-var expression
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
@@ -103,8 +102,9 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg():
-	pass
+func playerHitReg(expression_string):
+	var expression = Expression.new()
+	
 
 
 	

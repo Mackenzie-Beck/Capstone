@@ -18,3 +18,7 @@ func _on_exit_button_pressed() -> void:
 
 func _on_exit_button_mouse_entered() -> void:
 	print("test")
+
+
+func _on_resume_pressed() -> void:
+	UIcontrol.switch_view(UIcontrol.VIEWS.PLAYER)

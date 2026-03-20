@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6uf0bagls6d8"]
 
-[ext_resource type="Script" path="res://UI/pause_menu.gd" id="1_ltd3m"]
+[ext_resource type="Script" uid="uid://dvhhl3afjg56n" path="res://UI/pause_menu.gd" id="1_ltd3m"]
 
 [node name="PauseMenu" type="PanelContainer" unique_id=2093296234]
 anchors_preset = 15
@@ -26,6 +26,10 @@ layout_mode = 2
 text = "Pause"
 horizontal_alignment = 1
 
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1814951766]
+layout_mode = 2
+text = "Resume Game"
+
 [node name="MainButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=771019643]
 layout_mode = 2
 text = "Return to Main Menu"
@@ -39,6 +43,7 @@ layout_mode = 2
 text = "Exit Game
 "
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MainButton" to="." method="_on_main_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]

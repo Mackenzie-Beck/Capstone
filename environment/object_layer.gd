@@ -46,7 +46,26 @@ func set_enemy_coords(coords : Vector2i):
 
 func _process(_delta: float) -> void:
 	var hovered_tile: Vector2i = local_to_map(to_local(get_global_mouse_position()))
-	
+
+
+	if Input.is_action_just_pressed("mouse_click") and UIcontrol.player_control_ui.visible:
+		# get movement and shoot expressions
+		var move = UIcontrol.player_control_ui.get_movement_expression()
+		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
+		print(move)
+		print(shoot)
+		# include gaurd for empty expressions 
+		if move != null:
+			# check if the mouse coord is on move
+			is_coord_on_line(move, hovered_tile)
+		elif shoot != null:
+			is_coord_on_line(shoot, hovered_tile)
+		
+
+		
+		
+		
+		
 	if hovered_tile == last_hovered_tile:
 		return
 		
@@ -54,8 +73,6 @@ func _process(_delta: float) -> void:
 			highlight_layer.erase_cell(last_hovered_tile)
 
 
-	if Input.is_action_just_pressed("mouse_click"):
-		print("click!")
 
 	if hovered_tile.x >= -tile_map_bounds.x and hovered_tile.x < tile_map_bounds.x and \
 	hovered_tile.y >= -tile_map_bounds.y and hovered_tile.y < tile_map_bounds.y and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_coords:
@@ -88,3 +105,17 @@ func _on_shooting_expression_applied(shooting_expr:String) -> void:
 		pass
 	else:
 		pass
+
+
+func is_coord_on_line(expression_string:String, coord: Vector2i):
+	# make expression object 
+	var expression = Expression.new()
+	# parse expression with variables
+	var error = expression.parse(expression_string, ['x'])
+	
+	# loop through coords on line to see if the given coord belongs to this line
+	for x in range(-tile_map_bounds.x, tile_map_bounds.x+1):
+		var result = expression.execute([x])
+		print(Vector2i(x, result))
+		if Vector2i(x, result) == coord:
+			print("Coord is on line")

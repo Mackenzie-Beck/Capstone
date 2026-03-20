@@ -31,6 +31,11 @@ SB="*res://Utilities/SignalBus.gd"
 
 window/size/mode=3
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=800
+
 [global_group]
 
 persist="Any scene which has data that must be passed to utils for save/load"

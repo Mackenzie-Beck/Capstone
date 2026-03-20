@@ -47,7 +47,22 @@ func isAlive():
 	else:
 		return true
 
-
+func displayMovement(expression_data):
+	var expression = Expression.new()
+	for i in range(0,20):#for each point on the width of the grid
+		var expression_string = expression_data.expression
+		#these ifs are to change the expression to what is actually desired
+		if expression_string.contains("*x"):#may have to rework checking if its not accurate
+			expression_string.replace("*x","*"+str(i))
+		if expression_string.contains("+x"):
+			expression_string.replace("+x","+"+str(i))
+		if expression_string.contains("-x"):
+			expression_string.replace("-x","-"+str(i))
+		var error = expression.parse(expression_string)
+		if error != OK:
+			print(expression.get_error_text())
+			return
+		var result = expression.execute()
 	
 	
 

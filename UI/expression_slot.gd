@@ -102,8 +102,8 @@ func add_term(term: DraggableTerm) -> void:
 	term.gui_input.connect(_on_term_clicked.bind(term))
 	
 	#Emit signals
-	_update_expression()
-	_update_display()
+	if _update_expression():
+		_update_display()
 	
 
 func remove_term(term: DraggableTerm) -> void:
@@ -116,8 +116,8 @@ func remove_term(term: DraggableTerm) -> void:
 		#Disconnect the signal for right click removal
 		term.gui_input.disconnect(_on_term_clicked)
 		#term.queue_free()
-		_update_expression()
-		_update_display()
+		if _update_expression():
+			_update_display()
 		
 func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 	"""Handle right-click to remove terms"""
@@ -126,13 +126,13 @@ func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 			print("Right-clicked term: ", term.term_value, " - removing")
 			remove_term(term)
 
-func _update_expression() -> void:
+func _update_expression() -> bool:
 	"""Build the expression string from current terms"""
 	expression_string = ""
 	for term in terms:
 		expression_string += term.term_value
 	
-	_validate_expression()
+	return _validate_expression()
 
 func _validate_expression() -> bool:
 	"""Validate the mathematical expression"""
@@ -144,12 +144,30 @@ func _validate_expression() -> bool:
 		is_valid = false
 		error_message = "Expression is empty"
 	else:
-		# Check for basic syntax errors
-		# This is a simplified check - you'd want more robust parsing
+		#Contains a variable
 		var has_variable = expression_string.contains("x") or expression_string.contains("y")
-		if not has_variable and slot_name == "Movement":
+		if not has_variable:
 			is_valid = false
-			error_message = "Expression should contain a variable"
+			error_message = "Expression should contain a variable (x or y)"
+
+		elif _has_consecutive_operators(expression_string):
+			is_valid = false
+			error_message = "Consecutive operators are not allowed (+,-,* ...)"
+
+		elif _has_leading_trailing_operators(expression_string):
+			is_valid = false
+			error_message = "Expression starts or ends with an operator (+,-,* ...)"
+			
+		elif _has_missing_operator(expression_string):
+			is_valid = false
+			error_message = "Expression missing an operator (+,-,* ...)"
+			
+		else:
+			var expr = Expression.new()
+			var parse_result = expr.parse(expression_string, ["x", "y"])
+			if parse_result != OK:
+				is_valid = false
+				error_message = "Invalid syntax: " + expr.get_error_text()
 	
 	validation_label.text = error_message if not is_valid else "Valid"
 	validation_label.modulate = Color.RED if not is_valid else Color.GREEN
@@ -157,6 +175,21 @@ func _validate_expression() -> bool:
 	expression_validated.emit(is_valid, expression_string)
 	return is_valid
 	
+func _has_consecutive_operators(expr: String) -> bool:
+	var regex = RegEx.new()
+	regex.compile("[+*/]{2,}|[+*/]-{2,}")
+	return regex.search(expr) != null
+
+func _has_leading_trailing_operators(expr: String) -> bool:
+	var regex = RegEx.new()
+	regex.compile("^[+*/]|[+\\-*/]$")
+	return regex.search(expr) != null
+
+func _has_missing_operator(expr: String) -> bool:
+	var regex = RegEx.new()
+	# digit followed by variable, or variable followed by digit or variable
+	regex.compile("\\d[xy]|[xy][\\dxy]")
+	return regex.search(expr) != null
 
 func _update_display() -> void:
 	"""Update the visual display of the expression"""
@@ -168,7 +201,7 @@ func _update_display() -> void:
 		"expression": expression_string,
 		"terms": terms.map(func(t): return t.get_term_data())
 	}
-	expression_changed.emit(expression_data)
+	SB.expression_changed.emit(expression_data)
 
 func clear_expression() -> void:
 	"""Clear all terms from this slot"""

@@ -7,6 +7,7 @@ var control_ui
 
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
+var player_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
 
@@ -20,6 +21,7 @@ func _ready() -> void:
 	# Instantiate and add the UI inside _ready()
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
 	SB.start_game.connect(_on_start_game)
+	SB.expression_changed.connect(_on_new_player_function)
 	
 	
 	# Connect to signals
@@ -51,6 +53,9 @@ func _on_weapon_changed(is_laser: bool) -> void:
 func _on_start_game() -> void:
 	visible=true
 	newgame()
+	
+func _on_new_player_function(expression_data) -> void:
+	playerActionDisplay(expression_data)
 
 # Environment functions
 
@@ -66,6 +71,12 @@ func gameEnd():
 	pass
 	
 func turnStart():
+	#remove previous attack indicator
+	for child in self.get_children():
+		if child is Line2D:
+			if child.default_color == Color(0,1,0) or child.default_color == Color(1,0,0):
+				child.queue_free()
+	#generate new actions
 	enemyDisplayAttack(enemy_action[1])
 	enemyDisplayMove(enemy_action[0])
 	
@@ -76,11 +87,6 @@ func turnEnd():
 	
 	
 func enemyDisplayAttack(attacks):
-	#remove previous attack indicator
-	var main_children = self.get_children()
-	for child in main_children:
-		if child is Line2D:
-			child.queue_free()
 	#add new attack indicator
 	for attack in attacks:
 		add_child(attack)
@@ -101,10 +107,32 @@ func enemyHitReg():
 				var alive = $Player.playerHealth($Enemy.damage)
 	if not $Player.isAlive():
 		gameEnd()
-		
-func playerHitReg(expression_string):
+
+func playerActionDisplay(expression_data) -> void:
+	for child in self.get_children():
+		if child is Line2D && expression_data.slot_name == "Movement" && child.default_color == Color(0,0.8,1):
+			child.queue_free()
+		elif child is Line2D && expression_data.slot_name == "Shooting" && child.default_color == Color(1,0.8,0):
+			child.queue_free()
 	var expression = Expression.new()
+	var line = Line2D.new()
+	for x in range(0,1200,100): #eventually for each x value
+		var formula = expression_data.expression
+		var error = expression.parse(formula, ["x"])
+		if error != OK:
+			print(expression.get_error_text())
+			return
+		var result = expression.execute([x])
+		if expression.has_execute_failed():
+			print(expression.get_error_text())
+			return
+		line.add_point(Vector2(x,result))
+	if expression_data.slot_name == "Shooting":
+		line.default_color = Color(1,0.8,0)
+	elif expression_data.slot_name == "Movement":
+		line.default_color = Color(0,0.8,1)
+	add_child(line)
+		
+		
 	
-
-
 	

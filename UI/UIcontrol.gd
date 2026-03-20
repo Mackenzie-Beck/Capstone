@@ -63,6 +63,7 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.PAUSE:
 			hide_views()
 			pause_menu.show()
+			coord_label.hide()
 			#print(pause_menu.visible)
 		VIEWS.PLAYER:
 			hide_views()

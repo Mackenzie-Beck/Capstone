@@ -48,7 +48,7 @@ func _process(_delta: float) -> void:
 	var hovered_tile: Vector2i = local_to_map(to_local(get_global_mouse_position()))
 
 
-	if Input.is_action_just_pressed("mouse_click") and UIcontrol.player_control_ui.visible:
+	if Input.is_action_just_pressed("mouse_click") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
 		# get movement and shoot expressions
 		var move = UIcontrol.player_control_ui.get_movement_expression()
 		var shoot = UIcontrol.player_control_ui.get_shooting_expression()

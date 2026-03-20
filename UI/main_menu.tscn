@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cgy1fewdpy18n"]
 
 [ext_resource type="Script" uid="uid://c71v08ri0ryq" path="res://UI/main_menu.gd" id="1_p8ccj"]
+[ext_resource type="Texture2D" uid="uid://b1lxsybt60dcs" path="res://assets/backgrounds/Untitled1.png" id="2_tk8dj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8ccj"]
 content_margin_left = 0.0
@@ -22,6 +23,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p8ccj")
 script = ExtResource("1_p8ccj")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1321249561]
+layout_mode = 2
+texture = ExtResource("2_tk8dj")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=241384934]
 layout_mode = 2

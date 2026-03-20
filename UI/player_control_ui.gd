@@ -10,6 +10,7 @@ signal weapon_type_changed(is_laser: bool)
 @onready var weapon_toggle: Button = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/WeaponToggle
 @onready var execute_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ExecuteButton
 @onready var clear_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ClearButton
+@onready var background: Panel = $Background
 
 var is_laser_mode: bool = true
 var is_hovered: bool 
@@ -28,8 +29,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	is_hovered = get_global_rect().has_point(get_global_mouse_position())
-	
+	is_hovered = background.get_global_rect().has_point(get_global_mouse_position())
+
 	
 func _on_movement_expression_changed(expression_data: Dictionary) -> void:
 	print("Movement expression changed: ", expression_data)

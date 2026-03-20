@@ -42,7 +42,14 @@ enum VIEWS {
 func _ready() -> void:
 	SB.start_game.connect(_on_start_game)
 
-
+func _process(delta: float) -> void:
+	#print(player_control_ui.is_hovered)
+	if player_control_ui.is_hovered:
+		coord_label.hide()
+	elif player_control_ui.is_hovered:
+		coord_label.show()
+		
+		 
 func hide_views() -> void:
 	for view in canvas_layer.get_children():
 		if view is Label:

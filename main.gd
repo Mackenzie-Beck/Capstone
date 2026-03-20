@@ -54,11 +54,11 @@ func _on_start_game() -> void:
 	visible=true
 	newgame()
 	
-func _on_new_player_function(expression_string) -> void:
-	if expression_string.slot_name == "Shooting":
-		playerHitReg(expression_string)
-	else:
-		pass #do movement generation
+func _on_new_player_function(expression_data) -> void:
+	if expression_data.slot_name == "Shooting":
+		playerAttackDisplay(expression_data)
+	elif expression_data.slot_name == "Movement":
+		playerMoveDisplay(expression_data)
 
 # Environment functions
 
@@ -111,15 +111,15 @@ func enemyHitReg():
 	if not $Player.isAlive():
 		gameEnd()
 		
-func playerHitReg(expression_string):
+func playerAttackDisplay(expression_data) -> void:
 	for child in self.get_children():
 		if child is Line2D && child.default_color == Color(1,0.8,0):
 			child.queue_free()
 	var expression = Expression.new()
 	var line = Line2D.new()
 	for x in range(0,1200,100): #eventually for each x value
-		var formula = expression_string.expression
-		print(formula)
+		var formula = expression_data.expression
+		#print(formula)
 		var error = expression.parse(formula,['x'])
 		if error != OK:
 			print(expression.get_error_text())
@@ -130,9 +130,32 @@ func playerHitReg(expression_string):
 			return
 		#print(result)
 		#print(x)
-		line.add_point(Vector2(x,result))
+		var point = $ObjectLayer.local_to_map(to_local(Vector2(x,result)))
+		line.add_point(point)
 	line.default_color = Color(1,0.8,0)
 	add_child(line)
+	
+func playerMoveDisplay(expression_data) -> void:
+	for child in self.get_children():
+		if child is Line2D && child.default_color == Color(0,0.8,1):
+			child.queue_free()
+	var expression = Expression.new()
+	var line = Line2D.new()
+	for x in range(0,1200,100): #eventually for each x value
+		var formula = expression_data.expression
+		var error = expression.parse(formula, ["x"])
+		if error != OK:
+			print(expression.get_error_text())
+			return
+		var result = expression.execute([x])
+		if expression.has_execute_failed():
+			print(expression.get_error_text())
+			return
+		line.add_point(Vector2(x,result))
+	line.default_color = Color(0,0.8,1)
+	add_child(line)
+		
+		
 	
 
 	

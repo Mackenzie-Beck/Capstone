@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b6uf0bagls6d8" path="res://UI/pause_menu.tscn" id="2_b5g8g"]
 [ext_resource type="PackedScene" uid="uid://c24so5wuoeecb" path="res://UI/player_control_ui.tscn" id="2_cq43x"]
 [ext_resource type="PackedScene" uid="uid://cgy1fewdpy18n" path="res://UI/main_menu.tscn" id="4_62gio"]
+[ext_resource type="PackedScene" path="res://UI/coord_label.tscn" id="5_4c5at"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
 process_mode = 3
@@ -18,6 +19,7 @@ script = ExtResource("1_bsnyy")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=620140360]
 
 [node name="PlayerControlUI" parent="CanvasLayer" unique_id=127201212 instance=ExtResource("2_cq43x")]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -35,4 +37,6 @@ process_mode = 3
 visible = false
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=567213599 instance=ExtResource("4_62gio")]
+
+[node name="CoordLabel" parent="CanvasLayer" unique_id=939518047 instance=ExtResource("5_4c5at")]
 visible = false

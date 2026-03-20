@@ -11,6 +11,7 @@ extends TileMapLayer
 
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2.ZERO
+@export var highlight_bomb_coordds: Vector2i = Vector2i(1,0)
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 
 
@@ -18,6 +19,7 @@ var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 func _ready() -> void:
 	set_player_coords(Vector2(0,0))
 	set_enemy_coords(Vector2(5,5))
+	bomb(Vector2(3,3))
 
 # Will need to change the second arg of set_cell when the tilemap resource is created
 func set_player_coords(coords : Vector2):
@@ -47,5 +49,12 @@ func _process(_delta: float) -> void:
 		last_hovered_tile = Vector2i(-1, -1)
 
 	# Set the text of the coord_label
-	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(hovered_tile.y)  
+	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(abs(hovered_tile.y))  
 	
+
+
+func bomb(center_coord: Vector2) ->void:
+	# Create highlight at coord, just start with a 3x3 area
+	for x in range(-1,1):
+		for y in range(-1,1):
+			highlight_layer.set_cell(Vector2(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coordds)

@@ -19,6 +19,7 @@ extends Control
 @onready var main_menu: PanelContainer = $CanvasLayer/MainMenu
 @onready var pause_menu: PanelContainer = $CanvasLayer/PauseMenu
 @onready var player_control_ui: PlayerControlUI = $CanvasLayer/PlayerControlUI
+@onready var coord_label: Label = $CanvasLayer/CoordLabel
 
 
 
@@ -44,7 +45,10 @@ func _ready() -> void:
 
 func hide_views() -> void:
 	for view in canvas_layer.get_children():
-		view.hide()
+		if view is Label:
+			continue
+		else:
+			view.hide()
 
 
 func switch_view(view: VIEWS) -> void:
@@ -56,6 +60,7 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.PLAYER:
 			hide_views()
 			player_control_ui.show()
+			coord_label.show()
 		VIEWS.MAIN:
 			hide_views()
 			main_menu.show()

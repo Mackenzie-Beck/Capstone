@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ex02q6emeakv"]
+
+[ext_resource type="Script" uid="uid://dbd8ixmn7gf5r" path="res://UI/coord_label.gd" id="1_mkvxr"]
+
+[node name="CoordLabel" type="Label" unique_id=939518047]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mkvxr")

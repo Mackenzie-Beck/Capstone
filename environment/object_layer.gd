@@ -45,3 +45,7 @@ func _process(_delta: float) -> void:
 		last_hovered_tile = hovered_tile
 	else:
 		last_hovered_tile = Vector2i(-1, -1)
+
+	# Set the text of the coord_label
+	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(hovered_tile.y)  
+	

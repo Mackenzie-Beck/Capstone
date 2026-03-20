@@ -68,25 +68,7 @@ func add_term(term: DraggableTerm) -> void:
 	if not can_accept_term(term):
 		print("  add_term: can_accept_term returned false")
 		return
-	""" Cloning is annoying but might help with controlling what can be dragged or not
-	# Create a copy of the term for this slot
-	var term_copy = term.clone()
 	
-	# Remove from current parent and add to this slot
-	if term.get_parent():
-		term.get_parent().remove_child(term)
-		term.queue_free()  # Delete the original? Might change
-	
-	# Add copy to container
-	terms_container.add_child(term_copy)
-	terms.append(term_copy)
-	
-	# Make the copy non-draggable (should remove? Better to allow redragging but things are weird)
-	term_copy.set_process_input(false)
-	
-	# Connect remove signal to right click
-	term_copy.gui_input.connect(_on_term_clicked.bind(term_copy))
-	"""
 	#Remove from current parent and add to slot
 	if term.get_parent():
 		term.get_parent().remove_child(term)
@@ -101,6 +83,8 @@ func add_term(term: DraggableTerm) -> void:
 	#Connect remove signal for right click removal
 	term.gui_input.connect(_on_term_clicked.bind(term))
 	
+	get_tree().call_group("expression_slots", "_update_expression")
+	get_tree().call_group("expression_slots", "_update_display")
 	#Emit signals
 	_update_expression()
 	_update_display()
@@ -129,6 +113,12 @@ func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 func _update_expression() -> void:
 	"""Build the expression string from current terms"""
 	expression_string = ""
+	terms = []
+	var children = terms_container.get_children()
+	for child in children:
+		#print(child.name)
+		if child is DraggableTerm:
+			terms.append(child)
 	for term in terms:
 		expression_string += term.term_value
 	
@@ -221,3 +211,24 @@ func get_expression() -> String:
 	if OS.is_debug_build():
 		draw_rect(Rect2(Vector2.ZERO, size), Color.GREEN, false, 2.0)
 "
+
+
+""" Cloning is annoying but might help with controlling what can be dragged or not
+	# Create a copy of the term for this slot
+	var term_copy = term.clone()
+	
+	# Remove from current parent and add to this slot
+	if term.get_parent():
+		term.get_parent().remove_child(term)
+		term.queue_free()  # Delete the original? Might change
+	
+	# Add copy to container
+	terms_container.add_child(term_copy)
+	terms.append(term_copy)
+	
+	# Make the copy non-draggable (should remove? Better to allow redragging but things are weird)
+	term_copy.set_process_input(false)
+	
+	# Connect remove signal to right click
+	term_copy.gui_input.connect(_on_term_clicked.bind(term_copy))
+	"""

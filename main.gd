@@ -61,9 +61,6 @@ func _on_new_player_function(expression_data) -> void:
 
 func newgame():
 	enemy_action = $Enemy.start($Player.position)
-	player_location = $Player.makeLocation()
-	$Player.move(player_location)
-	#todo: clamp movement to screen -1 tile rather than screen
 	turnStart()
 	
 func gameEnd():
@@ -71,7 +68,7 @@ func gameEnd():
 	pass
 	
 func turnStart():
-	#remove previous attack indicator
+	#remove previous enemy attack and movement indicator
 	for child in self.get_children():
 		if child is Line2D:
 			if child.default_color == Color(0,1,0) or child.default_color == Color(1,0,0):
@@ -105,7 +102,7 @@ func enemyHitReg():
 		for j in range(0,3):
 			if i.get_point_position(j) == player_location:
 				var alive = $Player.playerHealth($Enemy.damage)
-	if not $Player.isAlive():
+	if not $"/root/PlayerManager".get_health() <= 0:
 		gameEnd()
 
 func playerActionDisplay(expression_data) -> void:
@@ -116,7 +113,9 @@ func playerActionDisplay(expression_data) -> void:
 			child.queue_free()
 	var expression = Expression.new()
 	var line = Line2D.new()
-	for x in range(0,1200,100): #eventually for each x value
+	var xLength = to_global($ObjectLayer.map_to_local(Vector2i(40,0)))
+	var xOffset = to_global($ObjectLayer.map_to_local(Vector2i(0.5,0)))
+	for x in range(-(xLength[0]),xLength[0],xLength[0]/40): #eventually for each x value
 		var formula = expression_data.expression
 		var error = expression.parse(formula, ["x"])
 		if error != OK:
@@ -126,7 +125,7 @@ func playerActionDisplay(expression_data) -> void:
 		if expression.has_execute_failed():
 			print(expression.get_error_text())
 			return
-		line.add_point(Vector2(x,result))
+		line.add_point(Vector2(x,result)+xOffset)
 	if expression_data.slot_name == "Shooting":
 		line.default_color = Color(1,0.8,0)
 	elif expression_data.slot_name == "Movement":

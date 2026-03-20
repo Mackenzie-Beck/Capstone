@@ -6,7 +6,6 @@ extends Area2D
 var tile_size = 22.620689655172413793103448275862
 
 var screen_size
-var rng = RandomNumberGenerator.new() #temp
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,22 +15,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func makeLocation():
-	screen_size = get_viewport_rect().size
-	var locX = rng.randi_range(0,screen_size[0])
-	var locY = rng.randi_range(0,screen_size[1])
-	locX = floor(locX/tile_size)*tile_size
-	locY = floor(locY/tile_size)*tile_size
-	return Vector2(locX, locY)
-
-func move(pos):
-	var distX = position[0] - pos[0]
-	var distY = position[1] - pos[1]
-	fuel -= floor(sqrt(distX**2 + distY**2))
-	position = pos
-
+#delete this after replicating function elsewhere
 func turnStart(pos):
-	move(pos)
+#	move(pos)
+	$"/root/PlayerManager".set_position(pos)
 	return pos
 	
 func playerHealth(damage = null):
@@ -41,28 +28,9 @@ func playerHealth(damage = null):
 		health -= damage
 		$HealthBar.value = health
 
-func isAlive():
-	if health <= 0:
-		return false
-	else:
-		return true
 
-func displayMovement(expression_data):
-	var expression = Expression.new()
-	for i in range(0,20):#for each point on the width of the grid
-		var expression_string = expression_data.expression
-		#these ifs are to change the expression to what is actually desired
-		if expression_string.contains("*x"):#may have to rework checking if its not accurate
-			expression_string.replace("*x","*"+str(i))
-		if expression_string.contains("+x"):
-			expression_string.replace("+x","+"+str(i))
-		if expression_string.contains("-x"):
-			expression_string.replace("-x","-"+str(i))
-		var error = expression.parse(expression_string)
-		if error != OK:
-			print(expression.get_error_text())
-			return
-		var result = expression.execute()
+
+
 	
 	
 

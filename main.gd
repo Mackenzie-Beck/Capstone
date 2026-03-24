@@ -60,7 +60,7 @@ func _on_new_player_expression(expression_data) -> void:
 # Environment functions
 
 func newgame():
-	enemy_action = $Enemy.start($"/root/PlayerManager".get_position())
+	enemy_action = $Enemy.start(PlayerManager.get_position())
 	turnStart()
 	
 func gameEnd():
@@ -78,8 +78,8 @@ func turnStart():
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
-	$Enemy.move(enemy_action[0])
-	enemy_action = $Enemy.turnEnd($"/root/PlayerManager".get_position())
+	$ObjectLayer.set_enemy_coords(enemy_action[0])
+	enemy_action = $Enemy.turnEnd(PlayerManager.get_position())
 	enemyHitReg()
 	
 func enemyDisplayAttack(attacks):
@@ -100,8 +100,8 @@ func enemyHitReg():
 	for i in enemy_action[1]:
 		for j in range(0,3):
 			if i.get_point_position(j) == player_location:
-				$"/root/PlayerManager".set_health($Enemy.damage)
-	if not $"/root/PlayerManager".get_health() <= 0:
+				PlayerManager.set_health($Enemy.damage)
+	if not PlayerManager.get_health() <= 0:
 		gameEnd()
 
 func playerActionDisplay(expression_data) -> void:

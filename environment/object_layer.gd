@@ -107,7 +107,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	# clear current player tile
 	erase_cell(player_coords)
 	# calculate movement distance and emit fuel use 
-	cartesian_distance(player_coords, movement_tile)
+	SB.fuel_used.emit(cartesian_distance(player_coords, movement_tile))
 	
 	# set_player_tile
 	set_player_coords(movement_tile)
@@ -135,6 +135,7 @@ func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:
 			return true
 	return false
 
-
 func cartesian_distance(point1: Vector2i, point2: Vector2i) -> int:
-	pass
+	var dx: int = point2.x - point1.x
+	var dy: int = point2.y - point1.y
+	return int(sqrt(dx * dx + dy * dy))

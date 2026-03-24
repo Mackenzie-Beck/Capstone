@@ -31,7 +31,6 @@ func _ready() -> void:
 	
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
-	bomb(Vector2i(3,3))
 	
 
 # Will need to change the second arg of set_cell when the tilemap resource is created
@@ -54,9 +53,9 @@ func _process(_delta: float) -> void:
 		# get movement and shoot expressions
 		var move = UIcontrol.player_control_ui.get_movement_expression()
 		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
-		print(move)
-		print(shoot)
-		print(hovered_tile)
+		#print(move)
+		#print(shoot)
+		#print(hovered_tile)
 		
 		
 		# include gaurd for empty expressions 
@@ -104,6 +103,7 @@ func bomb(center_coord: Vector2i) ->void:
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
+	print(movement_expr)
 	# clear current player tile
 	erase_cell(player_coords)
 	# calculate movement distance and emit fuel use 
@@ -111,7 +111,6 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	# set_player_tile
 	set_player_coords(movement_tile)
-	pass
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
@@ -123,17 +122,20 @@ func _on_shooting_expression_applied(shooting_expr:String) -> void:
 func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:
 	# make expression object 
 	var expression = Expression.new()
+	#print("expression string: ", expression_string)
+	#print("coord: ", -coord)
 	# parse expression with variables
 	var error = expression.parse(expression_string, ['x'])
-	
 	# loop through coords on line to see if the given coord belongs to this line
 	for x in range(-tile_map_bounds.x, tile_map_bounds.x+1):
 		var result = expression.execute([x])
-		print(Vector2i(x, result))
-		if Vector2i(x, result) == coord:
+		#print(Vector2i(x, result))
+		if Vector2i(x, -result) == coord:
 			print("Coord is on line")
 			return true
 	return false
+	# debug
+	#return true
 
 func cartesian_distance(point1: Vector2i, point2: Vector2i) -> int:
 	var dx: int = point2.x - point1.x

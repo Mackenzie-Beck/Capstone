@@ -55,6 +55,8 @@ func _process(_delta: float) -> void:
 		print(move)
 		print(shoot)
 		print(hovered_tile)
+		
+		
 		# include gaurd for empty expressions 
 		if not move.is_empty():
 			# check if the mouse coord is on move
@@ -109,7 +111,7 @@ func _on_shooting_expression_applied(shooting_expr:String) -> void:
 		pass
 
 
-func is_coord_on_line(expression_string:String, coord: Vector2i):
+func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:
 	# make expression object 
 	var expression = Expression.new()
 	# parse expression with variables
@@ -121,3 +123,5 @@ func is_coord_on_line(expression_string:String, coord: Vector2i):
 		print(Vector2i(x, result))
 		if Vector2i(x, result) == coord:
 			print("Coord is on line")
+			return true
+	return false

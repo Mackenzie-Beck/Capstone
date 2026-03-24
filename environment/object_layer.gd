@@ -12,6 +12,8 @@ extends TileMapLayer
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
+
+
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 
 
@@ -60,13 +62,13 @@ func _process(_delta: float) -> void:
 		# include gaurd for empty expressions 
 		if not move.is_empty():
 			# check if the mouse coord is on move
-			is_coord_on_line(move, hovered_tile)
+			if is_coord_on_line(move, hovered_tile):
+				movement_tile = hovered_tile
+				
 		elif not shoot.is_empty():
-			is_coord_on_line(shoot, hovered_tile)
-		
-
-		
-		
+			if is_coord_on_line(shoot, hovered_tile):
+				shoot_tile = hovered_tile
+			
 		
 		
 	if hovered_tile == last_hovered_tile:
@@ -102,6 +104,11 @@ func bomb(center_coord: Vector2i) ->void:
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
+	# clear current player tile
+	erase_cell(player_coords)
+	# set_player_tile
+	set_player_coords(movement_tile)
+	# calculate movement distance and emit fuel use 
 	pass
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:

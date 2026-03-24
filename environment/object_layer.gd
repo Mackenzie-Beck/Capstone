@@ -49,26 +49,26 @@ func _process(_delta: float) -> void:
 	var hovered_tile: Vector2i = local_to_map(to_local(get_global_mouse_position()))
 
 
-	if Input.is_action_just_pressed("mouse_click") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
+	if Input.is_action_just_pressed("LMB") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
 		# get movement and shoot expressions
 		var move = UIcontrol.player_control_ui.get_movement_expression()
-		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
-		#print(move)
-		#print(shoot)
-		#print(hovered_tile)
-		
-		
+
 		# include gaurd for empty expressions 
 		if not move.is_empty():
 			# check if the mouse coord is on move
 			if is_coord_on_line(move, hovered_tile):
 				movement_tile = hovered_tile
+				print("move: ", movement_tile)
 				
+
+			
+	elif Input.is_action_just_pressed("RMB") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
+		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
 		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
 				shoot_tile = hovered_tile
-			
-		
+				print("shoot: ", shoot_tile)
+	
 		
 	if hovered_tile == last_hovered_tile:
 		return
@@ -111,6 +111,8 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	# set_player_tile
 	set_player_coords(movement_tile)
+	
+	#did player cross a laser
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:

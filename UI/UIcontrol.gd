@@ -19,6 +19,7 @@ extends Control
 @onready var main_menu: PanelContainer = $CanvasLayer/MainMenu
 @onready var pause_menu: PanelContainer = $CanvasLayer/PauseMenu
 @onready var player_control_ui: PlayerControlUI = $CanvasLayer/PlayerControlUI
+@onready var coord_label: Label = $CanvasLayer/CoordLabel
 
 
 
@@ -41,10 +42,20 @@ enum VIEWS {
 func _ready() -> void:
 	SB.start_game.connect(_on_start_game)
 
-
+func _process(delta: float) -> void:
+	#print(player_control_ui.is_hovered)
+	if player_control_ui.is_hovered or main_menu.visible or pause_menu.visible:
+		coord_label.hide()
+	elif not player_control_ui.is_hovered:
+		coord_label.show()
+		
+		 
 func hide_views() -> void:
 	for view in canvas_layer.get_children():
-		view.hide()
+		if view is Label:
+			continue
+		else:
+			view.hide()
 
 
 func switch_view(view: VIEWS) -> void:
@@ -52,10 +63,12 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.PAUSE:
 			hide_views()
 			pause_menu.show()
+			coord_label.hide()
 			#print(pause_menu.visible)
 		VIEWS.PLAYER:
 			hide_views()
 			player_control_ui.show()
+			coord_label.show()
 		VIEWS.MAIN:
 			hide_views()
 			main_menu.show()

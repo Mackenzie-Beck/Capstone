@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c24so5wuoeecb"]
+[gd_scene format=3 uid="uid://cm723ap6pxluj"]
 
 [ext_resource type="PackedScene" uid="uid://dppm1d8qt2pa3" path="res://UI/draggable_term.tscn" id="1_2602y"]
 [ext_resource type="Script" uid="uid://b8geelxkqt3s1" path="res://UI/player_control_ui.gd" id="1_g550f"]
@@ -267,7 +267,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ydgm7")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/FuelCounter" unique_id=103080176]
 layout_mode = 2
-text = "20"
+text = "50"
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -10,8 +10,12 @@ signal weapon_type_changed(is_laser: bool)
 @onready var weapon_toggle: Button = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/WeaponToggle
 @onready var execute_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ExecuteButton
 @onready var clear_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ClearButton
+@onready var fuel_counter: Label = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/FuelCounter/Label
+@onready var background: Panel = $Background
 
 var is_laser_mode: bool = true
+var is_hovered: bool 
+
 
 func _ready() -> void:
 	# Connect signals
@@ -24,6 +28,11 @@ func _ready() -> void:
 	# Initialize weapon toggle
 	_update_weapon_toggle_display()
 
+
+func _process(_delta: float) -> void:
+	is_hovered = background.get_global_rect().has_point(get_global_mouse_position())
+
+	
 func _on_movement_expression_changed(expression_data: Dictionary) -> void:
 	print("Movement expression changed: ", expression_data)
 
@@ -98,3 +107,7 @@ func hide_ui() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.3)
 	tween.tween_callback(hide)
+	
+	
+func update_fuel(value: int) -> void:
+	fuel_counter.text = str(value)

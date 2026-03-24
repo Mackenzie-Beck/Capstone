@@ -3,8 +3,6 @@ extends Node2D
 # Declare the variable at class level
 var control_ui
 
-
-
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
 #var player_action = [Vector2(0,0),1] #[move,attack]
@@ -13,7 +11,7 @@ var player_location
 
 signal hit
 
-
+signal fuel_updated(amount: int)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,6 +26,8 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_applied)
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
+	fuel_updated.connect(UIcontrol.player_control_ui.update_fuel)
+	
 	
 	visible = false
 
@@ -137,5 +137,3 @@ func playerActionDisplay(expression_data) -> void:
 		
 		
 		
-	
-	

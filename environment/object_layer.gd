@@ -27,6 +27,7 @@ func set_player_coords(coords : Vector2):
 	
 	
 func set_enemy_coords(coords : Vector2):
+	#print("got to set_enemey_coords, coords="+str(coords))
 	enemy_coords = coords
 	set_cell(enemy_coords,0,  enemy_sprite_atlas_coords)
 

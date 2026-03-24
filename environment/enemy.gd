@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func start(player_location):
-	$"../ObjectLayer".set_enemy_coords($"../ObjectLayer".enemy_coords)
+	#$"../ObjectLayer".set_enemy_coords($"../ObjectLayer".enemy_coords)
 	var attack = newAttack(player_location)
 	return [$"../ObjectLayer".enemy_coords, attack]
 	
@@ -38,7 +38,7 @@ func newAttack(player_location):
 		for x in range(0,xLength[0],xLength[0]/40):
 			var result = x*angle
 			line.add_point(result+xOffset)
-		print(line.get_point_position(0))
+		print($"../ObjectLayer".local_to_map(line.get_point_position(0)))
 		attacks.append(line)
 	else: #area attack
 		pass 
@@ -47,15 +47,12 @@ func newAttack(player_location):
 	return attacks
 
 func makeLocation():
-	var tile_size = $"../ObjectLayer".global_tile_size
 	var upperLimit = $"../ObjectLayer".tile_map_bounds
-	var grid_size = to_global($"../ObjectLayer".map_to_local(upperLimit))
-	var offset = to_global($"../ObjectLayer".map_to_local(Vector2(0.5,0.5)))
 	var location = $"../ObjectLayer".enemy_coords
-	var locX = rng.randi_range(location[0]-tile_size[0]*5,location[0]+tile_size[0]*5)
-	var locY = rng.randi_range(location[1]-tile_size[1]*5,location[1]+tile_size[1]*5)
-	locX = clamp(floor(locX/tile_size[0])*tile_size[0],-grid_size[0],grid_size[0])
-	locY = clamp(floor(locY/tile_size[1])*tile_size[1],-grid_size[1],grid_size[1])
+	var locX = rng.randi_range(location[0]-5,location[0]+5)
+	var locY = rng.randi_range(location[1]-5,location[1]+5)
+	#locX = clamp(locX,-upperLimit[0],upperLimit[0])
+	#locY = clamp(locY,-upperLimit[1],upperLimit[1])
 	print("mov="+str(Vector2(locX,locY)))
 	return Vector2(locX, locY)
 

@@ -7,7 +7,7 @@ var control_ui
 
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
-var player_action = [Vector2(0,0),1] #[move,attack]
+#var player_action = [Vector2(0,0),1] #[move,attack]
 var player_location
 
 
@@ -60,7 +60,8 @@ func _on_new_player_expression(expression_data) -> void:
 # Environment functions
 
 func newgame():
-	enemy_action = $Enemy.start(PlayerManager.get_position())
+	player_location = $ObjectLayer.player_coords
+	enemy_action = $Enemy.start(player_location)
 	turnStart()
 	
 func gameEnd():
@@ -78,8 +79,9 @@ func turnStart():
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
+	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
 	$ObjectLayer.set_enemy_coords(enemy_action[0])
-	enemy_action = $Enemy.turnEnd(PlayerManager.get_position())
+	enemy_action = $Enemy.turnEnd($"ObjectLayer".player_coords)
 	enemyHitReg()
 	
 func enemyDisplayAttack(attacks):
@@ -90,9 +92,10 @@ func enemyDisplayAttack(attacks):
 	
 func enemyDisplayMove(move):
 	var line = Line2D.new()
-	line.add_point($Enemy.position)
+	line.add_point($ObjectLayer.map_to_local($ObjectLayer.enemy_coords))
 	line.add_point(move)
 	line.default_color = Color(0,1,0)
+	#print(line.get_point_position(-1))
 	add_child(line)
 	pass
 

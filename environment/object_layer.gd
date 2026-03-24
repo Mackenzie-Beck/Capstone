@@ -31,7 +31,6 @@ func _ready() -> void:
 	
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
-	bomb(Vector2i(3,3))
 	
 
 # Will need to change the second arg of set_cell when the tilemap resource is created
@@ -50,26 +49,26 @@ func _process(_delta: float) -> void:
 	var hovered_tile: Vector2i = local_to_map(to_local(get_global_mouse_position()))
 
 
-	if Input.is_action_just_pressed("mouse_click") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
+	if Input.is_action_just_pressed("LMB") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
 		# get movement and shoot expressions
 		var move = UIcontrol.player_control_ui.get_movement_expression()
-		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
-		print(move)
-		print(shoot)
-		print(hovered_tile)
-		
-		
+
 		# include gaurd for empty expressions 
 		if not move.is_empty():
 			# check if the mouse coord is on move
 			if is_coord_on_line(move, hovered_tile):
 				movement_tile = hovered_tile
+				print("move: ", movement_tile)
 				
-		elif not shoot.is_empty():
+
+			
+	elif Input.is_action_just_pressed("RMB") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
+		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
+		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
 				shoot_tile = hovered_tile
-			
-		
+				print("shoot: ", shoot_tile)
+	
 		
 	if hovered_tile == last_hovered_tile:
 		return
@@ -104,31 +103,51 @@ func bomb(center_coord: Vector2i) ->void:
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
+	#print(movement_expr)
 	# clear current player tile
 	erase_cell(player_coords)
+	# calculate movement distance and emit fuel use 
+	#SB.fuel_used.emit(cartesian_distance(player_coords, movement_tile))
+	var new_fuel = PlayerManager.get_fuel() - cartesian_distance(player_coords, movement_tile)
+	print(PlayerManager.get_fuel())
+	print("new_fuel: ", new_fuel)
+	
+	PlayerManager.set_fuel(new_fuel)
+	get_parent().fuel_updated.emit(new_fuel)
+	
+	
+	
 	# set_player_tile
 	set_player_coords(movement_tile)
-	# calculate movement distance and emit fuel use 
-	pass
+	
+	#did player cross a laser
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
 		pass
 	else:
-		pass
+		bomb(shoot_tile)
 
 
 func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:
 	# make expression object 
 	var expression = Expression.new()
+	#print("expression string: ", expression_string)
+	#print("coord: ", -coord)
 	# parse expression with variables
 	var error = expression.parse(expression_string, ['x'])
-	
 	# loop through coords on line to see if the given coord belongs to this line
 	for x in range(-tile_map_bounds.x, tile_map_bounds.x+1):
 		var result = expression.execute([x])
-		print(Vector2i(x, result))
-		if Vector2i(x, result) == coord:
+		#print(Vector2i(x, result))
+		if Vector2i(x, -result) == coord:
 			print("Coord is on line")
 			return true
 	return false
+	# debug
+	#return true
+
+func cartesian_distance(point1: Vector2i, point2: Vector2i) -> int:
+	var dx: int = point2.x - point1.x
+	var dy: int = point2.y - point1.y
+	return int(sqrt(dx * dx + dy * dy))

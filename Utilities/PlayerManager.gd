@@ -6,7 +6,7 @@ extends Node
 
 
 @export var player_save_data:PlayerSavedData
-	
+
 
 func _ready() -> void:
 	player_save_data = PlayerSavedData.new()
@@ -18,9 +18,7 @@ func get_health() -> int:
 func get_fuel() -> int:
 	return player_save_data.fuel
 	
-func get_position() -> Vector2:
-	return player_save_data.position
-	
+
 
 func set_health(health:int) -> void:
 	player_save_data.health = health
@@ -28,12 +26,6 @@ func set_health(health:int) -> void:
 func set_fuel(fuel:int) -> void:
 	player_save_data.fuel = fuel
 
-
-
-#NOTE, this function could be used to actually move the player node, right now it just tracks 
-# player pos for saving 
-func set_position(pos:Vector2) -> void:
-	player_save_data.position = pos
 
 
 

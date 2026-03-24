@@ -5,44 +5,49 @@ extends Node
 
 
 
-@export var player_save_data:PlayerSavedData
-	
+@export var player1_save_data:PlayerSavedData
+@export var player2_save_data:PlayerSavedData
+@export var player_array: Array[PlayerSavedData]
+@export var current_player: int = 0
 
 func _ready() -> void:
-	player_save_data = PlayerSavedData.new()
+	player1_save_data = PlayerSavedData.new()
+	player2_save_data = PlayerSavedData.new()
+	player_array.append(player1_save_data)
+	player_array.append(player2_save_data)
 
 #getters and setters
 func get_health() -> int:
-	return player_save_data.health
+	return player_array[current_player].health
 	
 func get_fuel() -> int:
-	return player_save_data.fuel
+	return player_array[current_player].fuel
 	
 func get_position() -> Vector2:
-	return player_save_data.position
+	return player_array[current_player].position
 	
 
 func set_health(health:int) -> void:
-	player_save_data.health = health
+	player_array[current_player].health = health
 	
 func set_fuel(fuel:int) -> void:
-	player_save_data.fuel = fuel
+	player_array[current_player].fuel = fuel
 
 
 
 #NOTE, this function could be used to actually move the player node, right now it just tracks 
 # player pos for saving 
 func set_position(pos:Vector2) -> void:
-	player_save_data.position = pos
+	player_array[current_player].position = pos
 
 
 
 func on_save_game(saved_data:Array[SavedData]) -> void:
-	saved_data.append(player_save_data)
+	saved_data.append(player_array[current_player])
 	
 	
 func on_before_load_game() -> void:
 	pass
 	
 func on_load_game(saved_data:SavedData) -> void:
-	player_save_data = saved_data
+	player_array[current_player] = saved_data

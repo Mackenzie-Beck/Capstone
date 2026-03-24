@@ -64,7 +64,7 @@ func _process(_delta: float) -> void:
 			if is_coord_on_line(move, hovered_tile):
 				movement_tile = hovered_tile
 				
-		elif not shoot.is_empty():
+		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
 				shoot_tile = hovered_tile
 			
@@ -103,7 +103,7 @@ func bomb(center_coord: Vector2i) ->void:
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
-	print(movement_expr)
+	#print(movement_expr)
 	# clear current player tile
 	erase_cell(player_coords)
 	# calculate movement distance and emit fuel use 
@@ -116,7 +116,7 @@ func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
 		pass
 	else:
-		pass
+		bomb(shoot_tile)
 
 
 func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:

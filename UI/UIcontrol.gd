@@ -44,9 +44,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	#print(player_control_ui.is_hovered)
-	if player_control_ui.is_hovered:
+	if player_control_ui.is_hovered or main_menu.visible:
 		coord_label.hide()
-	elif player_control_ui.is_hovered:
+	elif not player_control_ui.is_hovered:
 		coord_label.show()
 		
 		 

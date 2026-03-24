@@ -3,7 +3,7 @@ extends Node2D
 # Declare the variable at class level
 var control_ui
 
-
+var fuel: int = 50
 
 #@export var enemy_scene: PackedScene
 var expression
@@ -13,7 +13,7 @@ var player_location
 
 signal hit
 
-
+signal fuel_updated(amount: int)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,6 +27,9 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_applied)
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
+	fuel_updated.connect(UIcontrol.player_control_ui.update_fuel)
+	
+	fuel_updated.emit(fuel)
 	
 	visible = false
 
@@ -106,5 +109,9 @@ func enemyHitReg():
 func playerHitReg():
 	pass
 
-
+func calculate_movement_cost(distance: float) -> void:
+	#Takes a float, maybe better to round down to integer value
+	var cost: int = 1  # PUT COST LOGIC HERE
+	fuel -= cost
+	fuel_updated.emit(fuel) #pass fuel total as int
 	

@@ -24,8 +24,8 @@ config/icon="res://icon.svg"
 UIcontrol="*uid://ccsxql8uikuyv"
 Utils="*uid://c8ovyotr1thsw"
 AudioControl="*uid://mvql55jtgi0b"
-PlayerManager="*uid://db216sas1kqoe"
 SB="*res://Utilities/SignalBus.gd"
+PlayerManager="*uid://1bh4kx4aooev"
 
 [display]
 

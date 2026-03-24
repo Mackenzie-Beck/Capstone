@@ -107,7 +107,15 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	# clear current player tile
 	erase_cell(player_coords)
 	# calculate movement distance and emit fuel use 
-	SB.fuel_used.emit(cartesian_distance(player_coords, movement_tile))
+	#SB.fuel_used.emit(cartesian_distance(player_coords, movement_tile))
+	var new_fuel = PlayerManager.get_fuel() - cartesian_distance(player_coords, movement_tile)
+	print(PlayerManager.get_fuel())
+	print("new_fuel: ", new_fuel)
+	
+	PlayerManager.set_fuel(new_fuel)
+	get_parent().fuel_updated.emit(new_fuel)
+	
+	
 	
 	# set_player_tile
 	set_player_coords(movement_tile)

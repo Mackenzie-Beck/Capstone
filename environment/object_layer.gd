@@ -106,9 +106,11 @@ func bomb(center_coord: Vector2i) ->void:
 func _on_movement_expression_applied(movement_expr:String) -> void:
 	# clear current player tile
 	erase_cell(player_coords)
+	# calculate movement distance and emit fuel use 
+	cartesian_distance(player_coords, movement_tile)
+	
 	# set_player_tile
 	set_player_coords(movement_tile)
-	# calculate movement distance and emit fuel use 
 	pass
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
@@ -132,3 +134,7 @@ func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:
 			print("Coord is on line")
 			return true
 	return false
+
+
+func cartesian_distance(point1: Vector2i, point2: Vector2i) -> int:
+	pass

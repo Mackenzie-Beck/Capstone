@@ -10,6 +10,7 @@ signal weapon_type_changed(is_laser: bool)
 @onready var weapon_toggle: Button = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/WeaponToggle
 @onready var execute_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ExecuteButton
 @onready var clear_button: Button = $MarginContainer/VBoxContainer/ExtraControls/ClearButton
+@onready var fuel_counter: Label = $MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls/FuelCounter/Label
 @onready var background: Panel = $Background
 
 var is_laser_mode: bool = true
@@ -106,3 +107,7 @@ func hide_ui() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.3)
 	tween.tween_callback(hide)
+	
+	
+func update_fuel(value: int) -> void:
+	fuel_counter.text = str(value)

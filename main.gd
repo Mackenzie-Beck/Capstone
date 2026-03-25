@@ -115,9 +115,9 @@ func playerActionDisplay(expression_data) -> void:
 			child.queue_free()
 	var expression = Expression.new()
 	var line = Line2D.new()
-	var xLength = to_global($ObjectLayer.map_to_local(Vector2i(40,0)))
-	var xOffset = to_global($ObjectLayer.map_to_local(Vector2i(0.5,0)))
-	for x in range(-(xLength[0]),xLength[0],xLength[0]/40): #eventually for each x value
+	var xLength = $ObjectLayer.tile_map_bounds
+	var xOffset = Vector2i(0.5,0)
+	for x in range(-(xLength[0]),xLength[0]):
 		var formula = expression_data.expression
 		var error = expression.parse(formula, ["x"])
 		if error != OK:
@@ -127,7 +127,9 @@ func playerActionDisplay(expression_data) -> void:
 		if expression.has_execute_failed():
 			print(expression.get_error_text())
 			return
-		line.add_point(Vector2(x,result)+xOffset)
+		var point = Vector2i(x,-result)+xOffset
+		point = to_global($ObjectLayer.map_to_local(point))
+		line.add_point(point)
 	if expression_data.slot_name == "Shooting":
 		line.default_color = Color(1,0.8,0)
 	elif expression_data.slot_name == "Movement":

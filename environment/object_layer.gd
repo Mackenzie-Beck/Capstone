@@ -2,7 +2,7 @@ extends TileMapLayer
 
 
 @export var player_sprite_atlas_coords : Vector2 
-@export var player2_sprite_atlas_coords : Vector2i
+@export var player2_sprite_atlas_coords : Vector2i 
 @export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
 
 @export var player_coords : Vector2 = Vector2i(0,0)
@@ -103,6 +103,11 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 
+func laser(shooting_expr :String) -> void:
+	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
+	print(parse_linear_exp_string(movement_expression))
+	print(parse_linear_exp_string(shooting_expr))
+
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
 	#print(movement_expr)
@@ -131,7 +136,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
-		pass
+		laser(shooting_expr)
 	else:
 		bomb(shoot_tile)
 
@@ -164,3 +169,52 @@ func is_coord_in_bomb(coord: Vector2i):
 		return true
 	else:
 		false
+
+
+func parse_linear_exp_string(expression : String) -> Dictionary:
+	var m : int
+	var b : int
+	
+	if 'x' in expression:
+		var parts = expression.split('x')
+		#print("parts ", parts)
+		
+		# parse slope
+		var m_str = parts[0]
+		var b_str = parts[1]
+		
+		m_str = m_str.replace("*", "")
+		b_str = b_str.replace("*", "")
+		
+		
+		#print("mstr: " ,m_str)
+		if m_str =="" and b_str != "" and b_str[0].is_valid_int():
+			var b_parts = b_str.split("+") if "+" in b_str else b_str.split("-")
+			m = int(b_parts[0])
+			b = int(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
+			# re add the - sign if split was on -
+			if "+" not in b_str and b_parts.size() > 1:
+				b = -b
+		else:
+			if m_str == "" or m_str == "+":
+				m = 1
+			elif m_str == "-":
+				m= -1
+			else:
+				m = int(m_str)
+				
+			# parse intercept
+			
+			if b_str =="":
+				b = 0
+			else:
+				b = int(b_str)
+			
+	else:
+		m = 0
+		b = int(expression)
+			
+	return {'m':m,'b':b}
+		
+func get_intersect_point(expression1: Dictionary, expression2 : Dictionary) -> Vector2i:
+	return Vector2i.ZERO

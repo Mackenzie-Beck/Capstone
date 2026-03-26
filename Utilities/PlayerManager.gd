@@ -16,6 +16,13 @@ func _ready() -> void:
 	player_array.append(player1_save_data)
 	player_array.append(player2_save_data)
 
+func swap_player() -> void:
+	# Toggle between player 0 and 1
+	if current_player == 0:
+		current_player = 1
+	elif current_player == 1:
+		current_player = 0
+
 #getters and setters
 func get_health() -> int:
 	return player_array[current_player].health

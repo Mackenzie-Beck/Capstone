@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bkqhgcsafvvwd"]
+
+[ext_resource type="Script" uid="uid://m27kk6iqkiok" path="res://UI/game_status.gd" id="1_pnwi6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnwi6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6ywj"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.258847, 0.686752, 0.659721, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="GameStatus" type="PanelContainer" unique_id=3614102]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -652.0
+offset_bottom = -498.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pnwi6")
+script = ExtResource("1_pnwi6")
+
+[node name="Background" type="Panel" parent="." unique_id=298303706]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p6ywj")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2101858288]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1524227820]
+layout_mode = 2
+
+[node name="CurrentPlayerLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1846496336]
+layout_mode = 2
+text = "CURRENT PLAYER: Player 1 GREEN SHIP"
+
+[node name="PreviousLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1084142437]
+layout_mode = 2
+text = "Previous Turn: Enemy 1"
+
+[node name="CombatLog" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1351647584]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "Insert previous turn effects here."
+autowrap_mode = 3

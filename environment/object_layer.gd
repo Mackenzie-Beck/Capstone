@@ -105,8 +105,9 @@ func bomb(center_coord: Vector2i) ->void:
 
 func laser(shooting_expr :String) -> void:
 	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
-	print(parse_linear_exp_string(movement_expression))
-	print(parse_linear_exp_string(shooting_expr))
+
+	var intersection : Vector2i = get_intersect_point(shooting_expr, movement_expression)
+	print(intersection)
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
@@ -216,5 +217,20 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 			
 	return {'m':m,'b':b}
 		
-func get_intersect_point(expression1: Dictionary, expression2 : Dictionary) -> Vector2i:
-	return Vector2i.ZERO
+func get_intersect_point(expression1: String, expression2 : String) -> Variant:
+	var eq1 = parse_linear_exp_string(expression1)
+	var eq2 = parse_linear_exp_string(expression2)
+	
+	var m1 = eq1["m"]
+	var m2 = eq2["m"]
+	var b1 = eq1["b"]
+	var b2 = eq2["b"]
+	
+	if m1 == m2:
+		return null
+		
+	var x = (b2-b1) /(m1-m2)
+	var y = m1 * x + b1
+	return Vector2i(x,y)
+	
+	

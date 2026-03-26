@@ -99,6 +99,7 @@ func enemyDisplayMove(move):
 	add_child(line)
 	pass
 
+#todo: change this to have where the attack generates an attack oneach tile on its line
 func enemyHitReg():
 	for i in enemy_action[1]:
 		for j in range(0,3):

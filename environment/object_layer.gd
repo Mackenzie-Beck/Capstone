@@ -63,7 +63,7 @@ func _process(_delta: float) -> void:
 			if is_coord_on_line(move, hovered_tile):
 				highlight_layer.erase_cell(movement_tile)
 				movement_tile = hovered_tile
-				highlight_layer.set_cell(hovered_tile, 0, Vector2i(2,0))
+				highlight_layer.set_cell(hovered_tile, 0, highlight_move_coords)
 				print("move: ", movement_tile)
 				
 
@@ -72,7 +72,9 @@ func _process(_delta: float) -> void:
 		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
 		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
+				highlight_layer.erase_cell(shoot_tile)
 				shoot_tile = hovered_tile
+				highlight_layer.set_cell(hovered_tile, 0, highlight_shoot_coords)
 				print("shoot: ", shoot_tile)
 	
 		

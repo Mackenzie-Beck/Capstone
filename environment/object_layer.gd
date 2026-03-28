@@ -64,7 +64,7 @@ func _process(_delta: float) -> void:
 				highlight_layer.erase_cell(movement_tile)
 				movement_tile = hovered_tile
 				highlight_layer.set_cell(hovered_tile, 0, highlight_move_coords)
-				print("move: ", movement_tile)
+				#print("move: ", movement_tile)
 				
 
 			
@@ -75,7 +75,7 @@ func _process(_delta: float) -> void:
 				highlight_layer.erase_cell(shoot_tile)
 				shoot_tile = hovered_tile
 				highlight_layer.set_cell(hovered_tile, 0, highlight_shoot_coords)
-				print("shoot: ", shoot_tile)
+				#print("shoot: ", shoot_tile)
 	
 		
 	if hovered_tile == last_hovered_tile:
@@ -158,7 +158,7 @@ func is_coord_on_line(expression_string:String, coord: Vector2i) -> bool:
 		var result = expression.execute([x])
 		#print(Vector2i(x, result))
 		if Vector2i(x, -result) == coord:
-			print("Coord is on line")
+			#print("Coord is on line")
 			return true
 	return false
 	# debug

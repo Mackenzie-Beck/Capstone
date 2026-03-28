@@ -61,6 +61,7 @@ func _process(_delta: float) -> void:
 		if not move.is_empty():
 			# check if the mouse coord is on move
 			if is_coord_on_line(move, hovered_tile):
+				highlight_layer.erase_cell(movement_tile)
 				movement_tile = hovered_tile
 				highlight_layer.set_cell(hovered_tile, 0, Vector2i(2,0))
 				print("move: ", movement_tile)

@@ -86,8 +86,8 @@ func add_term(term: DraggableTerm) -> void:
 	get_tree().call_group("expression_slots", "_update_expression")
 	get_tree().call_group("expression_slots", "_update_display")
 	#Emit signals
-	_update_expression()
-	_update_display()
+	if _update_expression():
+		_update_display()
 	
 
 func remove_term(term: DraggableTerm) -> void:
@@ -100,8 +100,8 @@ func remove_term(term: DraggableTerm) -> void:
 		#Disconnect the signal for right click removal
 		term.gui_input.disconnect(_on_term_clicked)
 		#term.queue_free()
-		_update_expression()
-		_update_display()
+		if _update_expression():
+			_update_display()
 		
 func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 	"""Handle right-click to remove terms"""
@@ -110,7 +110,7 @@ func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 			print("Right-clicked term: ", term.term_value, " - removing")
 			remove_term(term)
 
-func _update_expression() -> void:
+func _update_expression() -> bool:
 	"""Build the expression string from current terms"""
 	expression_string = ""
 	terms = []
@@ -122,7 +122,7 @@ func _update_expression() -> void:
 	for term in terms:
 		expression_string += term.term_value
 	
-	_validate_expression()
+	return _validate_expression()
 
 func _validate_expression() -> bool:
 	"""Validate the mathematical expression"""
@@ -191,7 +191,7 @@ func _update_display() -> void:
 		"expression": expression_string,
 		"terms": terms.map(func(t): return t.get_term_data())
 	}
-	expression_changed.emit(expression_data)
+	SB.expression_changed.emit(expression_data)
 
 func clear_expression() -> void:
 	"""Clear all terms from this slot"""

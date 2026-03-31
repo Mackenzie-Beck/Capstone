@@ -27,7 +27,6 @@ func update_player_label() -> void:
 	
 	current_player_label.text = text
 	
-	
 
 func update_log(text: String, prev: int) -> void:
 	#Any integer above player count, 1, will set previous turn text to enemy

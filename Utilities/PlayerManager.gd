@@ -4,7 +4,7 @@ extends Node
 # All player state will be stored and accessed here.
 
 
-
+@export var multiplayer_check: bool = false
 @export var player1_save_data:PlayerSavedData
 @export var player2_save_data:PlayerSavedData
 @export var player_array: Array[PlayerSavedData]
@@ -12,8 +12,9 @@ extends Node
 
 func _ready() -> void:
 	player1_save_data = PlayerSavedData.new()
-	player2_save_data = PlayerSavedData.new()
 	player_array.append(player1_save_data)
+	
+	player2_save_data = PlayerSavedData.new()
 	player_array.append(player2_save_data)
 	
 	SB.turn_change.connect(swap_player)

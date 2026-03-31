@@ -74,7 +74,8 @@ func _on_execute_pressed() -> void:
 	_apply_to_ship(movement_expr, shooting_expr, is_laser_mode)
 	
 	#PlayerManager.swap_player()
-	SB.turn_change.emit()
+	if PlayerManager.multiplayer_check:
+		SB.turn_change.emit()
 	
 
 func _on_clear_pressed() -> void:

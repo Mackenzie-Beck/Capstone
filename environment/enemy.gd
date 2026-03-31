@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @export var health = 100 #health is in %
 @export var damage = 25 #damage is in % of player health

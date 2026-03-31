@@ -32,7 +32,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	is_hovered = background.get_global_rect().has_point(get_global_mouse_position())
 
-	
 func _on_movement_expression_changed(expression_data: Dictionary) -> void:
 	print("Movement expression changed: ", expression_data)
 
@@ -73,6 +72,10 @@ func _on_execute_pressed() -> void:
 	print("  Weapon: ", "Laser" if is_laser_mode else "Bomb")
 	
 	_apply_to_ship(movement_expr, shooting_expr, is_laser_mode)
+	
+	#PlayerManager.swap_player()
+	SB.turn_change.emit()
+	
 
 func _on_clear_pressed() -> void:
 	movement_slot.clear_expression()
@@ -107,7 +110,6 @@ func hide_ui() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.3)
 	tween.tween_callback(hide)
-	
-	
+
 func update_fuel(value: int) -> void:
 	fuel_counter.text = str(value)

@@ -15,6 +15,8 @@ func _ready() -> void:
 	player2_save_data = PlayerSavedData.new()
 	player_array.append(player1_save_data)
 	player_array.append(player2_save_data)
+	
+	SB.turn_change.connect(swap_player)
 
 func swap_player() -> void:
 	# Toggle between player 0 and 1
@@ -26,17 +28,16 @@ func swap_player() -> void:
 #getters and setters
 func get_health() -> int:
 	return player_array[current_player].health
-	
+
 func get_fuel() -> int:
 	return player_array[current_player].fuel
-	
+
 func get_position() -> Vector2:
 	return player_array[current_player].position
-	
 
 func set_health(health:int) -> void:
 	player_array[current_player].health = health
-	
+
 func set_fuel(fuel:int) -> void:
 	player_array[current_player].fuel = fuel
 

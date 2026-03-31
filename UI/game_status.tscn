@@ -47,7 +47,7 @@ text = "CURRENT PLAYER: Player 1 GREEN SHIP"
 
 [node name="PreviousLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1084142437]
 layout_mode = 2
-text = "Previous Turn: Enemy 1"
+text = "Previous Turn: Nobody"
 
 [node name="CombatLog" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1351647584]
 custom_minimum_size = Vector2(50, 50)

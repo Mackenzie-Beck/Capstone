@@ -4,8 +4,8 @@ extends TileMapLayer
 @export var player_sprite_atlas_coords : Vector2 
 @export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
 
-@export var player_coords : Vector2 = Vector2i(0,0)
-@export var enemy_coords : Vector2 = Vector2i(10,-10)
+@export var player_coords : Vector2i = Vector2i(0,0)
+@export var enemy_coords : Vector2i = Vector2i(10,-10)
 
 @export var tile_map_bounds : Vector2 = Vector2(40,40)
 @export var global_tile_size : Vector2 = to_global(map_to_local(Vector2i(1,1)))

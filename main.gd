@@ -60,7 +60,7 @@ func _on_new_player_expression(expression_data) -> void:
 # Environment functions
 
 func newgame():
-	player_location = $ObjectLayer.player_coords
+	player_location = to_global($ObjectLayer.map_to_local($ObjectLayer.player_coords))
 	enemy_action = $Enemy.start(player_location)
 	turnStart()
 	
@@ -93,9 +93,8 @@ func enemyDisplayAttack(attacks):
 func enemyDisplayMove(move):
 	var line = Line2D.new()
 	line.add_point($ObjectLayer.map_to_local($ObjectLayer.enemy_coords))
-	line.add_point(move)
+	line.add_point($ObjectLayer.map_to_local(move))
 	line.default_color = Color(0,1,0)
-	#print(line.get_point_position(-1))
 	add_child(line)
 	pass
 
@@ -104,7 +103,7 @@ func enemyHitReg():
 	for i in enemy_action[1]:
 		for j in range(0,3):
 			if i.get_point_position(j) == player_location:
-				PlayerManager.set_health($Enemy.damage)
+				PlayerManager.set_health(PlayerManager.get_health())#-$Enemy.damage)
 	if not PlayerManager.get_health() <= 0:
 		gameEnd()
 

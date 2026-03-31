@@ -2,7 +2,7 @@ extends TileMapLayer
 
 
 @export var player_sprite_atlas_coords : Vector2 
-@export var player2_sprite_atlas_coords : Vector2i 
+@export var player2_sprite_atlas_coords : Vector2i = Vector2i.ZERO
 @export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
 
 
@@ -53,7 +53,8 @@ func set_player_coords(coords : Vector2i):
 
 func set_enemy_coords(coords : Vector2i):
 	enemy_coords = coords
-	set_cell(enemy_coords,0,  enemy_sprite_atlas_coords)
+	set_cell(enemy_coords,1,  enemy_sprite_atlas_coords)
+	print("enemy at: ", enemy_coords)
 
 
 

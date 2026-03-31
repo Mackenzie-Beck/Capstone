@@ -87,7 +87,6 @@ func turnEnd():
 	enemyHitReg()
 	
 func enemyDisplayAttack(attacks):
-	print("enemydisplayattack")
 	#add new attack indicator
 	for attack in attacks:
 		if attack:

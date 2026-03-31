@@ -92,7 +92,6 @@ step = 1.0
 show_percentage = false
 
 [node name="Enemy" parent="." unique_id=1452845296 instance=ExtResource("5_kek77")]
-visible = false
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
 

@@ -27,6 +27,9 @@ var shoot_tile : Vector2i
 
 var enemy_attack_expression: String
 
+
+
+
 func _ready() -> void:
 	#connect signals from UI
 	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_expression_applied)
@@ -43,6 +46,8 @@ func set_player_coords(coords : Vector2i):
 	#TODO: change logic so that player tile is set depending on the current player
 	player_coords = coords
 	set_cell(player_coords, 2, player_sprite_atlas_coords)
+	SB.player_moved.emit(player_coords)
+	print("player coords: ", player_coords)
 	
 	
 

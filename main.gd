@@ -20,6 +20,8 @@ func _ready() -> void:
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
 	SB.start_game.connect(_on_start_game)
 	SB.expression_changed.connect(_on_new_player_expression)
+	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_expression_applied)
+
 	
 	
 	# Connect to signals
@@ -61,7 +63,7 @@ func _on_new_player_expression(expression_data) -> void:
 
 func newgame():
 	player_location = to_global($ObjectLayer.map_to_local($ObjectLayer.player_coords))
-	enemy_action = $Enemy.start(player_location)
+	#enemy_action = $Enemy.start(player_location)
 	turnStart()
 	
 func gameEnd():
@@ -81,13 +83,15 @@ func turnStart():
 func turnEnd():
 	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
 	$ObjectLayer.set_enemy_coords(enemy_action[0])
-	enemy_action = $Enemy.turnEnd($"ObjectLayer".player_coords)
+	enemy_action = $Enemy.turnEnd(PlayerManager.get_player_coords())
 	enemyHitReg()
 	
 func enemyDisplayAttack(attacks):
+	print("enemydisplayattack")
 	#add new attack indicator
 	for attack in attacks:
-		add_child(attack)
+		if attack:
+			add_child(attack)
 	pass
 	
 func enemyDisplayMove(move):
@@ -139,3 +143,6 @@ func playerActionDisplay(expression_data) -> void:
 		
 		
 		
+func _on_movement_expression_applied(movement_expression : String):
+	turnEnd()
+	turnStart()

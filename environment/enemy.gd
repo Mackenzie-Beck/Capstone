@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @export var health = 100 #health is in %
 @export var damage = 25 #damage is in % of player health
@@ -9,7 +9,6 @@ var rng = Utils.rng
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -35,6 +34,8 @@ func newAttack(player_location):
 		var xLength = $"../ObjectLayer".tile_map_bounds[0]
 		for i in range(0,xLength*2,xLength/40):
 			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))
+			var equation = str($"../ObjectLayer".enemy_coords)+str(angle)+"*x" 
+			SB.enemy_attack.emit(equation)
 		attacks.append(line)
 	else: #area attack
 		pass 
@@ -50,5 +51,3 @@ func makeLocation():
 	locY = clamp(locY,-upperLimit[1],upperLimit[1])
 	#print("mov="+str(Vector2(locX,locY)))
 	return Vector2(locX, locY)
-
-	

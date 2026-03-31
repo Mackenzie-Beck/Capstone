@@ -2,7 +2,7 @@ extends TileMapLayer
 
 
 @export var player_sprite_atlas_coords : Vector2 
-@export var player2_sprite_atlas_coords : Vector2i 
+@export var player2_sprite_atlas_coords : Vector2i = Vector2i.ZERO
 @export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
 
 
@@ -25,6 +25,9 @@ var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 var movement_tile : Vector2i
 var shoot_tile : Vector2i
 
+var enemy_attack_expression: String
+
+
 
 
 func _ready() -> void:
@@ -32,7 +35,7 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_expression_applied)
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_expression_applied)
 	
-	
+	SB.enemy_attack.connect(_on_enemy_attack)
 	
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
@@ -43,12 +46,15 @@ func set_player_coords(coords : Vector2i):
 	#TODO: change logic so that player tile is set depending on the current player
 	player_coords = coords
 	set_cell(player_coords, 2, player_sprite_atlas_coords)
+	SB.player_moved.emit(player_coords)
+	print("player coords: ", player_coords)
 	
 	
 
 func set_enemy_coords(coords : Vector2i):
 	enemy_coords = coords
-	set_cell(enemy_coords,0,  enemy_sprite_atlas_coords)
+	set_cell(enemy_coords,1,  enemy_sprite_atlas_coords)
+	print("enemy at: ", enemy_coords)
 
 
 
@@ -116,10 +122,10 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 
-func laser(shooting_expr :String) -> void:
+func laser() -> void:
 	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
-
-	var intersection : Vector2i = get_intersect_point(shooting_expr, movement_expression)
+	
+	var intersection : Vector2i = get_intersect_point(enemy_attack_expression, movement_expression)
 	print(intersection)
 
 
@@ -150,7 +156,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
-		laser(shooting_expr)
+		laser()
 	else:
 		bomb(shoot_tile)
 
@@ -247,3 +253,5 @@ func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	return Vector2i(x,y)
 	
 	
+func _on_enemy_attack(equation: String):
+	enemy_attack_expression = equation

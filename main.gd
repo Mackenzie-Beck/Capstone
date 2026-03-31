@@ -2,6 +2,7 @@ extends Node2D
 
 # Declare the variable at class level
 var control_ui
+@onready var object_layer: TileMapLayer = $ObjectLayer
 
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
@@ -20,6 +21,8 @@ func _ready() -> void:
 	Utils.main_scene = self # this is needed so utils can load scenes as children of main, then if the node needs to be added anywhere in particular, it can access mains tree and move itself on its load funciton
 	SB.start_game.connect(_on_start_game)
 	SB.expression_changed.connect(_on_new_player_expression)
+	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_expression_applied)
+
 	
 	
 	# Connect to signals
@@ -61,7 +64,7 @@ func _on_new_player_expression(expression_data) -> void:
 
 func newgame():
 	player_location = to_global($ObjectLayer.map_to_local($ObjectLayer.player_coords))
-	enemy_action = $Enemy.start(player_location)
+	#enemy_action = $Enemy.start(player_location)
 	turnStart()
 	
 func gameEnd():
@@ -79,15 +82,20 @@ func turnStart():
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
-	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
-	$ObjectLayer.set_enemy_coords(enemy_action[0])
-	enemy_action = $Enemy.turnEnd($"ObjectLayer".player_coords)
+	move_enemy(enemy_action[0])
+	enemy_action = $Enemy.turnEnd(PlayerManager.get_player_coords())
 	enemyHitReg()
-	
+
+
+func move_enemy(new_coords):
+	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
+	$ObjectLayer.set_enemy_coords(new_coords)
+
 func enemyDisplayAttack(attacks):
 	#add new attack indicator
 	for attack in attacks:
-		add_child(attack)
+		if attack:
+			add_child(attack)
 	pass
 	
 func enemyDisplayMove(move):
@@ -139,3 +147,6 @@ func playerActionDisplay(expression_data) -> void:
 		
 		
 		
+func _on_movement_expression_applied(movement_expression : String):
+	turnEnd()
+	turnStart()

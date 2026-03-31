@@ -35,6 +35,8 @@ func newAttack(player_location):
 		var xLength = $"../ObjectLayer".tile_map_bounds[0]
 		for i in range(0,xLength*2,xLength/40):
 			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))
+			var equation = str($"../ObjectLayer".enemy_coords)+str(angle)+"*x" 
+			SB.enemy_attack.emit(equation)
 		attacks.append(line)
 	else: #area attack
 		pass 

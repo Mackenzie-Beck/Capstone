@@ -14,9 +14,9 @@ func _process(delta: float) -> void:
 	pass
 	
 func start(player_location):
-	#$"../ObjectLayer".set_enemy_coords($"../ObjectLayer".enemy_coords)
+	#get_parent().object_layer.set_enemy_coords(get_parent().object_layer.enemy_coords)
 	var attack = newAttack(player_location)
-	return [$"../ObjectLayer".enemy_coords, attack]
+	return [get_parent().object_layer.enemy_coords, attack]
 	
 func turnEnd(player_location):
 	var attack = newAttack(player_location)
@@ -30,11 +30,11 @@ func newAttack(player_location):
 	if type == 0: #line attack
 		var line = Line2D.new()
 		line.default_color = Color(1,0,0)
-		var angle = ($"../ObjectLayer".player_coords - $"../ObjectLayer".enemy_coords)
-		var xLength = $"../ObjectLayer".tile_map_bounds[0]
+		var angle = (get_parent().object_layer.player_coords - get_parent().object_layer.enemy_coords)
+		var xLength = get_parent().object_layer.tile_map_bounds[0]
 		for i in range(0,xLength*2,xLength/40):
-			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))
-			var equation = str($"../ObjectLayer".enemy_coords)+str(angle)+"*x" 
+			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + angle*i))
+			var equation = str(get_parent().object_layer.enemy_coords)+str(angle)+"*x" 
 			SB.enemy_attack.emit(equation)
 		attacks.append(line)
 	else: #area attack
@@ -43,8 +43,8 @@ func newAttack(player_location):
 	return attacks
 
 func makeLocation():
-	var upperLimit = $"../ObjectLayer".tile_map_bounds
-	var location = $"../ObjectLayer".enemy_coords
+	var upperLimit = get_parent().object_layer.tile_map_bounds
+	var location = get_parent().object_layer.enemy_coords
 	var locX = rng.randi_range(location[0]-5,location[0]+5)
 	var locY = rng.randi_range(location[1]-5,location[1]+5)
 	locX = clamp(locX,-upperLimit[0],upperLimit[0])

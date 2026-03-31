@@ -2,6 +2,7 @@ extends Node2D
 
 # Declare the variable at class level
 var control_ui
+@onready var object_layer: TileMapLayer = $ObjectLayer
 
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
@@ -81,11 +82,15 @@ func turnStart():
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
-	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
-	$ObjectLayer.set_enemy_coords(enemy_action[0])
+	move_enemy(enemy_action[0])
 	enemy_action = $Enemy.turnEnd(PlayerManager.get_player_coords())
 	enemyHitReg()
-	
+
+
+func move_enemy(new_coords):
+	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
+	$ObjectLayer.set_enemy_coords(new_coords)
+
 func enemyDisplayAttack(attacks):
 	#add new attack indicator
 	for attack in attacks:

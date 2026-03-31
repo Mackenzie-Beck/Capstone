@@ -86,9 +86,13 @@ func turnEnd():
 	
 func enemyDisplayAttack(attacks):
 	#add new attack indicator
-	for attack in attacks:
-		add_child(attack)
-	pass
+	for attack in attacks[0]:
+		print((attacks))
+		print(attack)
+		if attacks[1] == 0:
+			add_child(attack)
+		else:
+			$ObjectLayer.bomb(attack)
 	
 func enemyDisplayMove(move):
 	var line = Line2D.new()

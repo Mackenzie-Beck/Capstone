@@ -5,11 +5,13 @@ extends TileMapLayer
 @export var player2_sprite_atlas_coords : Vector2i 
 @export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
 
+
 @export var player_coords : Vector2 = Vector2i(0,0)
 @export var player2_coords : Vector2i = Vector2i(0,1)
 @export var enemy_coords : Vector2 = Vector2i(10,-10)
+@export var tile_map_bounds : Vector2 = Vector2(40,40)
+@export var global_tile_size : Vector2 = to_global(map_to_local(Vector2i(1,1)))
 
-@export var tile_map_bounds : Vector2 = Vector2i(40,40)
 
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
@@ -43,6 +45,7 @@ func set_player_coords(coords : Vector2i):
 	set_cell(player_coords, 2, player_sprite_atlas_coords)
 	
 	
+
 func set_enemy_coords(coords : Vector2i):
 	enemy_coords = coords
 	set_cell(enemy_coords,0,  enemy_sprite_atlas_coords)

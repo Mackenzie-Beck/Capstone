@@ -1,8 +1,7 @@
 [gd_scene format=4 uid="uid://h6hlf65en0ak"]
 
 [ext_resource type="Script" uid="uid://bt56ujvyoowi1" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://b4j5qd7vnouat" path="res://assets/sprites/Spaceship Pack/enemy_ship.png" id="2_5vw27"]
-[ext_resource type="Texture2D" uid="uid://npeu0pgjlyew" path="res://assets/sprites/Spaceship Pack/player_ship.png" id="2_272bh"]
+[ext_resource type="Texture2D" uid="uid://b4j5qd7vnouat" path="res://assets/sprites/Spaceship Pack/enemy_ship.png" id="2_efxa6"]
 [ext_resource type="Texture2D" uid="uid://dd8i1har53tvh" path="res://environment/art/grid_temp.png" id="3_272bh"]
 [ext_resource type="Texture2D" uid="uid://hd5gf2co6i4c" path="res://assets/sprites/Spaceship Pack/ship_3.png" id="3_dg77c"]
 [ext_resource type="PackedScene" uid="uid://4oa4tj0x8vpj" path="res://environment/player.tscn" id="4_5vw27"]
@@ -13,26 +12,26 @@
 [ext_resource type="Texture2D" uid="uid://buikyohg6luw1" path="res://assets/sprites/highlight_tiles.png" id="6_efxa6"]
 [ext_resource type="Script" uid="uid://b7ftp8emh7567" path="res://environment/camera_2d.gd" id="10_4c57u"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kek77"]
-texture = ExtResource("2_5vw27")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
+texture = ExtResource("2_efxa6")
 texture_region_size = Vector2i(48, 48)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
-texture = ExtResource("3_dg77c")
-texture_region_size = Vector2i(48, 48)
-0:0/0 = 0
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
-texture = ExtResource("2_272bh")
+texture = ExtResource("3_272bh")
 0:0/size_in_atlas = Vector2i(3, 3)
+
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5vw27"]
 tile_size = Vector2i(48, 48)
+
 sources/2 = SubResource("TileSetAtlasSource_272bh")
-sources/0 = SubResource("TileSetAtlasSource_kek77")
+
 sources/1 = SubResource("TileSetAtlasSource_ycdy4")
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_efxa6"]
 texture = ExtResource("5_4c57u")
@@ -62,24 +61,12 @@ texture_region_size = Vector2i(48, 48)
 tile_size = Vector2i(48, 48)
 sources/0 = SubResource("TileSetAtlasSource_dg77c")
 
-[sub_resource type="GDScript" id="GDScript_h2yge"]
-script/source = "extends Marker2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
 [node name="Main" type="Node2D" unique_id=668301661]
 script = ExtResource("1_ig7tw")
 
 [node name="ObjectLayer" type="TileMapLayer" parent="." unique_id=768193495 node_paths=PackedStringArray("highlight_layer")]
+top_level = true
+z_index = 19
 tile_set = SubResource("TileSet_5vw27")
 script = ExtResource("4_kek77")
 highlight_layer = NodePath("../HighlightLayer")
@@ -111,10 +98,10 @@ visible = false
 top_level = true
 position = Vector2(-101, 0.99999994)
 scale = Vector2(0.4, 0.4)
+script = null
 
 [node name="StartPosition" type="Marker2D" parent="Player" unique_id=182408695]
 visible = false
-script = SubResource("GDScript_h2yge")
 
 [node name="HealthBar" type="ProgressBar" parent="Player" unique_id=633608191]
 visible = false
@@ -130,6 +117,8 @@ show_percentage = false
 visible = false
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
+health = null
+damage = null
 
 [node name="DeathPopup" type="TextureRect" parent="." unique_id=1666793433]
 visible = false

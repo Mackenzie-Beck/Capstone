@@ -62,7 +62,7 @@ func _on_new_player_expression(expression_data) -> void:
 func newgame():
 	player_location = to_global($ObjectLayer.map_to_local($ObjectLayer.player_coords))
 	enemy_action = $Enemy.start(player_location)
-	turnStart()
+	#turnStart()
 	
 func gameEnd():
 	$DeathPopup.show()
@@ -104,10 +104,14 @@ func enemyDisplayMove(move):
 
 #todo: change this to have where the attack generates an attack oneach tile on its line
 func enemyHitReg():
-	for i in enemy_action[1]:
-		for j in range(0,3):
-			if i.get_point_position(j) == player_location:
-				PlayerManager.set_health(PlayerManager.get_health())#-$Enemy.damage)
+	if enemy_action[1][1] == 0:
+		for i in enemy_action[1][0]:
+			for j in range(0,3):
+				if i.get_point_position(j) == player_location:
+					PlayerManager.set_health(PlayerManager.get_health())#-$Enemy.damage)
+	else:
+		for i in enemy_action[1][0]:
+			$ObjectLayer.bomb(i)
 	if not PlayerManager.get_health() <= 0:
 		gameEnd()
 

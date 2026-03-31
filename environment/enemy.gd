@@ -19,8 +19,8 @@ func start(player_location):
 	return [$"../ObjectLayer".enemy_coords, attack]
 	
 func turnEnd(player_location:Vector2i):
-	var attack = newAttack(player_location)
 	var move = makeLocation()
+	var attack = newAttack(player_location)
 	return [move, attack]
 	
 func newAttack(player_location:Vector2i):

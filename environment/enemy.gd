@@ -30,30 +30,15 @@ func newAttack(player_location):
 	type = 0
 	if type == 0: #line attack
 		var line = Line2D.new()
-		var xOffset = Vector2(0.5,0)
-		#line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords))
 		line.default_color = Color(1,0,0)
 		var angle = ($"../ObjectLayer".player_coords - $"../ObjectLayer".enemy_coords)
-		print("attack angle ="+str(angle))
-		#var b = angle * Vector2i(0,1)
 		var xLength = $"../ObjectLayer".tile_map_bounds[0]
-		for i in range($"../ObjectLayer".enemy_coords[0],xLength*2,xLength/40):
-			'''var result: int
-			if angle[0] != 0:
-				result = x * angle #+ b[0]
-			else:
-				result = x #+ b[0]'''
+		for i in range(0,xLength*2,xLength/40):
 			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))
-			#line.add_point($"../ObjectLayer".map_to_local(Vector2(x,result)))#+xOffset))
-			#print("newest point="+str(result+xOffset))
-		print("first point="+str($"../ObjectLayer".local_to_map(line.get_point_position(0)))) 
-		print("start point="+str($"../ObjectLayer".enemy_coords))
-		#print("last point="+str($"../ObjectLayer".local_to_map(line.get_point_position(-1))))
 		attacks.append(line)
 	else: #area attack
 		pass 
 		#create 1+ areas near the player, append to attack
-	#print("att="+str(attacks[0].points))
 	return attacks
 
 func makeLocation():

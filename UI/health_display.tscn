@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://dqaqwnwn205kt"]
+
+[ext_resource type="Script" uid="uid://njcegc4wu4km" path="res://UI/health_display.gd" id="1_ddpww"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qt8f"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.9019608)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25882354, 0.6862745, 0.65882355, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddpww"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19607843, 0.827451, 0.9607843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tliu5"]
+bg_color = Color(0.7019608, 0, 0.03529412, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yse6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.99607843, 0.078431375, 0.011764706, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cbu71"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19607843, 0.88235295, 0.011764706, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="HealthDisplay" type="Control" unique_id=1772281610]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -902.0
+offset_bottom = -498.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ddpww")
+
+[node name="Background" type="Panel" parent="." unique_id=1787077216]
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 150.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7qt8f")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1953690524]
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 150.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1662706742]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="Player2Health" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=92982928]
+visible = false
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ddpww")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tliu5")
+max_value = 10.0
+step = 1.0
+value = 9.0
+rounded = true
+
+[node name="EnemyLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=812536832]
+layout_mode = 2
+text = "Enemy Status"
+horizontal_alignment = 1
+
+[node name="EnemyHealth" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=580495303]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_4yse6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tliu5")
+max_value = 10.0
+step = 1.0
+value = 9.0
+rounded = true
+
+[node name="ShipLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=806526661]
+layout_mode = 2
+text = "Ship Status"
+horizontal_alignment = 1
+
+[node name="Player1Health" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=201262276]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_cbu71")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tliu5")
+max_value = 10.0
+step = 1.0
+value = 9.0
+rounded = true

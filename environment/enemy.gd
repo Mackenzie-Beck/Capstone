@@ -1,27 +1,22 @@
-extends Area2D
+extends Node2D
 
 @export var health = 100 #health is in %
 @export var damage = 25 #damage is in % of player health
 
-var screen_size
-var rng = RandomNumberGenerator.new() #temp
-var tile_size = 22.620689655172413793103448275862 #this is a near-arbitrary value based on the size of the grid png's tiles
-var startLoc
+var rng = Utils.rng
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	screen_size = get_viewport_rect().size
-	startLoc = Vector2(screen_size[0]/4,screen_size[1]/2)
-
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 	
 func start(player_location):
-	move(startLoc)
+	#get_parent().object_layer.set_enemy_coords(get_parent().object_layer.enemy_coords)
 	var attack = newAttack(player_location)
-	return [startLoc, attack]
+	return [get_parent().object_layer.enemy_coords, attack]
 	
 func turnEnd(player_location):
 	var attack = newAttack(player_location)
@@ -34,28 +29,25 @@ func newAttack(player_location):
 	type = 0
 	if type == 0: #line attack
 		var line = Line2D.new()
-		line.add_point(position)
-		line.add_point(player_location)
 		line.default_color = Color(1,0,0)
-		var angle = player_location - position
-		line.add_point(angle*100)
+		var angle = (get_parent().object_layer.player_coords - get_parent().object_layer.enemy_coords)
+		var xLength = get_parent().object_layer.tile_map_bounds[0]
+		for i in range(0,xLength*2,xLength/40):
+			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + angle*i))
+			var equation = str(get_parent().object_layer.enemy_coords)+str(angle)+"*x" 
+			SB.enemy_attack.emit(equation)
 		attacks.append(line)
 	else: #area attack
 		pass 
 		#create 1+ areas near the player, append to attack
-	#return attack
 	return attacks
 
 func makeLocation():
-	screen_size = get_viewport_rect().size
-	var loc = position
-	var locX = rng.randi_range(loc[0]-5*tile_size,loc[0]+5*tile_size)
-	var locY = rng.randi_range(loc[1]-5*tile_size,loc[1]+5*tile_size)
-	locX = clamp(floor(locX/tile_size)*tile_size,0,screen_size[0])
-	locY = clamp(floor(locY/tile_size)*tile_size,0,screen_size[1])
+	var upperLimit = get_parent().object_layer.tile_map_bounds
+	var location = get_parent().object_layer.enemy_coords
+	var locX = rng.randi_range(location[0]-5,location[0]+5)
+	var locY = rng.randi_range(location[1]-5,location[1]+5)
+	locX = clamp(locX,-upperLimit[0],upperLimit[0])
+	locY = clamp(locY,-upperLimit[1],upperLimit[1])
+	#print("mov="+str(Vector2(locX,locY)))
 	return Vector2(locX, locY)
-
-func move(pos):
-	position = pos
-	return pos
-	

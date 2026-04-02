@@ -5,7 +5,7 @@ var control_ui
 
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
-var player_location
+var player_location: Vector2
 @onready var object_layer: TileMapLayer = $ObjectLayer
 
 
@@ -106,11 +106,11 @@ func enemyHitReg():
 		for i in enemy_action[1][0]:
 			for j in range(0,3):
 				if i.get_point_position(j) == player_location:
-					PlayerManager.set_health(PlayerManager.get_health())#-$Enemy.damage)
-	else:
-		for i in enemy_action[1][0]:
-			object_layer.bomb(i)
-	if not PlayerManager.get_health() <= 0:
+					PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
+	for coords in object_layer.all_bomb_coords:
+		if object_layer.player_coords == coords:
+			PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
+	if PlayerManager.get_health() <= 0:
 		gameEnd()
 
 func playerActionDisplay(expression_data) -> void:

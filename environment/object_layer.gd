@@ -14,6 +14,7 @@ extends TileMapLayer
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
+@export var all_bomb_coords: Array[Vector2i]
 
 
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
@@ -103,6 +104,7 @@ func bomb(center_coord: Vector2i) ->void:
 	for x in range(-1,2):
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
+			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:

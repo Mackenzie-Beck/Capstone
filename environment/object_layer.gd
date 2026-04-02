@@ -192,8 +192,8 @@ func is_coord_in_bomb(coord: Vector2i):
 
 
 func parse_linear_exp_string(expression : String) -> Dictionary:
-	var m : int
-	var b : int
+	var m : float
+	var b : float
 	
 	if 'x' in expression:
 		var parts = expression.split('x')
@@ -208,10 +208,10 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 		
 		
 		#print("mstr: " ,m_str)
-		if m_str =="" and b_str != "" and b_str[0].is_valid_int():
+		if m_str =="" and b_str != "":
 			var b_parts = b_str.split("+") if "+" in b_str else b_str.split("-")
-			m = int(b_parts[0])
-			b = int(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
+			m = float(b_parts[0])
+			b = float(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
 			# re add the - sign if split was on -
 			if "+" not in b_str and b_parts.size() > 1:
 				b = -b
@@ -221,18 +221,18 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 			elif m_str == "-":
 				m= -1
 			else:
-				m = int(m_str)
+				m = float(m_str)
 				
 			# parse intercept
 			
 			if b_str =="":
 				b = 0
 			else:
-				b = int(b_str)
+				b = float(b_str)
 			
 	else:
 		m = 0
-		b = int(expression)
+		b = float(expression)
 			
 	return {'m':m,'b':b}
 		

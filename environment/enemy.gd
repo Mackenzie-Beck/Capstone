@@ -26,7 +26,7 @@ func turnEnd(player_location:Vector2i):
 func newAttack(player_location:Vector2i):
 	var attacks = []
 	var type = rng.randi() % 2
-	type = 0 #this line is for testing only, remove when done
+	#type = 0 #this is for testing the weapon types specifically, remove when done
 	#var count = rng.randi_range(1,5)
 	#for i in range(0,count): #this is for the idea of having multiple attacks
 	if type == 0: #line attack
@@ -40,7 +40,6 @@ func newAttack(player_location:Vector2i):
 			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))
 		attacks.append(line)
 	else: #area attack
-		#create 1+ areas near the player, append to attack
 		var count = rng.randi_range(1,2)
 		for i in range(count,0,-1):
 			var bombCenter = Vector2i(rng.randi_range(player_location[0]-1-i,player_location[0]+1+i),

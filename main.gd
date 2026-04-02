@@ -5,8 +5,8 @@ var control_ui
 
 #@export var enemy_scene: PackedScene
 var enemy_action = [Vector2(0,0),1] #[move,attack]
-#var player_action = [Vector2(0,0),1] #[move,attack]
 var player_location
+@onready var object_layer: TileMapLayer = $ObjectLayer
 
 
 signal hit
@@ -60,7 +60,7 @@ func _on_new_player_expression(expression_data) -> void:
 # Environment functions
 
 func newgame():
-	player_location = to_global($ObjectLayer.map_to_local($ObjectLayer.player_coords))
+	player_location = to_global(object_layer.map_to_local(object_layer.player_coords))
 	enemy_action = $Enemy.start(player_location)
 	#turnStart()
 	
@@ -79,8 +79,8 @@ func turnStart():
 	enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
-	$ObjectLayer.erase_cell($ObjectLayer.enemy_coords)
-	$ObjectLayer.set_enemy_coords(enemy_action[0])
+	object_layer.erase_cell(object_layer.enemy_coords)
+	object_layer.set_enemy_coords(enemy_action[0])
 	enemy_action = $Enemy.turnEnd($"ObjectLayer".player_coords)
 	enemyHitReg()
 	
@@ -90,12 +90,12 @@ func enemyDisplayAttack(attacks):
 		if attacks[1] == 0:
 			add_child(attack)
 		else:
-			$ObjectLayer.bomb(attack) #change this to a custom displayBomb func, that mirrors bomb() with a lower alpha
+			object_layer.bomb(attack) #change this to a custom displayBomb func, that mirrors bomb() with a lower alpha
 	
 func enemyDisplayMove(move):
 	var line = Line2D.new()
-	line.add_point($ObjectLayer.map_to_local($ObjectLayer.enemy_coords))
-	line.add_point($ObjectLayer.map_to_local(move))
+	line.add_point(object_layer.map_to_local(object_layer.enemy_coords))
+	line.add_point(object_layer.map_to_local(move))
 	line.default_color = Color(0,1,0)
 	add_child(line)
 	pass
@@ -109,7 +109,7 @@ func enemyHitReg():
 					PlayerManager.set_health(PlayerManager.get_health())#-$Enemy.damage)
 	else:
 		for i in enemy_action[1][0]:
-			$ObjectLayer.bomb(i)
+			object_layer.bomb(i)
 	if not PlayerManager.get_health() <= 0:
 		gameEnd()
 
@@ -121,7 +121,7 @@ func playerActionDisplay(expression_data) -> void:
 			child.queue_free()
 	var expression = Expression.new()
 	var line = Line2D.new()
-	var xLength = $ObjectLayer.tile_map_bounds
+	var xLength = object_layer.tile_map_bounds
 	var xOffset = Vector2i(0.5,0)
 	for x in range(-(xLength[0]),xLength[0]):
 		var formula = expression_data.expression
@@ -134,7 +134,7 @@ func playerActionDisplay(expression_data) -> void:
 			print(expression.get_error_text())
 			return
 		var point = Vector2i(x,-result)+xOffset
-		point = to_global($ObjectLayer.map_to_local(point))
+		point = to_global(object_layer.map_to_local(point))
 		line.add_point(point)
 	if expression_data.slot_name == "Shooting":
 		line.default_color = Color(1,0.8,0)

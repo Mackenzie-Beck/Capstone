@@ -109,8 +109,6 @@ show_percentage = false
 visible = false
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
-health = null
-damage = null
 
 [node name="DeathPopup" type="TextureRect" parent="." unique_id=1666793433]
 visible = false

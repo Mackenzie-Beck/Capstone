@@ -87,12 +87,10 @@ func turnEnd():
 func enemyDisplayAttack(attacks):
 	#add new attack indicator
 	for attack in attacks[0]:
-		print((attacks))
-		print(attack)
 		if attacks[1] == 0:
 			add_child(attack)
 		else:
-			$ObjectLayer.bomb(attack)
+			$ObjectLayer.bomb(attack) #change this to a custom displayBomb func, that mirrors bomb() with a lower alpha
 	
 func enemyDisplayMove(move):
 	var line = Line2D.new()

@@ -26,11 +26,15 @@ func turnEnd(player_location:Vector2i):
 func newAttack(player_location:Vector2i):
 	var attacks = []
 	var type = rng.randi() % 2
-	#type = 0
+	type = 0 #this line is for testing only, remove when done
+	#var count = rng.randi_range(1,5)
+	#for i in range(0,count): #this is for the idea of having multiple attacks
 	if type == 0: #line attack
 		var line = Line2D.new()
 		line.default_color = Color(1,0,0)
 		var angle = (player_location - $"../ObjectLayer".enemy_coords)
+		var variance = rng.randi_range(-2,2)
+		angle[0] -= variance
 		var xLength = $"../ObjectLayer".tile_map_bounds[0]
 		for i in range(0,xLength*2,xLength/40):
 			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))

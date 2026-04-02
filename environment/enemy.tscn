@@ -1,36 +1,7 @@
 [gd_scene format=3 uid="uid://ckxuoa1jcs4mq"]
 
 [ext_resource type="Script" uid="uid://cypcuya17faia" path="res://environment/enemy.gd" id="1_4gyqm"]
-[ext_resource type="Texture2D" uid="uid://c03kn6wwtdpsg" path="res://environment/art/enemy_temp.jpg" id="2_qi2p4"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_7xaro"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_qi2p4")
-}],
-"loop": true,
-"name": &"sprite",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iifgy"]
-size = Vector2(96, 97)
-
-[node name="Area2D" type="Area2D" unique_id=1452845296]
+[node name="Area2D" type="Node2D" unique_id=2137773625]
 script = ExtResource("1_4gyqm")
 metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=520188417]
-scale = Vector2(1, 0.49)
-sprite_frames = SubResource("SpriteFrames_7xaro")
-animation = &"sprite"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=625960809]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_iifgy")

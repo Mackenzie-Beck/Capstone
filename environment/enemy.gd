@@ -32,10 +32,11 @@ func newAttack(player_location):
 		line.default_color = Color(1,0,0)
 		var angle = (get_parent().object_layer.player_coords - get_parent().object_layer.enemy_coords)
 		var xLength = get_parent().object_layer.tile_map_bounds[0]
+		var variance = Vector2(2,2)
 		get_enemy_attack_expression()
 		
 		for i in range(0,xLength*2,xLength/40):
-			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + angle*i))
+			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + (angle+variance)*i))
 		
 		
 		attacks.append(line)

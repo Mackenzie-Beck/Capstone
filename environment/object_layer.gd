@@ -157,7 +157,8 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	print("Player health after bomb: ", PlayerManager.get_health())
 	#did player cross a laser
 	if did_player_cross_laser(prev_player_coords,player_coords):
-		PlayerManager.set_health(PlayerManager.get_health()-1)
+		#PlayerManager.set_health(PlayerManager.get_health()-1)
+		print("player crossed laser")
 	
 
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
@@ -203,7 +204,21 @@ func did_player_cross_laser(prev_coords, coords):
 	print("enemy shoot expression: ", enemy_attack_expression)
 	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
 	print("intersection at: ", intersection)
+	if intersection == null:
+		return false
+	else:
+		return has_crossed_intersection(prev_coords, coords, intersection)
 
+
+func has_crossed_intersection(prev: Vector2, curr: Vector2, intersect: Vector2) -> bool:
+	var movement = curr - prev
+	var to_intersect = intersect - prev
+
+	# Project the intersection onto the movement vector (gives a 0.0 - 1.0 value)
+	var t = to_intersect.dot(movement) / movement.length_squared()
+
+	# t in [0,1] means the intersect point falls between prev and curr
+	return t >= 0.0 and t <= 1.0
 
 
 func parse_linear_exp_string(expression : String) -> Dictionary:

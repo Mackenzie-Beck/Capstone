@@ -49,6 +49,12 @@ func get_enemy_attack_expression():
 		# Calculate slope
 		var dx = float(get_parent().object_layer.player_coords[0] - get_parent().object_layer.enemy_coords[0])
 		var dy = float(get_parent().object_layer.player_coords[1] - get_parent().object_layer.enemy_coords[1])
+		
+	# Guard against vertical line (undefined slope)
+		if dx == 0:
+			SB.enemy_attack.emit("x=" + str(get_parent().object_layer.enemy_coords[0]))
+			return
+		
 		var m = (dy / dx)  # rise over run
 
 		# Calculate y-intercept using point-slope: b = y1 - m*x1

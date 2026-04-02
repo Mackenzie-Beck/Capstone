@@ -25,6 +25,8 @@ var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 var movement_tile : Vector2i
 var shoot_tile : Vector2i
 
+
+var prev_enemy_attack_expression : String
 var enemy_attack_expression: String
 
 var last_side: float = 0.0
@@ -198,8 +200,8 @@ func is_coord_in_bomb(coord: Vector2i):
 		false
 
 func did_player_cross_laser(prev_coords, coords):
-	print("prev coords: ", prev_coords)
-	print("current coords", coords)
+	#print("prev coords: ", prev_coords)
+	#print("current coords", coords)
 	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
 	print("enemy shoot expression: ", enemy_attack_expression)
 	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
@@ -285,5 +287,6 @@ func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	
 	
 func _on_enemy_attack(equation: String):
+	prev_enemy_attack_expression = enemy_attack_expression
 	enemy_attack_expression = equation
 	#print("enemy attack expression: ", enemy_attack_expression)

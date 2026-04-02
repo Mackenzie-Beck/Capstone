@@ -27,7 +27,7 @@ var shoot_tile : Vector2i
 
 var enemy_attack_expression: String
 
-
+var last_side: float = 0.0
 
 
 func _ready() -> void:
@@ -122,11 +122,12 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 
-func laser() -> void:
-	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
-	print("enemy shoot expression: ", enemy_attack_expression)
-	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
-	print("intersection at: ", intersection)
+func laser(shooting_expr:String) -> void:
+	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()
+	#get enemies move expression
+	pass
+	#var intersection : Variant = get_intersect_point(enemy_move_expression, shooting_expr)
+	#print("intersection at: ", intersection)
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
@@ -145,7 +146,9 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	
 	# set_player_tile
+	var prev_player_coords = player_coords
 	set_player_coords(movement_tile)
+	
 	
 	# check if player is in bomb area
 	print("player health before bomb: ", PlayerManager.get_health())
@@ -153,10 +156,13 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 		PlayerManager.set_health(PlayerManager.get_health()-1)
 	print("Player health after bomb: ", PlayerManager.get_health())
 	#did player cross a laser
+	if did_player_cross_laser(prev_player_coords,player_coords):
+		PlayerManager.set_health(PlayerManager.get_health()-1)
 	
+
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
-		laser()
+		laser(shooting_expr)
 	else:
 		bomb(shoot_tile)
 
@@ -189,6 +195,15 @@ func is_coord_in_bomb(coord: Vector2i):
 		return true
 	else:
 		false
+
+func did_player_cross_laser(prev_coords, coords):
+	print("prev coords: ", prev_coords)
+	print("current coords", coords)
+	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
+	print("enemy shoot expression: ", enemy_attack_expression)
+	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
+	print("intersection at: ", intersection)
+
 
 
 func parse_linear_exp_string(expression : String) -> Dictionary:

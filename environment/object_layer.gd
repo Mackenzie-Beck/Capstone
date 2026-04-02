@@ -16,6 +16,8 @@ extends TileMapLayer
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
+@export var all_bomb_coords: Array[Vector2i]
+
 @export var highlight_move_coords: Vector2i = Vector2i(2,0)
 @export var highlight_shoot_coords: Vector2i = Vector2i(3,0)
 
@@ -123,6 +125,7 @@ func bomb(center_coord: Vector2i) ->void:
 	for x in range(-1,2):
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
+			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
 
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()

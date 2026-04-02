@@ -38,11 +38,10 @@ func newAttack(player_location:Vector2i):
 		var variance = rng.randi_range(-4,4)
 		angle[0] -= variance
 		var xLength = get_parent().object_layer.tile_map_bounds[0]
-		var variance = Vector2(2,2)
 		get_enemy_attack_expression()
 		
 		for i in range(0,xLength*2):
-			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + (angle+variance)*i))
+			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + (angle)*i))
 		
 		
 		attacks.append(line)

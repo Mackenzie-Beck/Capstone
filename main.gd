@@ -45,13 +45,16 @@ func _process(delta: float) -> void:
 
 # Signal handler functions
 func _on_movement_applied(expression: String) -> void:
-	print("Movement expression applied: ", expression)
+	#print("Movement expression applied: ", expression)
+	pass
 
 func _on_shooting_applied(expression: String) -> void:
-	print("Shooting expression applied: ", expression)
+	#print("Shooting expression applied: ", expression)
+	pass
 
 func _on_weapon_changed(is_laser: bool) -> void:
-	print("Weapon changed to: ", "Laser" if is_laser else "Bomb")
+	#print("Weapon changed to: ", "Laser" if is_laser else "Bomb")
+	pass
 	# Update weapon system here
 
 func _on_start_game() -> void:

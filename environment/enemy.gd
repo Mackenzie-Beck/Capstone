@@ -32,15 +32,40 @@ func newAttack(player_location):
 		line.default_color = Color(1,0,0)
 		var angle = (get_parent().object_layer.player_coords - get_parent().object_layer.enemy_coords)
 		var xLength = get_parent().object_layer.tile_map_bounds[0]
+		get_enemy_attack_expression()
+		
 		for i in range(0,xLength*2,xLength/40):
 			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + angle*i))
-			var equation = str(get_parent().object_layer.enemy_coords)+str(angle)+"*x" 
-			SB.enemy_attack.emit(equation)
+		
+		
 		attacks.append(line)
 	else: #area attack
 		pass 
 		#create 1+ areas near the player, append to attack
 	return attacks
+
+func get_enemy_attack_expression():
+		#calculate slope and feed to point-slope form function
+		# Calculate slope
+		var dx = float(get_parent().object_layer.player_coords[0] - get_parent().object_layer.enemy_coords[0])
+		var dy = float(get_parent().object_layer.player_coords[1] - get_parent().object_layer.enemy_coords[1])
+		var m = (dy / dx)  # rise over run
+
+		# Calculate y-intercept using point-slope: b = y1 - m*x1
+		var x1 = float(get_parent().object_layer.enemy_coords[0])
+		var y1 = float(get_parent().object_layer.enemy_coords[1])
+		var b = y1 - m * x1
+
+		# Build equation string
+		var equation
+		if -b > 0:
+			equation = str(-m) + "*x+" + str(-b)
+		elif -b == 0:
+			equation = str(-m) + "*x"
+		else:
+			equation = str(-m) + "*x" + str(-b)  # b is already negative, so no extra minus needed
+
+		SB.enemy_attack.emit(equation)
 
 func makeLocation():
 	var upperLimit = get_parent().object_layer.tile_map_bounds

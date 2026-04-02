@@ -47,14 +47,14 @@ func set_player_coords(coords : Vector2i):
 	player_coords = coords
 	set_cell(player_coords, 2, player_sprite_atlas_coords)
 	SB.player_moved.emit(player_coords)
-	print("player coords: ", player_coords)
+	#print("player coords: ", player_coords)
 	
 	
 
 func set_enemy_coords(coords : Vector2i):
 	enemy_coords = coords
 	set_cell(enemy_coords,1,  enemy_sprite_atlas_coords)
-	print("enemy at: ", enemy_coords)
+	#print("enemy at: ", enemy_coords)
 
 
 
@@ -124,9 +124,9 @@ func bomb(center_coord: Vector2i) ->void:
 
 func laser() -> void:
 	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
-	
-	var intersection : Vector2i = get_intersect_point(enemy_attack_expression, movement_expression)
-	print(intersection)
+	print("enemy shoot expression: ", enemy_attack_expression)
+	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
+	print("intersection at: ", intersection)
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
@@ -238,8 +238,9 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 		
 func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	var eq1 = parse_linear_exp_string(expression1)
+	print("eq1: ", eq1)
 	var eq2 = parse_linear_exp_string(expression2)
-	
+	print("eq2: ", eq2)
 	var m1 = eq1["m"]
 	var m2 = eq2["m"]
 	var b1 = eq1["b"]
@@ -255,3 +256,4 @@ func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	
 func _on_enemy_attack(equation: String):
 	enemy_attack_expression = equation
+	#print("enemy attack expression: ", enemy_attack_expression)

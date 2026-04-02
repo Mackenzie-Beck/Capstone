@@ -21,6 +21,7 @@ extends Control
 @onready var player_control_ui: PlayerControlUI = $CanvasLayer/PlayerControlUI
 @onready var coord_label: Label = $CanvasLayer/CoordLabel
 @onready var game_status: PanelContainer = $CanvasLayer/GameStatus
+@onready var health_display: Control = $CanvasLayer/HealthDisplay
 
 
 
@@ -71,6 +72,7 @@ func switch_view(view: VIEWS) -> void:
 			player_control_ui.show()
 			coord_label.show()
 			game_status.show()
+			health_display.show()
 		VIEWS.MAIN:
 			hide_views()
 			main_menu.show()

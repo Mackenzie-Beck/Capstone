@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cgy1fewdpy18n" path="res://UI/main_menu.tscn" id="4_62gio"]
 [ext_resource type="PackedScene" uid="uid://ex02q6emeakv" path="res://UI/coord_label.tscn" id="5_4c5at"]
 [ext_resource type="PackedScene" uid="uid://bkqhgcsafvvwd" path="res://UI/game_status.tscn" id="6_ptnnf"]
+[ext_resource type="PackedScene" uid="uid://dqaqwnwn205kt" path="res://UI/health_display.tscn" id="7_a5ama"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
 process_mode = 3
@@ -50,5 +51,17 @@ offset_left = 11.0
 offset_top = -95.0
 offset_right = 313.0
 offset_bottom = -18.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="HealthDisplay" parent="CanvasLayer" unique_id=1772281610 instance=ExtResource("7_a5ama")]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 11.0
+offset_top = -298.0
+offset_right = 11.0
+offset_bottom = -298.0
 grow_horizontal = 1
 grow_vertical = 0

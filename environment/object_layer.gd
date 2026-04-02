@@ -27,9 +27,11 @@ var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 var movement_tile : Vector2i
 var shoot_tile : Vector2i
 
+
+var prev_enemy_attack_expression : String
 var enemy_attack_expression: String
 
-
+var last_side: float = 0.0
 
 
 func _ready() -> void:
@@ -49,7 +51,7 @@ func set_player_coords(coords : Vector2i):
 	player_coords = coords
 	set_cell(player_coords, 2, player_sprite_atlas_coords)
 	SB.player_moved.emit(player_coords)
-	print("player coords: ", player_coords)
+	#print("player coords: ", player_coords)
 	
 	
 
@@ -125,11 +127,12 @@ func bomb(center_coord: Vector2i) ->void:
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
 
-func laser() -> void:
-	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
-	
-	var intersection : Vector2i = get_intersect_point(enemy_attack_expression, movement_expression)
-	print(intersection)
+func laser(shooting_expr:String) -> void:
+	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()
+	#get enemies move expression
+	pass
+	#var intersection : Variant = get_intersect_point(enemy_move_expression, shooting_expr)
+	#print("intersection at: ", intersection)
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
@@ -148,7 +151,9 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	
 	# set_player_tile
+	var prev_player_coords = player_coords
 	set_player_coords(movement_tile)
+	
 	
 	# check if player is in bomb area
 	print("player health before bomb: ", PlayerManager.get_health())
@@ -156,10 +161,14 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 		PlayerManager.set_health(PlayerManager.get_health()-1)
 	print("Player health after bomb: ", PlayerManager.get_health())
 	#did player cross a laser
+	if did_player_cross_laser(prev_player_coords,player_coords):
+		#PlayerManager.set_health(PlayerManager.get_health()-1)
+		print("player crossed laser")
 	
+
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:
-		laser()
+		laser(shooting_expr)
 	else:
 		bomb(shoot_tile)
 
@@ -193,10 +202,33 @@ func is_coord_in_bomb(coord: Vector2i):
 	else:
 		false
 
+func did_player_cross_laser(prev_coords, coords):
+	#print("prev coords: ", prev_coords)
+	#print("current coords", coords)
+	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
+	print("enemy shoot expression: ", enemy_attack_expression)
+	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
+	print("intersection at: ", intersection)
+	if intersection == null:
+		return false
+	else:
+		return has_crossed_intersection(prev_coords, coords, intersection)
+
+
+func has_crossed_intersection(prev: Vector2, curr: Vector2, intersect: Vector2) -> bool:
+	var movement = curr - prev
+	var to_intersect = intersect - prev
+
+	# Project the intersection onto the movement vector (gives a 0.0 - 1.0 value)
+	var t = to_intersect.dot(movement) / movement.length_squared()
+
+	# t in [0,1] means the intersect point falls between prev and curr
+	return t >= 0.0 and t <= 1.0
+
 
 func parse_linear_exp_string(expression : String) -> Dictionary:
-	var m : int
-	var b : int
+	var m : float
+	var b : float
 	
 	if 'x' in expression:
 		var parts = expression.split('x')
@@ -211,10 +243,10 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 		
 		
 		#print("mstr: " ,m_str)
-		if m_str =="" and b_str != "" and b_str[0].is_valid_int():
+		if m_str =="" and b_str != "":
 			var b_parts = b_str.split("+") if "+" in b_str else b_str.split("-")
-			m = int(b_parts[0])
-			b = int(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
+			m = float(b_parts[0])
+			b = float(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
 			# re add the - sign if split was on -
 			if "+" not in b_str and b_parts.size() > 1:
 				b = -b
@@ -224,25 +256,26 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 			elif m_str == "-":
 				m= -1
 			else:
-				m = int(m_str)
+				m = float(m_str)
 				
 			# parse intercept
 			
 			if b_str =="":
 				b = 0
 			else:
-				b = int(b_str)
+				b = float(b_str)
 			
 	else:
 		m = 0
-		b = int(expression)
+		b = float(expression)
 			
 	return {'m':m,'b':b}
 		
 func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	var eq1 = parse_linear_exp_string(expression1)
+	print("eq1: ", eq1)
 	var eq2 = parse_linear_exp_string(expression2)
-	
+	print("eq2: ", eq2)
 	var m1 = eq1["m"]
 	var m2 = eq2["m"]
 	var b1 = eq1["b"]
@@ -257,4 +290,6 @@ func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	
 	
 func _on_enemy_attack(equation: String):
+	prev_enemy_attack_expression = enemy_attack_expression
 	enemy_attack_expression = equation
+	#print("enemy attack expression: ", enemy_attack_expression)

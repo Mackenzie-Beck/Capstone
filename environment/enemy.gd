@@ -38,11 +38,13 @@ func newAttack(player_location:Vector2i):
 		var variance = rng.randi_range(-4,4)
 		angle[0] -= variance
 		var xLength = get_parent().object_layer.tile_map_bounds[0]
+		var variance = Vector2(2,2)
+		get_enemy_attack_expression()
+		
 		for i in range(0,xLength*2):
-			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + angle*i))
-			var equation = str(get_parent().object_layer.enemy_coords)+str(angle)+"*x" 
-			SB.enemy_attack.emit(equation)
-
+			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + (angle+variance)*i))
+		
+		
 		attacks.append(line)
 	else: #area attack
 		var bombCount = rng.randi_range(1,2)
@@ -55,7 +57,37 @@ func newAttack(player_location:Vector2i):
 				d += 1 #to prevent infinte loops in very edge cases
 			attacks.append(bombCenter)
 	return [attacks,type]
-	
+
+func get_enemy_attack_expression():
+		#calculate slope and feed to point-slope form function
+		# Calculate slope
+		var dx = float(get_parent().object_layer.player_coords[0] - get_parent().object_layer.enemy_coords[0])
+		var dy = float(get_parent().object_layer.player_coords[1] - get_parent().object_layer.enemy_coords[1])
+		
+	# Guard against vertical line (undefined slope)
+		if dx == 0:
+			SB.enemy_attack.emit("x=" + str(get_parent().object_layer.enemy_coords[0]))
+			return
+		
+		var m = (dy / dx)  # rise over run
+
+		# Calculate y-intercept using point-slope: b = y1 - m*x1
+		var x1 = float(get_parent().object_layer.enemy_coords[0])
+		var y1 = float(get_parent().object_layer.enemy_coords[1])
+		var b = y1 - m * x1
+
+		# Build equation string
+		var equation
+		if -b > 0:
+			equation = str(-m) + "*x+" + str(-b)
+		elif -b == 0:
+			equation = str(-m) + "*x"
+		else:
+			equation = str(-m) + "*x" + str(-b)  # b is already negative, so no extra minus needed
+
+		SB.enemy_attack.emit(equation)
+
+
 func makeLocation():
 	var upperLimit = get_parent().object_layer.tile_map_bounds
 	var location = get_parent().object_layer.enemy_coords

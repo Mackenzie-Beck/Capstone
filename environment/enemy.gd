@@ -4,6 +4,7 @@ extends Area2D
 @export var damage = 25 #damage is in % of player health
 
 var rng = Utils.rng
+@onready var object_layer: TileMapLayer = $"../ObjectLayer"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,9 +15,9 @@ func _process(delta: float) -> void:
 	pass
 	
 func start(player_location):
-	#$"../ObjectLayer".set_enemy_coords($"../ObjectLayer".enemy_coords)
+	#object_layer.set_enemy_coords(object_layer.enemy_coords)
 	var attack = newAttack(player_location)
-	return [$"../ObjectLayer".enemy_coords, attack]
+	return [object_layer.enemy_coords, attack]
 	
 func turnEnd(player_location:Vector2i):
 	var move = makeLocation()
@@ -32,12 +33,12 @@ func newAttack(player_location:Vector2i):
 	if type == 0: #line attack
 		var line = Line2D.new()
 		line.default_color = Color(1,0,0)
-		var angle = (player_location - $"../ObjectLayer".enemy_coords)
+		var angle = (player_location - object_layer.enemy_coords)
 		var variance = rng.randi_range(-2,2)
 		angle[0] -= variance
-		var xLength = $"../ObjectLayer".tile_map_bounds[0]
+		var xLength = object_layer.tile_map_bounds[0]
 		for i in range(0,xLength*2,xLength/40):
-			line.add_point($"../ObjectLayer".map_to_local($"../ObjectLayer".enemy_coords + angle*i))
+			line.add_point(object_layer.map_to_local(object_layer.enemy_coords + angle*i))
 		attacks.append(line)
 	else: #area attack
 		var count = rng.randi_range(1,2)
@@ -50,10 +51,10 @@ func newAttack(player_location:Vector2i):
 
 
 func makeLocation():
-	var upperLimit = $"../ObjectLayer".tile_map_bounds
-	var location = $"../ObjectLayer".enemy_coords
-	var newLocation = $"../ObjectLayer".player_coords
-	while newLocation == $"../ObjectLayer".player_coords:
+	var upperLimit = object_layer.tile_map_bounds
+	var location = object_layer.enemy_coords
+	var newLocation = object_layer.player_coords
+	while newLocation == object_layer.player_coords:
 		newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
 		newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
 	return newLocation

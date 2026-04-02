@@ -16,13 +16,10 @@ extends TileMapLayer
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
-<<<<<<< HEAD
 @export var all_bomb_coords: Array[Vector2i]
 
-=======
 @export var highlight_move_coords: Vector2i = Vector2i(2,0)
 @export var highlight_shoot_coords: Vector2i = Vector2i(3,0)
->>>>>>> trunk
 
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 
@@ -59,7 +56,7 @@ func set_player_coords(coords : Vector2i):
 func set_enemy_coords(coords : Vector2i):
 	enemy_coords = coords
 	set_cell(enemy_coords,1,  enemy_sprite_atlas_coords)
-	print("enemy at: ", enemy_coords)
+	#print("enemy at: ", enemy_coords)
 
 
 

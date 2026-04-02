@@ -18,7 +18,6 @@ func start(player_location):
 	var attack = newAttack(player_location)
 	return [get_parent().object_layer.enemy_coords, attack]
 
-	
 func turnEnd(player_location:Vector2i):
 	var move = makeLocation()
 	var attack = newAttack(player_location)
@@ -47,9 +46,13 @@ func newAttack(player_location:Vector2i):
 		attacks.append(line)
 	else: #area attack
 		var bombCount = rng.randi_range(1,2)
+		var bombCenter: Vector2i
+		var d = 1 #max distance from player that a bomb can generate
 		for i in range(bombCount,0,-1):
-			var bombCenter = Vector2i(rng.randi_range(player_location[0]-1-i,player_location[0]+1+i),
-									  rng.randi_range(player_location[1]-1-i,player_location[1]+1+i))
+			while bombCenter in get_parent().object_layer.all_bomb_coords:
+				bombCenter = Vector2i(rng.randi_range(player_location[0]-d-i,player_location[0]+d+i),
+									  rng.randi_range(player_location[1]-d-i,player_location[1]+d+i))
+				d += 1 #to prevent infinte loops in very edge cases
 			attacks.append(bombCenter)
 	return [attacks,type]
 	

@@ -7,11 +7,7 @@
 [ext_resource type="Script" uid="uid://eqbr33tbg5pl" path="res://environment/object_layer.gd" id="4_kek77"]
 [ext_resource type="Texture2D" uid="uid://cs37fvsr1b0v4" path="res://assets/sprites/gridlines.png" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://ckxuoa1jcs4mq" path="res://environment/enemy.tscn" id="5_kek77"]
-<<<<<<< HEAD
 [ext_resource type="Texture2D" uid="uid://d08klnkecw5rv" path="res://environment/art/death.jpg" id="6_4c57u"]
-=======
-[ext_resource type="Texture2D" uid="uid://buikyohg6luw1" path="res://assets/sprites/highlight_tiles.png" id="6_efxa6"]
->>>>>>> trunk
 [ext_resource type="Script" uid="uid://b7ftp8emh7567" path="res://environment/camera_2d.gd" id="10_4c57u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
@@ -100,7 +96,6 @@ show_percentage = false
 [node name="Enemy" parent="." unique_id=1452845296 instance=ExtResource("5_kek77")]
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
-<<<<<<< HEAD
 
 [node name="DeathPopup" type="TextureRect" parent="." unique_id=1666793433]
 visible = false
@@ -110,8 +105,6 @@ offset_right = 584.0
 offset_bottom = 326.0
 scale = Vector2(2, 2)
 texture = ExtResource("6_4c57u")
-=======
->>>>>>> trunk
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=489169775]
 zoom = Vector2(0.75, 0.75)

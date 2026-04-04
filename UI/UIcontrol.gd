@@ -80,4 +80,10 @@ func switch_view(view: VIEWS) -> void:
 
 
 func _on_start_game():
+	if PlayerManager.multiplayer_check:
+		health_display.get_node("Background").hide()
+		health_display.get_node("MarginContainer").hide()
+		health_display.get_node("Background2").show()
+		health_display.get_node("MarginContainer2").show()
+		health_display.position.y -= 75
 	switch_view(VIEWS.PLAYER)

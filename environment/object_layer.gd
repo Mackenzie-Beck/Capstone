@@ -6,8 +6,7 @@ extends TileMapLayer
 @export var enemy_sprite_atlas_coords : Vector2 = Vector2.ZERO # set default values for these when assets are decided
 
 
-@export var player_coords : Vector2 = Vector2i(0,0)
-@export var player2_coords : Vector2i = Vector2i(0,1)
+
 @export var enemy_coords : Vector2 = Vector2i(10,-10)
 @export var tile_map_bounds : Vector2 = Vector2(40,40)
 @export var global_tile_size : Vector2 = to_global(map_to_local(Vector2i(1,1)))
@@ -50,9 +49,14 @@ func _ready() -> void:
 # Will need to change the second arg of set_cell when the tilemap resource is created
 func set_player_coords(coords : Vector2i):
 	#TODO: change logic so that player tile is set depending on the current player
-	player_coords = coords
-	set_cell(player_coords, 2, player_sprite_atlas_coords)
-	SB.player_moved.emit(player_coords)
+	PlayerManager.set_position(coords)
+	#player_coords = coords #technically not necessary
+	
+	if PlayerManager.current_player == 0:
+		set_cell(PlayerManager.get_position(), 2, player_sprite_atlas_coords)
+	elif PlayerManager.current_player == 1:
+		set_cell(PlayerManager.get_position(), 0, player2_sprite_atlas_coords)
+	SB.player_moved.emit(PlayerManager.get_position())
 	#print("player coords: ", player_coords)
 	
 	
@@ -140,10 +144,10 @@ func laser(shooting_expr:String) -> void:
 func _on_movement_expression_applied(movement_expr:String) -> void:
 	#print(movement_expr)
 	# clear current player tile
-	erase_cell(player_coords)
+	erase_cell(PlayerManager.get_position())
 	# calculate movement distance and emit fuel use 
-	#SB.fuel_used.emit(cartesian_distance(player_coords, movement_tile))
-	var new_fuel = PlayerManager.get_fuel() - cartesian_distance(player_coords, movement_tile)
+	#SB.fuel_used.emit(cartesian_distance(PlayerManager.get_position(), movement_tile))
+	var new_fuel = PlayerManager.get_fuel() - cartesian_distance(PlayerManager.get_position(), movement_tile)
 	#print(PlayerManager.get_fuel())
 	#print("new_fuel: ", new_fuel)
 	
@@ -153,7 +157,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	
 	# set_player_tile
-	var prev_player_coords = player_coords
+	var prev_player_coords = PlayerManager.get_position()
 	set_player_coords(movement_tile)
 	
 	
@@ -165,7 +169,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	#did player cross a laser
 	#if check_laser:
 		#print("check laser")
-	if did_player_cross_laser(prev_player_coords,player_coords):
+	if did_player_cross_laser(prev_player_coords,PlayerManager.get_position()):
 		PlayerManager.set_health(PlayerManager.get_health()-1)
 		#print("player crossed laser")
 	

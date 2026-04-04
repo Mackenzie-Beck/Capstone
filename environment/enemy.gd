@@ -28,7 +28,8 @@ func newAttack(player_location:Vector2i):
 	var types = []
 	var count = rng.randi_range(1,5)
 	#for j in range(0,count): #this is for the idea of having multiple attacks
-	var type = rng.randi() % 2
+	#var type = rng.randi() % 2
+	var type = 0
 	#type = 0 #this is for testing the weapon types specifically, remove when done
 	types.append(type) #this is part of multi-attacks
 	if type == 0: #line attack
@@ -38,12 +39,12 @@ func newAttack(player_location:Vector2i):
 		var variance = rng.randi_range(-4,4)
 		angle[0] -= variance
 		var xLength = get_parent().object_layer.tile_map_bounds[0]
-		get_enemy_attack_expression()
+		get_enemy_attack_expression(angle)
 		
 		for i in range(0,xLength*2):
 			line.add_point(get_parent().object_layer.map_to_local(get_parent().object_layer.enemy_coords + (angle)*i))
 		
-		
+		SB.enemy_laser.emit()
 		attacks.append(line)
 	else: #area attack
 		var bombCount = rng.randi_range(1,2)
@@ -57,12 +58,13 @@ func newAttack(player_location:Vector2i):
 			attacks.append(bombCenter)
 	return [attacks,type]
 
-func get_enemy_attack_expression():
+func get_enemy_attack_expression(angle : Vector2i):
 		#calculate slope and feed to point-slope form function
 		# Calculate slope
-		var dx = float(get_parent().object_layer.player_coords[0] - get_parent().object_layer.enemy_coords[0])
-		var dy = float(get_parent().object_layer.player_coords[1] - get_parent().object_layer.enemy_coords[1])
-		
+		#var dx = float(get_parent().object_layer.player_coords[0] - get_parent().object_layer.enemy_coords[0])
+		#var dy = float(get_parent().object_layer.player_coords[1] - get_parent().object_layer.enemy_coords[1])
+		var dx = float(angle[0])
+		var dy = float(angle[1])
 	# Guard against vertical line (undefined slope)
 		if dx == 0:
 			SB.enemy_attack.emit("x=" + str(get_parent().object_layer.enemy_coords[0]))
@@ -83,7 +85,7 @@ func get_enemy_attack_expression():
 			equation = str(-m) + "*x"
 		else:
 			equation = str(-m) + "*x" + str(-b)  # b is already negative, so no extra minus needed
-
+		print("enemy equation: ", equation)
 		SB.enemy_attack.emit(equation)
 
 

@@ -5,9 +5,11 @@ extends Node2D
 
 var rng = Utils.rng
 
+var last_coords : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	health = rng.randi_range(10,25)
+	SB.enemy_takes_damage.connect(_on_enemy_takes_damage)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -85,7 +87,7 @@ func get_enemy_attack_expression(angle : Vector2i):
 			equation = str(-m) + "*x"
 		else:
 			equation = str(-m) + "*x" + str(-b)  # b is already negative, so no extra minus needed
-		print("enemy equation: ", equation)
+		#print("enemy equation: ", equation)
 		SB.enemy_attack.emit(equation)
 
 
@@ -99,4 +101,6 @@ func makeLocation():
 	return newLocation
 	
 	
-	
+
+func _on_enemy_takes_damage():
+	health -=1

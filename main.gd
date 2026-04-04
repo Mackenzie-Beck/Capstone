@@ -87,8 +87,17 @@ func turnStart():
 		enemyDisplayMove(enemy_action[0])
 	
 func turnEnd():
+	var laser_expr = UIcontrol.player_control_ui.get_shooting_expression()
+	if not laser_expr.is_empty() and UIcontrol.player_control_ui.is_laser_mode:
+		#print("laser is not empty and player is in laser mode")
+		#print("enemey coords:", object_layer.enemy_coords)
+		#print("move coords: ", enemy_action[0])
+		if object_layer.did_enemy_cross_laser(object_layer.enemy_coords, enemy_action[0], laser_expr):
+			SB.enemy_takes_damage.emit()
+			#print("enemy crossed laser")
 	move_enemy(enemy_action[0])
 	enemyHitReg()
+
 	enemy_action = enemy.turnEnd(PlayerManager.get_player_coords())
 	
 

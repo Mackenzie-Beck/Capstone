@@ -30,6 +30,7 @@ var shoot_tile : Vector2i
 var check_laser: bool = false
 var prev_enemy_attack_expression : String
 var enemy_attack_expression: String
+var enemy_move_vector : Vector2
 var active_laser_expression : String
 var last_side: float = 0.0
 
@@ -41,6 +42,7 @@ func _ready() -> void:
 	
 	SB.enemy_attack.connect(_on_enemy_attack)
 	SB.enemy_laser.connect(_on_enemy_laser)
+	SB.enemy_move.connect(_on_enemy_move)
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
 	
@@ -130,9 +132,9 @@ func bomb(center_coord: Vector2i) ->void:
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()
 	#get enemies move expression
-	pass
-	#var intersection : Variant = get_intersect_point(enemy_move_expression, shooting_expr)
+	#var intersection : Variant = get_intersect_point(enemy_move_vector, shooting_expr)
 	#print("intersection at: ", intersection)
+	pass
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
@@ -165,7 +167,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 		#print("check laser")
 	if did_player_cross_laser(prev_player_coords,player_coords):
 		PlayerManager.set_health(PlayerManager.get_health()-1)
-		print("player crossed laser")
+		#print("player crossed laser")
 	
 
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
@@ -303,3 +305,26 @@ func _on_enemy_attack(equation: String):
 	enemy_attack_expression = equation
 	check_laser = false 
 	#print("enemy attack expression: ", enemy_attack_expression)
+
+func _on_enemy_move(movement_vector: Vector2):
+	enemy_move_vector = movement_vector
+
+
+
+func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_expression: String) -> bool:
+	var eq = parse_linear_exp_string(laser_expression)
+	var m = eq["m"]
+	var b = eq["b"]
+
+	var dx = float(end_coords.x - start_coords.x)
+	var dy = float(end_coords.y - start_coords.y)
+	var sx = float(start_coords.x)
+	var sy = float(start_coords.y)
+
+	# Denominator is zero when the enemy's path is parallel to the laser
+	var denom = -m * dx - dy
+	if abs(denom) < 0.0001:
+		return false
+
+	var t = (sy + m * sx + b) / denom
+	return t >= 0.0 and t <= 1.0

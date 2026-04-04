@@ -3,7 +3,7 @@ extends TileMapLayer
 
 @export var player_sprite_atlas_coords : Vector2 
 @export var player2_sprite_atlas_coords : Vector2i = Vector2i.ZERO
-@export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
+@export var enemy_sprite_atlas_coords : Vector2 = Vector2.ZERO # set default values for these when assets are decided
 
 
 @export var player_coords : Vector2 = Vector2i(0,0)

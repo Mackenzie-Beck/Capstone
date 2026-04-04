@@ -164,13 +164,13 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	# check if player is in bomb area
 	#print("player health before bomb: ", PlayerManager.get_health())
 	if is_coord_in_bomb(movement_tile):
-		PlayerManager.set_health(PlayerManager.get_health()-1)
+		SB.player_health_update.emit(-1)
 	#print("Player shealth after bomb: ", PlayerManager.get_health())
 	#did player cross a laser
 	#if check_laser:
 		#print("check laser")
 	if did_player_cross_laser(prev_player_coords,PlayerManager.get_position()):
-		PlayerManager.set_health(PlayerManager.get_health()-1)
+		SB.player_health_update.emit(-1)
 		#print("player crossed laser")
 	
 

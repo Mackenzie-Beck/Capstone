@@ -88,7 +88,7 @@ func add_term(term: DraggableTerm) -> void:
 	#Emit signals
 	if _update_expression():
 		_update_display()
-	
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIACTIVATE3)
 
 func remove_term(term: DraggableTerm) -> void:
 	"""Remove a term from this expression slot"""

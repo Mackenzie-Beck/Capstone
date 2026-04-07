@@ -22,7 +22,7 @@ func update_player_hbar(val: int) -> void:
 func update_player2_hbar(val: int) -> void:
 	Player2Health.value = val
 	
-func update_enemyd_hbar(val: int) -> void:
+func update_enemy_hbar(val: int) -> void:
 	if PlayerManager.multiplayer_check:
 		EnemyHealthMulti.value = val
 	else:

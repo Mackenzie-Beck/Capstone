@@ -73,7 +73,7 @@ func _on_execute_pressed() -> void:
 	print("  Weapon: ", "Laser" if is_laser_mode else "Bomb")
 	
 	_apply_to_ship(movement_expr, shooting_expr, is_laser_mode)
-	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIBUTTON4)
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIACTIVATE1)
 	#PlayerManager.swap_player()
 	if PlayerManager.multiplayer_check:
 		SB.turn_change.emit()

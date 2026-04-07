@@ -3,7 +3,7 @@ extends TileMapLayer
 
 @export var player_sprite_atlas_coords : Vector2 
 @export var player2_sprite_atlas_coords : Vector2i = Vector2i.ZERO
-@export var enemy_sprite_atlas_coords : Vector2 # set default values for these when assets are decided
+@export var enemy_sprite_atlas_coords : Vector2 = Vector2.ZERO # set default values for these when assets are decided
 
 
 @export var player_coords : Vector2 = Vector2i(0,0)
@@ -27,10 +27,11 @@ var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 var movement_tile : Vector2i
 var shoot_tile : Vector2i
 
-
+var check_laser: bool = false
 var prev_enemy_attack_expression : String
 var enemy_attack_expression: String
-
+var enemy_move_vector : Vector2
+var active_laser_expression : String
 var last_side: float = 0.0
 
 
@@ -40,7 +41,8 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_expression_applied)
 	
 	SB.enemy_attack.connect(_on_enemy_attack)
-	
+	SB.enemy_laser.connect(_on_enemy_laser)
+	SB.enemy_move.connect(_on_enemy_move)
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
 	
@@ -130,9 +132,9 @@ func bomb(center_coord: Vector2i) ->void:
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()
 	#get enemies move expression
-	pass
-	#var intersection : Variant = get_intersect_point(enemy_move_expression, shooting_expr)
+	#var intersection : Variant = get_intersect_point(enemy_move_vector, shooting_expr)
 	#print("intersection at: ", intersection)
+	pass
 
 
 func _on_movement_expression_applied(movement_expr:String) -> void:
@@ -156,14 +158,16 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	
 	# check if player is in bomb area
-	print("player health before bomb: ", PlayerManager.get_health())
+	#print("player health before bomb: ", PlayerManager.get_health())
 	if is_coord_in_bomb(movement_tile):
 		PlayerManager.set_health(PlayerManager.get_health()-1)
-	print("Player health after bomb: ", PlayerManager.get_health())
+	#print("Player shealth after bomb: ", PlayerManager.get_health())
 	#did player cross a laser
+	#if check_laser:
+		#print("check laser")
 	if did_player_cross_laser(prev_player_coords,player_coords):
-		#PlayerManager.set_health(PlayerManager.get_health()-1)
-		print("player crossed laser")
+		PlayerManager.set_health(PlayerManager.get_health()-1)
+		#print("player crossed laser")
 	
 
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
@@ -206,13 +210,15 @@ func did_player_cross_laser(prev_coords, coords):
 	#print("prev coords: ", prev_coords)
 	#print("current coords", coords)
 	var movement_expression = UIcontrol.player_control_ui.get_movement_expression()
-	print("enemy shoot expression: ", enemy_attack_expression)
-	var intersection : Variant = get_intersect_point(enemy_attack_expression, movement_expression)
-	print("intersection at: ", intersection)
+	#print("active laser attack expression: ", active_laser_expression)
+	#print("Enemy attack expression: ", enemy_attack_expression)
+	var intersection : Variant = get_intersect_point(active_laser_expression, movement_expression)
+	#print("intersection at: ", intersection)
 	if intersection == null:
 		return false
 	else:
-		return has_crossed_intersection(prev_coords, coords, intersection)
+		var intersection_tile = Vector2i(intersection.x, -intersection.y) # have to negate the y coordinate because prev_cord and coords are in tile space while the intersection is in math spacewda 
+		return has_crossed_intersection(prev_coords, coords, intersection_tile)
 
 
 func has_crossed_intersection(prev: Vector2, curr: Vector2, intersect: Vector2) -> bool:
@@ -223,6 +229,7 @@ func has_crossed_intersection(prev: Vector2, curr: Vector2, intersect: Vector2) 
 	var t = to_intersect.dot(movement) / movement.length_squared()
 
 	# t in [0,1] means the intersect point falls between prev and curr
+	print(t >= 0.0 and t <= 1.0)
 	return t >= 0.0 and t <= 1.0
 
 
@@ -286,10 +293,38 @@ func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 		
 	var x = (b2-b1) /(m1-m2)
 	var y = m1 * x + b1
-	return Vector2i(x,y)
+	return Vector2(x,y)
 	
-	
+func _on_enemy_laser():
+	check_laser = true
+	active_laser_expression = enemy_attack_expression
+
 func _on_enemy_attack(equation: String):
+	#print("on enemy attack")
 	prev_enemy_attack_expression = enemy_attack_expression
 	enemy_attack_expression = equation
+	check_laser = false 
 	#print("enemy attack expression: ", enemy_attack_expression)
+
+func _on_enemy_move(movement_vector: Vector2):
+	enemy_move_vector = movement_vector
+
+
+
+func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_expression: String) -> bool:
+	var eq = parse_linear_exp_string(laser_expression)
+	var m = eq["m"]
+	var b = eq["b"]
+
+	var dx = float(end_coords.x - start_coords.x)
+	var dy = float(end_coords.y - start_coords.y)
+	var sx = float(start_coords.x)
+	var sy = float(start_coords.y)
+
+	# Denominator is zero when the enemy's path is parallel to the laser
+	var denom = -m * dx - dy
+	if abs(denom) < 0.0001:
+		return false
+
+	var t = (sy + m * sx + b) / denom
+	return t >= 0.0 and t <= 1.0

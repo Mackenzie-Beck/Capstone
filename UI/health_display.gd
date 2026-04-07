@@ -14,15 +14,18 @@ func _ready() -> void:
 	Player2Health.value = 10
 
 func update_player_hbar(val: int) -> void:
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ROBO1)
 	if PlayerManager.multiplayer_check:
 		Player1HealthMulti.value = val
 	else:
 		Player1Health.value = val
 	
 func update_player2_hbar(val: int) -> void:
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ROBO1)
 	Player2Health.value = val
 	
 func update_enemy_hbar(val: int) -> void:
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ROBO4)
 	if PlayerManager.multiplayer_check:
 		EnemyHealthMulti.value = val
 	else:

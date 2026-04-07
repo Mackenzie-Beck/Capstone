@@ -40,11 +40,6 @@ func get_fuel() -> int:
 func get_position() -> Vector2:
 	return player_array[current_player].position
 
-func get_player_coords():
-	if current_player == 0:
-		return player1_coords
-	else:
-		return player2_coords
 
 func set_health(health:int) -> void:
 	player_array[current_player].health = health
@@ -55,14 +50,10 @@ func set_fuel(fuel:int) -> void:
 
 
 func _on_player_moved(new_player_coords: Vector2i):
-	if current_player == 0:
-		player1_coords = new_player_coords
-	else:
-		player2_coords = new_player_coords
+	set_position(new_player_coords)
 
 
-#NOTE, this function could be used to actually move the player node, right now it just tracks 
-# player pos for saving 
+
 func set_position(pos:Vector2) -> void:
 	player_array[current_player].position = pos
 

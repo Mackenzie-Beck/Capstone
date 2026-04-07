@@ -12,6 +12,17 @@ func _ready() -> void:
 	Player1HealthMulti.value = 10
 	EnemyHealthMulti.value = 10
 	Player2Health.value = 10
+	SB.player_health_update.connect(_on_player_health_update)
+
+
+func _on_player_health_update(value):
+	if PlayerManager.multiplayer_check:
+		if PlayerManager.current_player == 0:
+			update_player_hbar(Player1HealthMulti.value+value)
+		elif PlayerManager.current_player == 1:
+			update_player2_hbar(Player2Health.value+value)
+	else:
+		update_player_hbar(Player1Health.value+value)
 
 func update_player_hbar(val: int) -> void:
 	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ROBO1)

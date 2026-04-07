@@ -27,8 +27,8 @@ var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 
 var movement_tile : Vector2i
 var shoot_tile : Vector2i
-var prev_bomb_tile1 : Vector2i
-var prev_bomb_tile2: Vector2i
+var prev_bomb_tile1 : Variant = null  # tracks LMB's stolen bomb tile
+var prev_bomb_tile2 : Variant = null  # tracks RMB's stolen bomb tile
 
 var check_laser: bool = false
 var prev_enemy_attack_expression : String
@@ -84,32 +84,41 @@ func _process(_delta: float) -> void:
 		if not move.is_empty():
 			# check if the mouse coord is on move
 			if is_coord_on_line(move, hovered_tile):
-				if highlight_layer.get_cell_atlas_coords(hovered_tile) == highlight_bomb_coords:
-					highlight_layer.erase_cell(movement_tile)
-					movement_tile = hovered_tile
-					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				if prev_bomb_tile1 != null:
+					highlight_layer.set_cell(prev_bomb_tile1, 0, highlight_bomb_coords)
+					prev_bomb_tile1 = null
 				else:
 					highlight_layer.erase_cell(movement_tile)
-					movement_tile = hovered_tile
+					
+				movement_tile = hovered_tile
+				
+				if hovered_tile in all_bomb_coords:
+					prev_bomb_tile1 = hovered_tile
+					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				else:
 					highlight_layer.set_cell(hovered_tile, 0, highlight_move_coords)
 				#print("move: ", movement_tile)
-				
 
 			
 	elif Input.is_action_just_pressed("RMB") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
 		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
 		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
-				if highlight_layer.get_cell_atlas_coords(hovered_tile) == highlight_bomb_coords:
-					highlight_layer.erase_cell(shoot_tile)
-					shoot_tile = hovered_tile
-					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				if prev_bomb_tile2 != null:
+					highlight_layer.set_cell(prev_bomb_tile2, 0 , highlight_bomb_coords)
+					prev_bomb_tile2 = null
 				else:
 					highlight_layer.erase_cell(shoot_tile)
-					shoot_tile = hovered_tile
+				
+				shoot_tile = hovered_tile
+				
+				if hovered_tile in all_bomb_coords:
+					prev_bomb_tile2 = hovered_tile
+					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				else:
 					highlight_layer.set_cell(hovered_tile, 0, highlight_shoot_coords)
 				#print("shoot: ", shoot_tile)
-	
+
 		
 	if hovered_tile == last_hovered_tile:
 		return
@@ -139,7 +148,6 @@ func _process(_delta: float) -> void:
 	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(-hovered_tile.y)  
 
 	
-
 
 
 

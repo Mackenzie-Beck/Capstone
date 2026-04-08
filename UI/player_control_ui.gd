@@ -76,6 +76,7 @@ func _on_execute_pressed() -> void:
 	#PlayerManager.swap_player()
 	if PlayerManager.multiplayer_check:
 		SB.turn_change.emit()
+		
 	
 
 func _on_clear_pressed() -> void:

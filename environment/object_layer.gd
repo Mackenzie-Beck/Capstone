@@ -169,6 +169,14 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 		PlayerManager.set_health(PlayerManager.get_health()-1)
 		#print("player crossed laser")
 	
+	
+	var previous = { #this is to update the combat log with the previous action
+			"attack":Vector2i(shoot_tile.x,-shoot_tile.y),
+			"move":Vector2i(movement_tile.x,-movement_tile.y),
+			"attack_is_laser":UIcontrol.player_control_ui.is_laser_mode
+		}
+	SB.player_turn_end.emit(previous)
+	
 
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:

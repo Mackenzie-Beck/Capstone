@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cyej1r41funu"
+path="res://.godot/imported/xwinglaser.ogg-d84f89d9080fc34e4b9d7028ac7695ac.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/xwinglaser.ogg"
+dest_files=["res://.godot/imported/xwinglaser.ogg-d84f89d9080fc34e4b9d7028ac7695ac.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

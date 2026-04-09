@@ -66,7 +66,7 @@ func _on_new_player_expression(expression_data) -> void:
 # Environment functions
 
 func newgame():
-	player_location = to_global(object_layer.map_to_local(object_layer.player_coords))
+	player_location = to_global(object_layer.map_to_local(PlayerManager.get_position()))
 	enemy_action = $Enemy.start(player_location)
 	#turnStart()
 
@@ -98,7 +98,7 @@ func turnEnd():
 	move_enemy(enemy_action[0])
 	enemyHitReg()
 
-	enemy_action = enemy.turnEnd(PlayerManager.get_player_coords())
+	enemy_action = enemy.turnEnd(PlayerManager.get_position())
 	
 
 
@@ -129,7 +129,7 @@ func enemyHitReg():
 			for j in range(0,3):
 				if i.get_point_position(j) == player_location:
 					PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
-	if object_layer.player_coords in object_layer.all_bomb_coords:
+	if PlayerManager.get_position() in object_layer.all_bomb_coords:
 		PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
 	print(PlayerManager.get_health())
 	if PlayerManager.get_health() <= 0:

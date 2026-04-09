@@ -30,14 +30,14 @@ func newAttack(player_location:Vector2i):
 	var types = []
 	var count = rng.randi_range(1,5)
 	#for j in range(0,count): #this is for the idea of having multiple attacks
-	#var type = rng.randi() % 2
-	var type
+	var type = rng.randi() % 2
+	#var type = 0
 	#type = 0 #this is for testing the weapon types specifically, remove when done
 	types.append(type) #this is part of multi-attacks
 	if type == 0: #line attack
 		var line = Line2D.new()
 		line.default_color = Color(1,0,0)
-		var angle = (get_parent().object_layer.player_coords - get_parent().object_layer.enemy_coords)
+		var angle = (PlayerManager.get_position() - get_parent().object_layer.enemy_coords)
 		var variance = rng.randi_range(-4,4)
 		angle[0] -= variance
 		var xLength = get_parent().object_layer.tile_map_bounds[0]
@@ -94,8 +94,8 @@ func get_enemy_attack_expression(angle : Vector2i):
 func makeLocation():
 	var upperLimit = get_parent().object_layer.tile_map_bounds
 	var location = get_parent().object_layer.enemy_coords
-	var newLocation = get_parent().object_layer.player_coords
-	while newLocation == get_parent().object_layer.player_coords or newLocation in get_parent().object_layer.all_bomb_coords:
+	var newLocation = PlayerManager.get_position()
+	while newLocation == PlayerManager.get_position() or newLocation in get_parent().object_layer.all_bomb_coords:
 		newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
 		newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
 	return newLocation

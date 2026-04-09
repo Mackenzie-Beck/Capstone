@@ -1,6 +1,211 @@
 [gd_scene format=3 uid="uid://mvql55jtgi0b"]
 
 [ext_resource type="Script" uid="uid://b0uihg2jx14t7" path="res://Audio/AudioControl.gd" id="1_sevni"]
+[ext_resource type="Script" uid="uid://bu1jblwxl4jvm" path="res://Audio/SoundEffectSettings.gd" id="2_3q2bv"]
+[ext_resource type="AudioStream" uid="uid://cu4yvcnxbneln" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Console_1.ogg" id="3_wx0o1"]
+[ext_resource type="AudioStream" uid="uid://b1q2w0db2ep1q" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Console_2.ogg" id="4_r5ml0"]
+[ext_resource type="AudioStream" uid="uid://c87421blahsor" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_CPU_1.ogg" id="5_vsna0"]
+[ext_resource type="AudioStream" uid="uid://bawors4khggsb" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_CPU_2.ogg" id="6_gwxxy"]
+[ext_resource type="AudioStream" uid="uid://bwodh52lxw0ag" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_CPU_3.ogg" id="7_sudum"]
+[ext_resource type="AudioStream" uid="uid://bmvahw1tor2xl" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_CPU_4.ogg" id="8_vj6r1"]
+[ext_resource type="AudioStream" uid="uid://fww875jaxs27" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_CPU_5.ogg" id="9_7cmqs"]
+[ext_resource type="AudioStream" uid="uid://38jl82ki7fb0" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robotic_1.ogg" id="10_vj6r1"]
+[ext_resource type="AudioStream" uid="uid://c2xt85hme0ytb" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robotic_2.ogg" id="11_6dvly"]
+[ext_resource type="AudioStream" uid="uid://cis23p7aoay1s" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robotic_3.ogg" id="12_i034a"]
+[ext_resource type="AudioStream" uid="uid://cpubo0cq5i7x4" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robotic_4.ogg" id="13_tyh6o"]
+[ext_resource type="AudioStream" uid="uid://b3x3ph8t3rks1" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robotic_5.ogg" id="14_6jkkf"]
+[ext_resource type="AudioStream" uid="uid://bvxcim052kcfd" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robot_1.ogg" id="15_0pnut"]
+[ext_resource type="AudioStream" uid="uid://bhrjxwehyxqtc" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robot_2.ogg" id="16_ytu2v"]
+[ext_resource type="AudioStream" uid="uid://cy3fjymo2hh1f" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_Robot_3.ogg" id="17_ud730"]
+[ext_resource type="AudioStream" uid="uid://cbut2vboniuod" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Activate_1.ogg" id="18_y80t8"]
+[ext_resource type="AudioStream" uid="uid://ylbuyliw8rvs" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Activate_2.ogg" id="19_xc0qo"]
+[ext_resource type="AudioStream" uid="uid://dl3y8mqbetanq" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Activate_3.ogg" id="20_sxw31"]
+[ext_resource type="AudioStream" uid="uid://nsoqx2q3i1fc" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Button_1.ogg" id="21_xjti6"]
+[ext_resource type="AudioStream" uid="uid://ywkvio8onrof" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Button_2.ogg" id="22_qa8mc"]
+[ext_resource type="AudioStream" uid="uid://c4wgn7rpr15mt" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Button_3.ogg" id="23_ekeiq"]
+[ext_resource type="AudioStream" uid="uid://fx7itbsl3yjb" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Button_4.ogg" id="24_mxdrq"]
+[ext_resource type="AudioStream" uid="uid://bfb2p6hc3pyul" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Console_1.ogg" id="25_38m31"]
+[ext_resource type="AudioStream" uid="uid://bbtxbbcfdqssi" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Console_2.ogg" id="26_hg6fi"]
+[ext_resource type="AudioStream" uid="uid://itl0l843uaaa" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Console_3.ogg" id="27_t4cll"]
+[ext_resource type="AudioStream" uid="uid://djegorq656d8u" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Console_4.ogg" id="28_eqb0v"]
+[ext_resource type="AudioStream" uid="uid://b7uscte8ucixj" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/SciFi_UI_Console_5.ogg" id="29_sp5p6"]
+[ext_resource type="AudioStream" uid="uid://c04i7a3tygrbu" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/tiefighterlaser.ogg" id="30_tyh6o"]
+[ext_resource type="AudioStream" uid="uid://cyej1r41funu" path="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/OGG/xwinglaser.ogg" id="31_6jkkf"]
+
+[sub_resource type="Resource" id="Resource_aag1w"]
+script = ExtResource("2_3q2bv")
+sound_effect = ExtResource("3_wx0o1")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_3q2bv"]
+script = ExtResource("2_3q2bv")
+type = 1
+sound_effect = ExtResource("4_r5ml0")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_sudum"]
+script = ExtResource("2_3q2bv")
+type = 2
+sound_effect = ExtResource("5_vsna0")
+volume = -0.5
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_vj6r1"]
+script = ExtResource("2_3q2bv")
+type = 3
+sound_effect = ExtResource("6_gwxxy")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_5ldqf"]
+script = ExtResource("2_3q2bv")
+type = 4
+sound_effect = ExtResource("7_sudum")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_7ednq"]
+script = ExtResource("2_3q2bv")
+type = 5
+sound_effect = ExtResource("8_vj6r1")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_7k5mp"]
+script = ExtResource("2_3q2bv")
+type = 6
+sound_effect = ExtResource("9_7cmqs")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_7cmqs"]
+script = ExtResource("2_3q2bv")
+type = 7
+sound_effect = ExtResource("10_vj6r1")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_6msn2"]
+script = ExtResource("2_3q2bv")
+type = 8
+sound_effect = ExtResource("11_6dvly")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_cb0mh"]
+script = ExtResource("2_3q2bv")
+type = 9
+sound_effect = ExtResource("12_i034a")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_hcfvq"]
+script = ExtResource("2_3q2bv")
+type = 10
+sound_effect = ExtResource("13_tyh6o")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_jgpfi"]
+script = ExtResource("2_3q2bv")
+type = 11
+sound_effect = ExtResource("14_6jkkf")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_y2p2q"]
+script = ExtResource("2_3q2bv")
+type = 12
+sound_effect = ExtResource("15_0pnut")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_h6tx4"]
+script = ExtResource("2_3q2bv")
+type = 13
+sound_effect = ExtResource("16_ytu2v")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_u2h2c"]
+script = ExtResource("2_3q2bv")
+type = 14
+sound_effect = ExtResource("17_ud730")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_46fo2"]
+script = ExtResource("2_3q2bv")
+type = 15
+sound_effect = ExtResource("18_y80t8")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_5xu8x"]
+script = ExtResource("2_3q2bv")
+type = 16
+sound_effect = ExtResource("19_xc0qo")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_jkugm"]
+script = ExtResource("2_3q2bv")
+type = 17
+sound_effect = ExtResource("20_sxw31")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_c3op3"]
+script = ExtResource("2_3q2bv")
+type = 18
+sound_effect = ExtResource("21_xjti6")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_qw3jl"]
+script = ExtResource("2_3q2bv")
+type = 19
+sound_effect = ExtResource("22_qa8mc")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_tr4mv"]
+script = ExtResource("2_3q2bv")
+type = 20
+sound_effect = ExtResource("23_ekeiq")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_egpex"]
+script = ExtResource("2_3q2bv")
+type = 21
+sound_effect = ExtResource("24_mxdrq")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_ahowg"]
+script = ExtResource("2_3q2bv")
+type = 22
+sound_effect = ExtResource("25_38m31")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_76ljp"]
+script = ExtResource("2_3q2bv")
+type = 23
+sound_effect = ExtResource("26_hg6fi")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_a5icb"]
+script = ExtResource("2_3q2bv")
+type = 24
+sound_effect = ExtResource("27_t4cll")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_l3mhy"]
+script = ExtResource("2_3q2bv")
+type = 25
+sound_effect = ExtResource("28_eqb0v")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_3iii6"]
+script = ExtResource("2_3q2bv")
+type = 26
+sound_effect = ExtResource("29_sp5p6")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_6dvly"]
+script = ExtResource("2_3q2bv")
+type = 27
+sound_effect = ExtResource("30_tyh6o")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
+
+[sub_resource type="Resource" id="Resource_0pnut"]
+script = ExtResource("2_3q2bv")
+type = 28
+sound_effect = ExtResource("31_6jkkf")
+metadata/_custom_type_script = "uid://bu1jblwxl4jvm"
 
 [node name="AudioControl" type="Node2D" unique_id=1721757748]
 script = ExtResource("1_sevni")
+sound_effects = Array[ExtResource("2_3q2bv")]([SubResource("Resource_aag1w"), SubResource("Resource_3q2bv"), SubResource("Resource_sudum"), SubResource("Resource_vj6r1"), SubResource("Resource_5ldqf"), SubResource("Resource_7ednq"), SubResource("Resource_7k5mp"), SubResource("Resource_7cmqs"), SubResource("Resource_6msn2"), SubResource("Resource_cb0mh"), SubResource("Resource_hcfvq"), SubResource("Resource_jgpfi"), SubResource("Resource_y2p2q"), SubResource("Resource_h6tx4"), SubResource("Resource_u2h2c"), SubResource("Resource_46fo2"), SubResource("Resource_5xu8x"), SubResource("Resource_jkugm"), SubResource("Resource_c3op3"), SubResource("Resource_qw3jl"), SubResource("Resource_tr4mv"), SubResource("Resource_egpex"), SubResource("Resource_ahowg"), SubResource("Resource_76ljp"), SubResource("Resource_a5icb"), SubResource("Resource_l3mhy"), SubResource("Resource_3iii6"), SubResource("Resource_6dvly"), SubResource("Resource_0pnut")])

@@ -42,6 +42,7 @@ func _on_weapon_toggle_toggled(toggled_on: bool) -> void:
 	is_laser_mode = not toggled_on
 	_update_weapon_toggle_display()
 	weapon_type_changed.emit(is_laser_mode)
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.CPU4)
 
 func _update_weapon_toggle_display() -> void:
 	if is_laser_mode:
@@ -72,7 +73,7 @@ func _on_execute_pressed() -> void:
 	print("  Weapon: ", "Laser" if is_laser_mode else "Bomb")
 	
 	_apply_to_ship(movement_expr, shooting_expr, is_laser_mode)
-	
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIACTIVATE1)
 	#PlayerManager.swap_player()
 	if PlayerManager.multiplayer_check:
 		SB.turn_change.emit()
@@ -82,6 +83,7 @@ func _on_execute_pressed() -> void:
 func _on_clear_pressed() -> void:
 	movement_slot.clear_expression()
 	shooting_slot.clear_expression()
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.CPU1)
 
 func _apply_to_ship(movement_expr: String, shooting_expr: String, is_laser: bool) -> void:
 	"""Apply the expression just for testing"""

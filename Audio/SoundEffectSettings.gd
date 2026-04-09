@@ -4,6 +4,35 @@ extends Resource
 
 ## Stores the different types of sounds effects available to be played to distinguish them from another. Each new SoundEffect resource created should add to this enum, to allow them to be easily instantiated via [method AudioControl.create_2d_audio_at_location()] and [method AudioControl.create_audio()].
 enum SOUND_EFFECT_TYPE {
+	CONSOLE1,
+	CONSOLE2,
+	CPU1,
+	CPU2,
+	CPU3,
+	CPU4,
+	CPU5,
+	ROBO1,
+	ROBO2,
+	ROBO3,
+	ROBO4,
+	ROBO5,
+	ROBO6,
+	ROBO7,
+	ROBO8,
+	UIACTIVATE1,
+	UIACTIVATE2,
+	UIACTIVATE3,
+	UIBUTTON1,
+	UIBUTTON2,
+	UIBUTTON3,
+	UIBUTTON4,
+	UICONSOLE1,
+	UICONSOLE2,
+	UICONSOLE3,
+	UICONSOLE4,
+	UICONSOLE5,
+	EVILLASER,
+	GOODLASER,
 }
 
 @export_range(0, 10) var limit: int = 5 ## Maximum number of this SoundEffect to play simultaneously before culled.

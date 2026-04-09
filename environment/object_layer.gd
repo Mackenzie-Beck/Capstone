@@ -6,8 +6,7 @@ extends TileMapLayer
 @export var enemy_sprite_atlas_coords : Vector2 = Vector2.ZERO # set default values for these when assets are decided
 
 
-@export var player_coords : Vector2 = Vector2i(0,0)
-@export var player2_coords : Vector2i = Vector2i(0,1)
+
 @export var enemy_coords : Vector2 = Vector2i(10,-10)
 @export var tile_map_bounds : Vector2 = Vector2(40,40)
 @export var global_tile_size : Vector2 = to_global(map_to_local(Vector2i(1,1)))
@@ -18,14 +17,18 @@ extends TileMapLayer
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
 @export var all_bomb_coords: Array[Vector2i]
 
+
 @export var highlight_move_coords: Vector2i = Vector2i(2,0)
 @export var highlight_shoot_coords: Vector2i = Vector2i(3,0)
+@export var highlight_purple_coords: Vector2i = Vector2i(4,0)
 
 var last_hovered_tile: Vector2i = Vector2i(-1, -1)
 
 
 var movement_tile : Vector2i
 var shoot_tile : Vector2i
+var prev_bomb_tile1 : Variant = null  # tracks LMB's stolen bomb tile
+var prev_bomb_tile2 : Variant = null  # tracks RMB's stolen bomb tile
 
 var check_laser: bool = false
 var prev_enemy_attack_expression : String
@@ -50,9 +53,14 @@ func _ready() -> void:
 # Will need to change the second arg of set_cell when the tilemap resource is created
 func set_player_coords(coords : Vector2i):
 	#TODO: change logic so that player tile is set depending on the current player
-	player_coords = coords
-	set_cell(player_coords, 2, player_sprite_atlas_coords)
-	SB.player_moved.emit(player_coords)
+	PlayerManager.set_position(coords)
+	#player_coords = coords #technically not necessary
+	
+	if PlayerManager.current_player == 0:
+		set_cell(PlayerManager.get_position(), 2, player_sprite_atlas_coords)
+	elif PlayerManager.current_player == 1:
+		set_cell(PlayerManager.get_position(), 0, player2_sprite_atlas_coords)
+	SB.player_moved.emit(PlayerManager.get_position())
 	#print("player coords: ", player_coords)
 	
 	
@@ -76,29 +84,50 @@ func _process(_delta: float) -> void:
 		if not move.is_empty():
 			# check if the mouse coord is on move
 			if is_coord_on_line(move, hovered_tile):
-				highlight_layer.erase_cell(movement_tile)
+				if prev_bomb_tile1 != null:
+					highlight_layer.set_cell(prev_bomb_tile1, 0, highlight_bomb_coords)
+					prev_bomb_tile1 = null
+				else:
+					highlight_layer.erase_cell(movement_tile)
+					
 				movement_tile = hovered_tile
-				highlight_layer.set_cell(hovered_tile, 0, highlight_move_coords)
-				#print("move: ", movement_tile)
 				
+				if hovered_tile in all_bomb_coords:
+					prev_bomb_tile1 = hovered_tile
+					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				else:
+					highlight_layer.set_cell(hovered_tile, 0, highlight_move_coords)
+				#print("move: ", movement_tile)
 
 			
 	elif Input.is_action_just_pressed("RMB") and UIcontrol.player_control_ui.visible and not UIcontrol.player_control_ui.is_hovered:
 		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
 		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
-				highlight_layer.erase_cell(shoot_tile)
+				if prev_bomb_tile2 != null:
+					highlight_layer.set_cell(prev_bomb_tile2, 0 , highlight_bomb_coords)
+					prev_bomb_tile2 = null
+				else:
+					highlight_layer.erase_cell(shoot_tile)
+				
 				shoot_tile = hovered_tile
-				highlight_layer.set_cell(hovered_tile, 0, highlight_shoot_coords)
+				
+				if hovered_tile in all_bomb_coords:
+					prev_bomb_tile2 = hovered_tile
+					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				else:
+					highlight_layer.set_cell(hovered_tile, 0, highlight_shoot_coords)
 				#print("shoot: ", shoot_tile)
-	
+
 		
 	if hovered_tile == last_hovered_tile:
 		return
 		
 	if highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_coords and \
 	 highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_move_coords and \
-	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords:
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords:
 
 		highlight_layer.erase_cell(last_hovered_tile)
 
@@ -106,7 +135,10 @@ func _process(_delta: float) -> void:
 
 	if hovered_tile.x >= -tile_map_bounds.x and hovered_tile.x < tile_map_bounds.x and \
 	hovered_tile.y >= -tile_map_bounds.y and hovered_tile.y < tile_map_bounds.y and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_move_coords and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords:
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_move_coords and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords:
+		
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile
 	else:
@@ -116,7 +148,6 @@ func _process(_delta: float) -> void:
 	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(-hovered_tile.y)  
 
 	
-
 
 
 
@@ -140,10 +171,10 @@ func laser(shooting_expr:String) -> void:
 func _on_movement_expression_applied(movement_expr:String) -> void:
 	#print(movement_expr)
 	# clear current player tile
-	erase_cell(player_coords)
+	erase_cell(PlayerManager.get_position())
 	# calculate movement distance and emit fuel use 
-	#SB.fuel_used.emit(cartesian_distance(player_coords, movement_tile))
-	var new_fuel = PlayerManager.get_fuel() - cartesian_distance(player_coords, movement_tile)
+	#SB.fuel_used.emit(cartesian_distance(PlayerManager.get_position(), movement_tile))
+	var new_fuel = PlayerManager.get_fuel() - cartesian_distance(PlayerManager.get_position(), movement_tile)
 	#print(PlayerManager.get_fuel())
 	#print("new_fuel: ", new_fuel)
 	
@@ -153,20 +184,20 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	
 	# set_player_tile
-	var prev_player_coords = player_coords
+	var prev_player_coords = PlayerManager.get_position()
 	set_player_coords(movement_tile)
 	
 	
 	# check if player is in bomb area
 	#print("player health before bomb: ", PlayerManager.get_health())
 	if is_coord_in_bomb(movement_tile):
-		PlayerManager.set_health(PlayerManager.get_health()-1)
+		SB.player_health_update.emit(-1)
 	#print("Player shealth after bomb: ", PlayerManager.get_health())
 	#did player cross a laser
 	#if check_laser:
 		#print("check laser")
-	if did_player_cross_laser(prev_player_coords,player_coords):
-		PlayerManager.set_health(PlayerManager.get_health()-1)
+	if did_player_cross_laser(prev_player_coords,PlayerManager.get_position()):
+		SB.player_health_update.emit(-1)
 		#print("player crossed laser")
 	
 	

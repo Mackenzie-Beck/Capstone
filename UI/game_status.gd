@@ -52,7 +52,19 @@ func update_log(text: String, prev: int) -> void:
 func update_player_log(data:Dictionary, player=true) -> void:
 	if player:
 		var type = "Laser" if data.attack_is_laser else "Bomb"
-		var text = "Shot a " + type + " at " + str(data.attack) + "\nMoved to " + str(data.move)
+		var text = "Shot a " + type + " along the line: " + str(data.attack) + "\nMoved to " + str(data.move)
 		update_player_label(text)
+	else:
+		var type = "Laser" if data.attack_is_laser==0 else "Bomb"
+		var text = "Shot a " + type + " at "
+		if type == "Laser":
+			text += "the player\nMoved to " + str (data.move)
+		else:
+			text += str(data.attack[0]) + "\nMoved to " + str(data.move)
+		current_player_label.text = "CURRENT PLAYER: Player 1"
+		current_player_label.add_theme_color_override("font_color", Color.GREEN)
+		previous_label.text = "Previous turn: Enemy Ship"
+		combat_log.text = text
+		
 	
 	

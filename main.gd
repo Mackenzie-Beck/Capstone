@@ -97,6 +97,14 @@ func turnEnd():
 			#print("enemy crossed laser")
 	move_enemy(enemy_action[0])
 	enemyHitReg()
+	
+	if not PlayerManager.multiplayer_check:
+		var data = {
+			"attack":enemy_action[1][0],
+			"move":enemy_action[0],
+			"attack_is_laser":enemy_action[1][1]
+		}
+		SB.player_turn_end.emit(data,false)
 
 	enemy_action = enemy.turnEnd(PlayerManager.get_position())
 	
@@ -120,9 +128,7 @@ func enemyDisplayMove(move):
 	line.add_point(object_layer.map_to_local(move))
 	line.default_color = Color(0,1,0)
 	add_child(line)
-	pass
 
-#todo: change this to have where the attack generates an attack oneach tile on its line
 func enemyHitReg():
 	if enemy_action[1][1] == 0:
 		for i in enemy_action[1][0]:
@@ -131,7 +137,6 @@ func enemyHitReg():
 					PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
 		PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
-	print(PlayerManager.get_health())
 	if PlayerManager.get_health() <= 0:
 		gameEnd()
 

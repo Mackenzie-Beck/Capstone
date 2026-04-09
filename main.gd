@@ -30,9 +30,15 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_applied)
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 	fuel_updated.connect(UIcontrol.player_control_ui.update_fuel)
+	SB.game_over.connect(_on_game_over)
 	
 	
 	visible = false
+
+func _on_game_over():
+	UIcontrol.switch_view(UIcontrol.VIEWS.MAIN)
+	object_layer.reset_grid()
+
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("NextTurn"):

@@ -36,7 +36,7 @@ func _ready() -> void:
 	visible = false
 
 func _on_game_over():
-	UIcontrol.switch_view(UIcontrol.VIEWS.MAIN)
+	UIcontrol.switch_view(UIcontrol.VIEWS.GAMEOVER)
 	object_layer.reset_grid()
 
 

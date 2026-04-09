@@ -43,6 +43,8 @@ func get_position() -> Vector2:
 
 func set_health(health:int) -> void:
 	player_array[current_player].health = health
+	if player_array[current_player].health <=0:
+		SB.game_over.emit()
 
 func set_fuel(fuel:int) -> void:
 	player_array[current_player].fuel = fuel

@@ -22,6 +22,8 @@ extends Control
 @onready var coord_label: Label = $CanvasLayer/CoordLabel
 @onready var game_status: PanelContainer = $CanvasLayer/GameStatus
 @onready var health_display: Control = $CanvasLayer/HealthDisplay
+@onready var game_over_panel: PanelContainer = $CanvasLayer/GameOverPanel
+
 
 
 
@@ -37,7 +39,9 @@ and create an onready reference to that node in UIcontrol.gd (as above)
 enum VIEWS {
 	PAUSE,
 	MAIN,
-	PLAYER
+	PLAYER,
+	GAMEOVER,
+	GAMEWIN
 }
 
 
@@ -76,7 +80,12 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.MAIN:
 			hide_views()
 			main_menu.show()
-			
+		VIEWS.GAMEOVER:
+			hide_views()
+			pause_menu.show()
+			game_over_panel.show()
+		VIEWS.GAMEWIN:
+			hide_views()
 
 
 func _on_start_game():

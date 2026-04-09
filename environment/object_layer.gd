@@ -144,8 +144,8 @@ func _process(_delta: float) -> void:
 	if highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_coords and \
 	 highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_move_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords:
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords:
 
 		highlight_layer.erase_cell(last_hovered_tile)
 

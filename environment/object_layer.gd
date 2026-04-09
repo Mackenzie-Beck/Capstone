@@ -218,6 +218,17 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 		SB.player_health_update.emit(-1)
 		#print("player crossed laser")
 	
+	
+	if PlayerManager.multiplayer_check:
+		var is_laser = UIcontrol.player_control_ui.is_laser_mode
+		var previous = { #this is to update the combat log with the previous action
+				"attack":Vector2i(shoot_tile.x,-shoot_tile.y) if not is_laser else UIcontrol.player_control_ui.get_shooting_expression(),
+				"move":Vector2i(movement_tile.x,-movement_tile.y),
+				"attack_is_laser": is_laser
+			}
+		SB.player_turn_end.emit(previous, true)
+	
+	
 
 func _on_shooting_expression_applied(shooting_expr:String) -> void:
 	if UIcontrol.player_control_ui.is_laser_mode:

@@ -103,6 +103,14 @@ func turnEnd():
 			#print("enemy crossed laser")
 	move_enemy(enemy_action[0])
 	enemyHitReg()
+	
+	if not PlayerManager.multiplayer_check:
+		var data = {
+			"attack":enemy_action[1][0],
+			"move":enemy_action[0],
+			"attack_is_laser":enemy_action[1][1]
+		}
+		SB.player_turn_end.emit(data,false)
 
 	enemy_action = enemy.turnEnd(PlayerManager.get_position())
 	
@@ -126,9 +134,7 @@ func enemyDisplayMove(move):
 	line.add_point(object_layer.map_to_local(move))
 	line.default_color = Color(0,1,0)
 	add_child(line)
-	pass
 
-#todo: change this to have where the attack generates an attack oneach tile on its line
 func enemyHitReg():
 	if enemy_action[1][1] == 0:
 		for i in enemy_action[1][0]:
@@ -137,7 +143,6 @@ func enemyHitReg():
 					PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
 		PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
-	print(PlayerManager.get_health())
 	if PlayerManager.get_health() <= 0:
 		gameEnd()
 
@@ -151,7 +156,7 @@ func playerActionDisplay(expression_data) -> void:
 	var line = Line2D.new()
 	var xLength = object_layer.tile_map_bounds
 	var xOffset = Vector2i(0.5,0)
-	for x in range(-(xLength[0]),xLength[0]):
+	for x in range(-(xLength[0]),xLength[0]+1):
 		var formula = expression_data.expression
 		var error = expression.parse(formula, ["x"])
 		if error != OK:
@@ -161,9 +166,12 @@ func playerActionDisplay(expression_data) -> void:
 		if expression.has_execute_failed():
 			print(expression.get_error_text())
 			return
+		if abs(result) > object_layer.tile_map_bounds[1]: #stop drawing the line if it were to escape the bounds of the grid
+			continue
 		var point = Vector2i(x,-result)+xOffset
 		point = to_global(object_layer.map_to_local(point))
 		line.add_point(point)
+		
 	if expression_data.slot_name == "Shooting":
 		line.default_color = Color(1,0.8,0)
 	elif expression_data.slot_name == "Movement":

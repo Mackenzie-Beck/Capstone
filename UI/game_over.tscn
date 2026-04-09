@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://ns5kf52wuh2i"]
+
+[ext_resource type="Script" uid="uid://dl23bdme35mi4" path="res://game_over.gd" id="1_3y5qq"]
+[ext_resource type="Texture2D" uid="uid://28driiyqcp5n" path="res://assets/backgrounds/Untitled.png" id="2_wruqd"]
+
+[node name="GameOver" type="PanelContainer" unique_id=554774169]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3y5qq")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=626491990]
+layout_mode = 2
+texture = ExtResource("2_wruqd")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1101486207]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1191834910]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1769092760]
+layout_mode = 2
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Main Menu" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1421114189]
+layout_mode = 2
+text = "Main Menu
+"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1717130625]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -22,8 +22,8 @@ extends Control
 @onready var coord_label: Label = $CanvasLayer/CoordLabel
 @onready var game_status: PanelContainer = $CanvasLayer/GameStatus
 @onready var health_display: Control = $CanvasLayer/HealthDisplay
-@onready var game_over_panel: PanelContainer = $CanvasLayer/GameOverPanel
-
+@onready var game_win: PanelContainer = $CanvasLayer/GameWin
+@onready var game_over: PanelContainer = $CanvasLayer/GameOver
 
 
 
@@ -80,12 +80,14 @@ func switch_view(view: VIEWS) -> void:
 		VIEWS.MAIN:
 			hide_views()
 			main_menu.show()
+			SB.game_closed.emit()
 		VIEWS.GAMEOVER:
 			hide_views()
-			pause_menu.show()
-			game_over_panel.show()
+			game_over.show()
 		VIEWS.GAMEWIN:
 			hide_views()
+			game_win.show()
+			
 
 
 func _on_start_game():

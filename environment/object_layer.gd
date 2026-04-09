@@ -53,8 +53,14 @@ func _ready() -> void:
 func reset_grid():
 	for cell in highlight_layer.get_used_cells():
 		highlight_layer.set_cell(cell, -1)
-	set_player_coords(Vector2i(0,0))
-	set_enemy_coords(Vector2i(5,5))
+		
+	if PlayerManager.multiplayer_check:
+		set_player_coords(Vector2i(0,0))
+		set_enemy_coords(Vector2i(5,5))
+	else:
+		set_cell(PlayerManager.get_position(), 2, player_sprite_atlas_coords)
+		set_cell(PlayerManager.get_position(), 0, player2_sprite_atlas_coords)
+		set_enemy_coords(Vector2i(5,5))
 #	for tile in self.til
 
 

@@ -52,5 +52,4 @@ text = "Previous Turn: Nobody"
 [node name="CombatLog" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1351647584]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "Insert previous turn effects here."
 autowrap_mode = 3

@@ -193,6 +193,7 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+<<<<<<< HEAD
 			
 func bomb_projection(center_coord: Vector2i) -> void:
 	projected_bomb_coords = []
@@ -201,12 +202,16 @@ func bomb_projection(center_coord: Vector2i) -> void:
 			if Vector2i(center_coord.x+x, center_coord.y+y) not in all_bomb_coords:
 				highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_projection_coords)
 				projected_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+=======
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
+>>>>>>> trunk
 
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()
 	#get enemies move expression
 	#var intersection : Variant = get_intersect_point(enemy_move_vector, shooting_expr)
 	#print("intersection at: ", intersection)
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.GOODLASER)
 	pass
 
 

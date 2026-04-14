@@ -13,7 +13,24 @@ func _ready() -> void:
 	EnemyHealthMulti.value = 10
 	Player2Health.value = 10
 	SB.player_health_update.connect(_on_player_health_update)
+	SB.reset_game.connect(reset_health)
 
+
+func reset_health():
+	Player1Health.value = 10
+	EnemyHealth.value = 10
+	Player1HealthMulti.value = 10
+	EnemyHealthMulti.value = 10
+	Player2Health.value = 10
+	if PlayerManager.multiplayer_check:
+		if PlayerManager.current_player == 0:
+			update_player_hbar(Player1HealthMulti.value)
+		elif PlayerManager.current_player == 1:
+			update_player2_hbar(Player2Health.value)
+		update_enemy_hbar(EnemyHealthMulti.value)
+	else:
+		update_player_hbar(Player1Health.value)
+		update_enemy_hbar(EnemyHealth.value)
 
 func _on_player_health_update(value):
 	if PlayerManager.multiplayer_check:

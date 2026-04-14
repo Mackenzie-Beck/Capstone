@@ -179,7 +179,7 @@ func _process(_delta: float) -> void:
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
 	#highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords and \
-	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords:
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords :
 
 		highlight_layer.erase_cell(last_hovered_tile)
 
@@ -190,7 +190,7 @@ func _process(_delta: float) -> void:
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_move_coords and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_projection_coords:
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_projection_coords :
 		
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile
@@ -212,6 +212,12 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+	var rounded_e_vec = Vector2i(enemy_coords.round())
+	#print(all_bomb_coords)
+	#print(rounded_e_vec)
+	if all_bomb_coords.has(rounded_e_vec):
+		SB.enemy_takes_damage.emit()
+		#print("in a bomb")
 	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
 			
 func bomb_projection(center_coord: Vector2i) -> void:

@@ -50,6 +50,14 @@ func _ready() -> void:
 	set_enemy_coords(Vector2i(5,5))
 	
 
+func reset_grid():
+	for cell in highlight_layer.get_used_cells():
+		highlight_layer.set_cell(cell, -1)
+	set_player_coords(Vector2i(0,0))
+	set_enemy_coords(Vector2i(5,5))
+#	for tile in self.til
+
+
 # Will need to change the second arg of set_cell when the tilemap resource is created
 func set_player_coords(coords : Vector2i):
 	#TODO: change logic so that player tile is set depending on the current player
@@ -88,9 +96,16 @@ func _process(_delta: float) -> void:
 					highlight_layer.set_cell(prev_bomb_tile1, 0, highlight_bomb_coords)
 					prev_bomb_tile1 = null
 				else:
-					highlight_layer.erase_cell(movement_tile)
+					if movement_tile != null:
+						if movement_tile in all_bomb_coords:
+							#highlight_layer.erase_cell(movement_tile)
+							highlight_layer.set_cell(movement_tile,0,highlight_bomb_coords)
+						else:
+							highlight_layer.erase_cell(movement_tile)
 					
 				movement_tile = hovered_tile
+				if hovered_tile in all_bomb_coords:
+					prev_bomb_tile1 = hovered_tile
 				
 				if hovered_tile in all_bomb_coords:
 					prev_bomb_tile1 = hovered_tile
@@ -108,7 +123,10 @@ func _process(_delta: float) -> void:
 					highlight_layer.set_cell(prev_bomb_tile2, 0 , highlight_bomb_coords)
 					prev_bomb_tile2 = null
 				else:
-					highlight_layer.erase_cell(shoot_tile)
+					if shoot_tile != null and shoot_tile not in all_bomb_coords:
+						highlight_layer.erase_cell(shoot_tile)
+					elif shoot_tile in all_bomb_coords:
+						highlight_layer.set_cell(shoot_tile,0, highlight_bomb_coords)
 				
 				shoot_tile = hovered_tile
 				
@@ -126,8 +144,8 @@ func _process(_delta: float) -> void:
 	if highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_coords and \
 	 highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_move_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords:
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords:
 
 		highlight_layer.erase_cell(last_hovered_tile)
 
@@ -201,6 +219,17 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	if did_player_cross_laser(prev_player_coords,PlayerManager.get_position()):
 		SB.player_health_update.emit(-1)
 		#print("player crossed laser")
+	
+	
+	if PlayerManager.multiplayer_check:
+		var is_laser = UIcontrol.player_control_ui.is_laser_mode
+		var previous = { #this is to update the combat log with the previous action
+				"attack":Vector2i(shoot_tile.x,-shoot_tile.y) if not is_laser else UIcontrol.player_control_ui.get_shooting_expression(),
+				"move":Vector2i(movement_tile.x,-movement_tile.y),
+				"attack_is_laser": is_laser
+			}
+		SB.player_turn_end.emit(previous, true)
+	
 	
 
 func _on_shooting_expression_applied(shooting_expr:String) -> void:

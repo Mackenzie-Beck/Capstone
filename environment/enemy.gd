@@ -94,10 +94,17 @@ func makeLocation():
 	var upperLimit = get_parent().object_layer.tile_map_bounds
 	var location = get_parent().object_layer.enemy_coords
 	var newLocation = PlayerManager.get_position() #this is only to set up the while loop
+	var iterations = 0
 	while newLocation == PlayerManager.get_position() or Vector2i(newLocation) in get_parent().object_layer.all_bomb_coords:
+		if iterations <= 50: #this and the 2nd while loop are to prevent infinite loops where the enemy is surrounded by bomb tiles
+			newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
+			newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
+			iterations+=1
+		else:
+			break
+	while newLocation == PlayerManager.get_position(): 
 		newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
 		newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
-		#get_parent().object_layer.all_bomb_coords.append(newLocation)
 	return newLocation
 	
 	

@@ -160,7 +160,7 @@ func _process(_delta: float) -> void:
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
 	#highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords and \
-	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords:
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords :
 
 		highlight_layer.erase_cell(last_hovered_tile)
 
@@ -171,7 +171,7 @@ func _process(_delta: float) -> void:
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_move_coords and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_projection_coords:
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_projection_coords :
 		
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile

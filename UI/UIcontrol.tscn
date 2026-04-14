@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" path="res://UI/coord_label.tscn" id="5_4c5at"]
 [ext_resource type="PackedScene" path="res://UI/game_status.tscn" id="6_ptnnf"]
 [ext_resource type="PackedScene" path="res://UI/health_display.tscn" id="7_a5ama"]
+[ext_resource type="PackedScene" path="res://UI/game_win.tscn" id="8_j1p37"]
+[ext_resource type="PackedScene" path="res://UI/game_over.tscn" id="9_2uoqc"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
 process_mode = 3

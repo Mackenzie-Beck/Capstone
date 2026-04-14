@@ -212,7 +212,7 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
-AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
+	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
 			
 func bomb_projection(center_coord: Vector2i) -> void:
 	projected_bomb_coords = []

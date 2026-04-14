@@ -109,6 +109,7 @@ func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			print("Right-clicked term: ", term.term_value, " - removing")
 			remove_term(term)
+			AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIBUTTON2)
 
 func _update_expression() -> bool:
 	"""Build the expression string from current terms"""

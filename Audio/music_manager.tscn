@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bhorldoy5rtr4"]
+
+[ext_resource type="Script" path="res://Audio/music_manager.gd" id="1_b5t6d"]
+[ext_resource type="AudioStream" uid="uid://cdouwijvjbhf0" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/ogg/1 - Astro Reverie.ogg" id="2_l2aqf"]
+[ext_resource type="AudioStream" uid="uid://dnmm3e8fctrip" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/ogg/2 - Galactic Odyssey.ogg" id="3_hef1n"]
+[ext_resource type="AudioStream" uid="uid://4ndcpbh1xvtw" path="res://assets/audio/Sci-Fi Music Pack Vol. 2/Tracks/ogg/5 - Stellar Drift .ogg" id="4_oubgs"]
+
+[node name="MusicManager" type="Node2D" unique_id=2007463560]
+script = ExtResource("1_b5t6d")
+tracks = Array[AudioStream]([ExtResource("2_l2aqf"), ExtResource("3_hef1n"), ExtResource("4_oubgs")])

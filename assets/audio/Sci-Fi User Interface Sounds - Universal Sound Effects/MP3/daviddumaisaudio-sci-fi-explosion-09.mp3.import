@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://donaeushr4wmf"
+path="res://.godot/imported/daviddumaisaudio-sci-fi-explosion-09.mp3-8753295e784bd02072fc32cddac05768.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Sci-Fi User Interface Sounds - Universal Sound Effects/MP3/daviddumaisaudio-sci-fi-explosion-09.mp3"
+dest_files=["res://.godot/imported/daviddumaisaudio-sci-fi-explosion-09.mp3-8753295e784bd02072fc32cddac05768.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -317,7 +317,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gqkjk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_6xqn4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qhjqs")
 toggle_mode = true
-text = "🔫 Laser"
+text = "Laser"
 
 [node name="FuelLabel" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/RightPanel/ExtraControls" unique_id=283152861]
 layout_mode = 2

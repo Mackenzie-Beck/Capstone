@@ -56,6 +56,8 @@ func set_health(health:int) -> void:
 
 func set_fuel(fuel:int) -> void:
 	player_array[current_player].fuel = fuel
+	if player_array[current_player].health <=0:
+		SB.game_over.emit()
 
 
 

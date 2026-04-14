@@ -129,7 +129,8 @@ func enemyDisplayAttack(attacks):
 		else:
 			object_layer.bomb_projection(attack)
 			
-func activate_bomb(attacks):
+#used to transition from projected bomb to actual bomb in the highlight layer
+func activate_bomb(attacks): 
 	if attacks[1] == 1:
 		for attack in attacks[0]:
 			object_layer.bomb(attack)

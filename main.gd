@@ -108,7 +108,11 @@ func turnEnd():
 		#print("move coords: ", enemy_action[0])
 		if object_layer.did_enemy_cross_laser(object_layer.enemy_coords, enemy_action[0], laser_expr):
 			SB.enemy_takes_damage.emit()
-			#print("enemy crossed laser")
+			print("enemy crossed laser")
+	
+	move_enemy(enemy_action[0])
+	#print("in endTurn function")
+
 	activate_bomb(enemy_action[1])
 	enemyHitReg()
 	move_enemy(enemy_action[0])

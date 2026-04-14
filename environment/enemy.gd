@@ -35,6 +35,7 @@ func newAttack(player_location:Vector2i):
 	#type = 0 #this is for testing the weapon types specifically, remove when done
 	types.append(type) #this is part of multi-attacks
 	if type == 0: #line attack
+		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.EVILLASER)
 		var line = Line2D.new()
 		line.default_color = Color(1,0,0)
 		var angle = (PlayerManager.get_position() - get_parent().object_layer.enemy_coords)
@@ -49,6 +50,7 @@ func newAttack(player_location:Vector2i):
 		SB.enemy_laser.emit()
 		attacks.append(line)
 	else: #area attack
+		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
 		var bombCount = rng.randi_range(1,2)
 		var bombCenter: Vector2i
 		var d = 1 #max distance from player that a bomb can generate

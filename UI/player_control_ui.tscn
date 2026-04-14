@@ -153,13 +153,8 @@ layout_mode = 2
 [node name="Term_x2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1867304480 instance=ExtResource("1_2602y")]
 layout_mode = 2
 
-[node name="Term_y" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=289386546 instance=ExtResource("1_2602y")]
+[node name="Term_x3" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=906812671 instance=ExtResource("1_2602y")]
 layout_mode = 2
-term_value = "y"
-
-[node name="Term_y2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=207793624 instance=ExtResource("1_2602y")]
-layout_mode = 2
-term_value = "y"
 
 [node name="Term_2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1708428643 instance=ExtResource("1_2602y")]
 layout_mode = 2
@@ -217,6 +212,66 @@ term_value = "-"
 term_type = "operator"
 
 [node name="Term_*" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1977232882 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "*"
+term_type = "operator"
+
+[node name="Term_11" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=670355305 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "2"
+term_type = "number"
+
+[node name="Term_12" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1329189091 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "3"
+term_type = "number"
+
+[node name="Term_+2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=421852368 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "+"
+term_type = "operator"
+
+[node name="Term_13" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=175886489 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "4"
+term_type = "number"
+
+[node name="Term_14" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1371851688 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "5"
+term_type = "number"
+
+[node name="Term_15" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1164400225 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "6"
+term_type = "number"
+
+[node name="Term_16" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1261459296 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "7"
+term_type = "number"
+
+[node name="Term_17" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1447255873 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "8"
+term_type = "number"
+
+[node name="Term_18" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1642463886 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "9"
+term_type = "number"
+
+[node name="Term_19" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=1352219425 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "10"
+term_type = "number"
+
+[node name="Term_-2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=208052837 instance=ExtResource("1_2602y")]
+layout_mode = 2
+term_value = "-"
+term_type = "operator"
+
+[node name="Term_*2" parent="MarginContainer/VBoxContainer/HSplitContainer/LeftPanel/TermPoolPanel/ScrollContainer/TermPool" unique_id=948493848 instance=ExtResource("1_2602y")]
 layout_mode = 2
 term_value = "*"
 term_type = "operator"

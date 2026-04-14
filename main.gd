@@ -179,7 +179,10 @@ func playerActionDisplay(expression_data) -> void:
 	add_child(line)
 		
 		
-		
+func clear_lines():
+	for child in get_children():
+		if child is Line2D:
+			child.queue_free()
 		
 func _on_movement_expression_applied(movement_expression : String):
 	turnEnd()

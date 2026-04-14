@@ -29,7 +29,15 @@ func swap_player() -> void:
 	elif current_player == 1:
 		current_player = 0
 
-
+func reset_players():
+	player_array.clear()
+	player1_save_data = PlayerSavedData.new()
+	player_array.append(player1_save_data)
+	
+	player2_save_data = PlayerSavedData.new()
+	player_array.append(player2_save_data)
+	
+	
 #getters and setters
 func get_health() -> int:
 	return player_array[current_player].health

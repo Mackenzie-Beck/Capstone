@@ -93,10 +93,11 @@ func get_enemy_attack_expression(angle : Vector2i):
 func makeLocation():
 	var upperLimit = get_parent().object_layer.tile_map_bounds
 	var location = get_parent().object_layer.enemy_coords
-	var newLocation = PlayerManager.get_position()
-	while newLocation == PlayerManager.get_position() or newLocation in get_parent().object_layer.all_bomb_coords:
+	var newLocation = PlayerManager.get_position() #this is only to set up the while loop
+	while newLocation == PlayerManager.get_position() or Vector2i(newLocation) in get_parent().object_layer.all_bomb_coords:
 		newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
 		newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
+		#get_parent().object_layer.all_bomb_coords.append(newLocation)
 	return newLocation
 	
 	

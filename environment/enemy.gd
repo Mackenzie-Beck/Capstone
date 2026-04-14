@@ -111,3 +111,5 @@ func makeLocation():
 
 func _on_enemy_takes_damage():
 	health -=1
+	if health <=0:
+		SB.game_win.emit()

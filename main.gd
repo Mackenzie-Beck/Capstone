@@ -82,7 +82,7 @@ func _on_new_player_expression(expression_data) -> void:
 func newgame():
 	player_location = to_global(object_layer.map_to_local(PlayerManager.get_position()))
 	enemy_action = enemy.start(player_location)
-	#turnStart()
+	turnStart()
 
 	
 func gameEnd():
@@ -152,11 +152,13 @@ func enemyDisplayMove(move):
 
 func enemyHitReg():
 	if enemy_action[1][1] == 0:
+		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.EVILLASER)
 		for i in enemy_action[1][0]:
 			for j in range(0,3):
 				if i.get_point_position(j) == player_location:
 					PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
+		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
 		PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
 	if PlayerManager.get_health() <= 0:
 		gameEnd()

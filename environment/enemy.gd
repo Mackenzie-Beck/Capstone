@@ -31,10 +31,9 @@ func newAttack(player_location:Vector2i):
 	var count = rng.randi_range(1,5)
 	#for j in range(0,count): #this is for the idea of having multiple attacks
 	var type = rng.randi() % 2
-	type = 1 #this is for testing the weapon types specifically, remove when done
+	#type = 0 #this is for testing the weapon types specifically, remove when done
 	types.append(type) #this is part of multi-attacks
 	if type == 0: #line attack
-		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.EVILLASER)
 		var line = Line2D.new()
 		line.default_color = Color(1,0,0)
 		var angle = (PlayerManager.get_position() - get_parent().object_layer.enemy_coords)
@@ -49,7 +48,6 @@ func newAttack(player_location:Vector2i):
 		SB.enemy_laser.emit()
 		attacks.append(line)
 	else: #area attack
-		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
 		var bombCount = rng.randi_range(1,2)
 		var bombCenter: Vector2i
 		var d = 1 #max distance from player that a bomb can generate
@@ -95,8 +93,16 @@ func get_enemy_attack_expression(angle : Vector2i):
 func makeLocation():
 	var upperLimit = get_parent().object_layer.tile_map_bounds
 	var location = get_parent().object_layer.enemy_coords
-	var newLocation = PlayerManager.get_position()
-	while newLocation == PlayerManager.get_position() or newLocation in get_parent().object_layer.all_bomb_coords:
+	var newLocation = PlayerManager.get_position() #this is only to set up the while loop
+	var iterations = 0
+	while newLocation == PlayerManager.get_position() or Vector2i(newLocation) in get_parent().object_layer.all_bomb_coords:
+		if iterations <= 50: #this and the 2nd while loop are to prevent infinite loops where the enemy is surrounded by bomb tiles
+			newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
+			newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
+			iterations+=1
+		else:
+			break
+	while newLocation == PlayerManager.get_position(): 
 		newLocation[0] = clamp(rng.randi_range(location[0]-5,location[0]+5),-upperLimit[0],upperLimit[0])
 		newLocation[1] = clamp(rng.randi_range(location[1]-5,location[1]+5),-upperLimit[1],upperLimit[1])
 	return newLocation

@@ -24,7 +24,7 @@ extends TileMapLayer
 @export var highlight_shoot_coords: Vector2i = Vector2i(3,0)
 @export var highlight_purple_coords: Vector2i = Vector2i(4,0)
 
-var last_hovered_tile: Vector2i = Vector2i(-1, -1)
+var last_hovered_tile: Vector2i = Vector2i(-100, -100)
 
 
 var movement_tile : Vector2i
@@ -195,7 +195,7 @@ func _process(_delta: float) -> void:
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile
 	else:
-		last_hovered_tile = Vector2i(-1, -1)
+		last_hovered_tile = Vector2i(-100, -100)
 
 	# Set the text of the coord_label
 	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(-hovered_tile.y)  

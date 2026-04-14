@@ -73,7 +73,7 @@ func _on_new_player_expression(expression_data) -> void:
 
 func newgame():
 	player_location = to_global(object_layer.map_to_local(PlayerManager.get_position()))
-	enemy_action = $Enemy.start(player_location)
+	enemy_action = enemy.start(player_location)
 	#turnStart()
 
 	
@@ -101,8 +101,9 @@ func turnEnd():
 		if object_layer.did_enemy_cross_laser(object_layer.enemy_coords, enemy_action[0], laser_expr):
 			SB.enemy_takes_damage.emit()
 			#print("enemy crossed laser")
-	move_enemy(enemy_action[0])
+	activate_bomb(enemy_action[1])
 	enemyHitReg()
+	move_enemy(enemy_action[0])
 	
 	if not PlayerManager.multiplayer_check:
 		var data = {
@@ -126,7 +127,12 @@ func enemyDisplayAttack(attacks):
 		if attacks[1] == 0:
 			add_child(attack)
 		else:
-			object_layer.bomb(attack) #change this to a custom displayBomb func, that mirrors bomb() with a lower alpha
+			object_layer.bomb_projection(attack)
+			
+func activate_bomb(attacks):
+	if attacks[1] == 1:
+		for attack in attacks[0]:
+			object_layer.bomb(attack)
 	
 func enemyDisplayMove(move):
 	var line = Line2D.new()
@@ -140,9 +146,9 @@ func enemyHitReg():
 		for i in enemy_action[1][0]:
 			for j in range(0,3):
 				if i.get_point_position(j) == player_location:
-					PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
+					PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
-		PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
+		PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
 	if PlayerManager.get_health() <= 0:
 		gameEnd()
 

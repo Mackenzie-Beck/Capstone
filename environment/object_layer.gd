@@ -15,6 +15,7 @@ extends TileMapLayer
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
+@export var highlight_bomb_projection_coords: Vector2i = Vector2i(5,0)
 @export var all_bomb_coords: Array[Vector2i]
 
 
@@ -145,7 +146,8 @@ func _process(_delta: float) -> void:
 	 highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_move_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords:
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords and \
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords:
 
 		highlight_layer.erase_cell(last_hovered_tile)
 
@@ -155,7 +157,8 @@ func _process(_delta: float) -> void:
 	hovered_tile.y >= -tile_map_bounds.y and hovered_tile.y < tile_map_bounds.y and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_move_coords and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords:
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords and \
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords:
 		
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile
@@ -177,6 +180,11 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+			
+func bomb_projection(center_coord: Vector2i) -> void:
+	for x in range(-1,2):
+		for y in range(-1,2):
+			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_projection_coords)
 
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()

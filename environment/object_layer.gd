@@ -15,7 +15,9 @@ extends TileMapLayer
 @export var highlight_layer: TileMapLayer
 @export var highlight_atlas_coords: Vector2i = Vector2i.ZERO
 @export var highlight_bomb_coords: Vector2i = Vector2i(1,0)
+@export var highlight_bomb_projection_coords: Vector2i = Vector2i(5,0)
 @export var all_bomb_coords: Array[Vector2i]
+@export var projected_bomb_coords: Array[Vector2i]
 
 
 @export var highlight_move_coords: Vector2i = Vector2i(2,0)
@@ -92,8 +94,11 @@ func _process(_delta: float) -> void:
 		if not move.is_empty():
 			# check if the mouse coord is on move
 			if is_coord_on_line(move, hovered_tile):
-				if prev_bomb_tile1 != null:
+				if prev_bomb_tile1 != null and prev_bomb_tile1 in all_bomb_coords:
 					highlight_layer.set_cell(prev_bomb_tile1, 0, highlight_bomb_coords)
+					prev_bomb_tile1 = null
+				elif prev_bomb_tile1 != null and prev_bomb_tile1 in projected_bomb_coords:
+					highlight_layer.set_cell(prev_bomb_tile1, 0, highlight_bomb_projection_coords)
 					prev_bomb_tile1 = null
 				else:
 					if movement_tile != null:
@@ -110,6 +115,9 @@ func _process(_delta: float) -> void:
 				if hovered_tile in all_bomb_coords:
 					prev_bomb_tile1 = hovered_tile
 					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				elif hovered_tile in projected_bomb_coords:
+					prev_bomb_tile1 = hovered_tile
+					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
 				else:
 					highlight_layer.set_cell(hovered_tile, 0, highlight_move_coords)
 				#print("move: ", movement_tile)
@@ -119,8 +127,11 @@ func _process(_delta: float) -> void:
 		var shoot = UIcontrol.player_control_ui.get_shooting_expression()
 		if not shoot.is_empty():
 			if is_coord_on_line(shoot, hovered_tile):
-				if prev_bomb_tile2 != null:
+				if prev_bomb_tile2 != null and prev_bomb_tile2 in all_bomb_coords:
 					highlight_layer.set_cell(prev_bomb_tile2, 0 , highlight_bomb_coords)
+					prev_bomb_tile2 = null
+				elif prev_bomb_tile2 != null and prev_bomb_tile2 in projected_bomb_coords:
+					highlight_layer.set_cell(prev_bomb_tile2, 0, highlight_bomb_projection_coords)
 					prev_bomb_tile2 = null
 				else:
 					if shoot_tile != null and shoot_tile not in all_bomb_coords:
@@ -131,6 +142,9 @@ func _process(_delta: float) -> void:
 				shoot_tile = hovered_tile
 				
 				if hovered_tile in all_bomb_coords:
+					prev_bomb_tile2 = hovered_tile
+					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
+				elif hovered_tile in projected_bomb_coords:
 					prev_bomb_tile2 = hovered_tile
 					highlight_layer.set_cell(hovered_tile, 0, highlight_purple_coords)
 				else:
@@ -144,8 +158,9 @@ func _process(_delta: float) -> void:
 	if highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_coords and \
 	 highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_move_coords and \
 	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords:
+	#highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_shoot_coords and \
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_purple_coords and \
+	highlight_layer.get_cell_atlas_coords(last_hovered_tile) != highlight_bomb_projection_coords:
 
 		highlight_layer.erase_cell(last_hovered_tile)
 
@@ -155,7 +170,8 @@ func _process(_delta: float) -> void:
 	hovered_tile.y >= -tile_map_bounds.y and hovered_tile.y < tile_map_bounds.y and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_move_coords and highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
 	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_shoot_coords and \
-	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords:
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_purple_coords and \
+	highlight_layer.get_cell_atlas_coords(hovered_tile) != highlight_bomb_projection_coords:
 		
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile
@@ -177,7 +193,18 @@ func bomb(center_coord: Vector2i) ->void:
 		for y in range(-1,2):
 			highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_coords)
 			all_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+<<<<<<< HEAD
+			
+func bomb_projection(center_coord: Vector2i) -> void:
+	projected_bomb_coords = []
+	for x in range(-1,2):
+		for y in range(-1,2):
+			if Vector2i(center_coord.x+x, center_coord.y+y) not in all_bomb_coords:
+				highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_projection_coords)
+				projected_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+=======
 	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
+>>>>>>> trunk
 
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()

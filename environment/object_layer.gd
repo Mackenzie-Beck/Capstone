@@ -325,7 +325,7 @@ func did_player_cross_laser(prev_coords, coords):
 		var intersection_tile = Vector2i(intersection.x, -intersection.y) # have to negate the y coordinate because prev_cord and coords are in tile space while the intersection is in math spacewda 
 		return has_crossed_intersection(prev_coords, coords, intersection_tile)
 
-
+#used for player cross laser
 func has_crossed_intersection(prev: Vector2, curr: Vector2, intersect: Vector2) -> bool:
 	var movement = curr - prev
 	var to_intersect = intersect - prev

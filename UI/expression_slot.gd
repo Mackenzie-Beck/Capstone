@@ -43,21 +43,21 @@ func get_terms_container() -> GridContainer:
 
 func can_accept_term(term: DraggableTerm) -> bool:
 	"""Check if this slot can accept the given term"""
-	print("Checking if slot '", slot_name, "' can accept term: ", term.term_value)
+	#print("Checking if slot '", slot_name, "' can accept term: ", term.term_value)
 	
 	if not terms_container:
-		print("  REJECTED: No terms_container!")
+		#print("  REJECTED: No terms_container!")
 		return false
 	
 	if terms.size() >= max_terms:
-		print("  REJECTED: Too many terms (", terms.size(), "/", max_terms, ")")
+		#print("  REJECTED: Too many terms (", terms.size(), "/", max_terms, ")")
 		return false
 	
 	if not term.term_type in allowed_term_types:
-		print("  REJECTED: Term type '", term.term_type, "' not in allowed types: ", allowed_term_types)
+		#print("  REJECTED: Term type '", term.term_type, "' not in allowed types: ", allowed_term_types)
 		return false
 	
-	print("  ACCEPTED!")
+	#print("  ACCEPTED!")
 	return true
 	
 
@@ -66,7 +66,7 @@ func add_term(term: DraggableTerm) -> void:
 	"""Add a term to this expression slot"""
 	#Check if term is good to be accepted
 	if not can_accept_term(term):
-		print("  add_term: can_accept_term returned false")
+		#print("  add_term: can_accept_term returned false")
 		return
 	
 	#Remove from current parent and add to slot
@@ -95,7 +95,7 @@ func remove_term(term: DraggableTerm) -> void:
 	var index = terms.find(term)
 	if index >= 0:
 		terms.remove_at(index)
-		print(term.original_position)
+		#print(term.original_position)
 		term._return_to_original()
 		#Disconnect the signal for right click removal
 		term.gui_input.disconnect(_on_term_clicked)
@@ -107,7 +107,7 @@ func _on_term_clicked(event: InputEvent, term: DraggableTerm) -> void:
 	"""Handle right-click to remove terms"""
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			print("Right-clicked term: ", term.term_value, " - removing")
+			#print("Right-clicked term: ", term.term_value, " - removing")
 			remove_term(term)
 			AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIBUTTON2)
 

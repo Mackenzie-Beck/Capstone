@@ -53,7 +53,7 @@ func _ready() -> void:
 	
 
 func reset_grid():
-	print("reset grid")
+	#print("reset grid")
 	highlight_layer.clear()
 	clear()
 	
@@ -341,7 +341,7 @@ func has_crossed_intersection(prev: Vector2, curr: Vector2, intersect: Vector2) 
 func parse_linear_exp_string(expression : String) -> Dictionary:
 	var m : float
 	var b : float
-	
+	#print("expression in parlse_linear_exp_string: ",expression)
 	if 'x' in expression:
 		var parts = expression.split('x')
 		#print("parts ", parts)
@@ -355,9 +355,13 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 		
 		
 		#print("mstr: " ,m_str)
+		#print("bstr: " ,b_str)
 		if m_str =="" and b_str != "":
 			var b_parts = b_str.split("+") if "+" in b_str else b_str.split("-")
-			m = float(b_parts[0])
+			if b_parts[0] == "":
+				m=1
+			else:
+				m = float(b_parts[0])
 			b = float(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
 			# re add the - sign if split was on -
 			if "+" not in b_str and b_parts.size() > 1:
@@ -385,9 +389,9 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 		
 func get_intersect_point(expression1: String, expression2 : String) -> Variant:
 	var eq1 = parse_linear_exp_string(expression1)
-	print("eq1: ", eq1)
+	#print("laser expression: ", eq1)
 	var eq2 = parse_linear_exp_string(expression2)
-	print("eq2: ", eq2)
+	#print("move vector: ", eq2)
 	var m1 = eq1["m"]
 	var m2 = eq2["m"]
 	var b1 = eq1["b"]
@@ -415,21 +419,40 @@ func _on_enemy_move(movement_vector: Vector2):
 	enemy_move_vector = movement_vector
 
 
-
-func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_expression: String) -> bool:
-	var eq = parse_linear_exp_string(laser_expression)
-	var m = eq["m"]
-	var b = eq["b"]
-
-	var dx = float(end_coords.x - start_coords.x)
-	var dy = float(end_coords.y - start_coords.y)
-	var sx = float(start_coords.x)
-	var sy = float(start_coords.y)
-
-	# Denominator is zero when the enemy's path is parallel to the laser
-	var denom = -m * dx - dy
+func segment_crosses_line(start: Vector2, end: Vector2, m: float, b: float) -> bool:
+	var dx = end.x - start.x
+	var dy = end.y - start.y
+	
+	var denom = dy - m * dx
+	
+	# segment is parallel to the line
 	if abs(denom) < 0.0001:
 		return false
-
-	var t = (sy + m * sx + b) / denom
+	
+	var t = (m * start.x + b - start.y) / denom
 	return t >= 0.0 and t <= 1.0
+	
+	
+func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_expression: String) -> bool:
+	var laser_equation = parse_linear_exp_string(laser_expression)
+	print("laser expression: ", laser_equation)
+	var corrected_start = Vector2i(start_coords.x, -start_coords.y)
+	var corrected_end = Vector2i(end_coords.x, -end_coords.y)
+	print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
+	return segment_crosses_line(start_coords, end_coords, laser_equation["m"], laser_equation["b"])
+	#var eq = parse_linear_exp_string(laser_expression)
+	#var m = eq["m"]
+	#var b = eq["b"]
+#
+	#var dx = float(end_coords.x - start_coords.x)
+	#var dy = float(end_coords.y - start_coords.y)
+	#var sx = float(start_coords.x)
+	#var sy = float(start_coords.y)
+#
+	## Denominator is zero when the enemy's path is parallel to the laser
+	#var denom = -m * dx - dy
+	#if abs(denom) < 0.0001:
+		#return false
+#
+	#var t = (sy + m * sx + b) / denom
+	#return t >= 0.0 and t <= 1.0

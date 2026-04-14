@@ -31,7 +31,7 @@ func _ready() -> void:
 
 func _on_reset_game():
 	_on_clear_pressed()
-	print("fuel: ",PlayerManager.get_fuel() )
+	#print("fuel: ",PlayerManager.get_fuel() )
 	update_fuel(PlayerManager.get_fuel())
 	
 
@@ -39,10 +39,12 @@ func _process(_delta: float) -> void:
 	is_hovered = background.get_global_rect().has_point(get_global_mouse_position())
 
 func _on_movement_expression_changed(expression_data: Dictionary) -> void:
-	print("Movement expression changed: ", expression_data)
+	#print("Movement expression changed: ", expression_data)
+	pass
 
 func _on_shooting_expression_changed(expression_data: Dictionary) -> void:
-	print("Shooting expression changed: ", expression_data)
+	#print("Shooting expression changed: ", expression_data)
+	pass
 
 func _on_weapon_toggle_toggled(toggled_on: bool) -> void:
 	is_laser_mode = not toggled_on
@@ -73,10 +75,10 @@ func _on_execute_pressed() -> void:
 	movement_expression_applied.emit(movement_expr)
 	shooting_expression_applied.emit(shooting_expr)
 	
-	print("Applied expressions:")
-	print("  Movement: ", movement_expr)
-	print("  Shooting: ", shooting_expr)
-	print("  Weapon: ", "Laser" if is_laser_mode else "Bomb")
+	#print("Applied expressions:")
+	#print("  Movement: ", movement_expr)
+	#print("  Shooting: ", shooting_expr)
+	#print("  Weapon: ", "Laser" if is_laser_mode else "Bomb")
 	
 	_apply_to_ship(movement_expr, shooting_expr, is_laser_mode)
 	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.UIACTIVATE1)

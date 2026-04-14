@@ -31,15 +31,23 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.weapon_type_changed.connect(_on_weapon_changed)
 	fuel_updated.connect(UIcontrol.player_control_ui.update_fuel)
 	SB.game_over.connect(_on_game_over)
+	SB.game_win.connect(_on_game_win)
+	SB.game_closed.connect(_on_game_closed)
 	
 	
 	visible = false
+
+func _on_game_closed():
+	object_layer.reset_grid()
 
 func _on_game_over():
 	UIcontrol.switch_view(UIcontrol.VIEWS.GAMEOVER)
 	object_layer.reset_grid()
 
-
+func _on_game_win():
+	UIcontrol.switch_view(UIcontrol.VIEWS.GAMEWIN)
+	object_layer.reset_grid()
+	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("NextTurn"):
 		turnEnd()
@@ -73,8 +81,8 @@ func _on_new_player_expression(expression_data) -> void:
 
 func newgame():
 	player_location = to_global(object_layer.map_to_local(PlayerManager.get_position()))
-	enemy_action = $Enemy.start(player_location)
-	#turnStart()
+	enemy_action = enemy.start(player_location)
+	turnStart()
 
 	
 func gameEnd():
@@ -104,8 +112,10 @@ func turnEnd():
 	
 	move_enemy(enemy_action[0])
 	#print("in endTurn function")
-	
+
+	activate_bomb(enemy_action[1])
 	enemyHitReg()
+	move_enemy(enemy_action[0])
 	
 	if not PlayerManager.multiplayer_check:
 		var data = {
@@ -129,7 +139,13 @@ func enemyDisplayAttack(attacks):
 		if attacks[1] == 0:
 			add_child(attack)
 		else:
-			object_layer.bomb(attack) #change this to a custom displayBomb func, that mirrors bomb() with a lower alpha
+			object_layer.bomb_projection(attack)
+			
+#used to transition from projected bomb to actual bomb in the highlight layer
+func activate_bomb(attacks): 
+	if attacks[1] == 1:
+		for attack in attacks[0]:
+			object_layer.bomb(attack)
 	
 func enemyDisplayMove(move):
 	var line = Line2D.new()
@@ -140,12 +156,14 @@ func enemyDisplayMove(move):
 
 func enemyHitReg():
 	if enemy_action[1][1] == 0:
+		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.EVILLASER)
 		for i in enemy_action[1][0]:
 			for j in range(0,3):
 				if i.get_point_position(j) == player_location:
-					PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
+					PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
-		PlayerManager.set_health(PlayerManager.get_health()-$Enemy.damage)
+		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
+		PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
 	if PlayerManager.get_health() <= 0:
 		gameEnd()
 
@@ -182,7 +200,10 @@ func playerActionDisplay(expression_data) -> void:
 	add_child(line)
 		
 		
-		
+func clear_lines():
+	for child in get_children():
+		if child is Line2D:
+			child.queue_free()
 		
 func _on_movement_expression_applied(movement_expression : String):
 	turnEnd()

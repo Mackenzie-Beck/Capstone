@@ -24,10 +24,16 @@ func _ready() -> void:
 	weapon_toggle.toggled.connect(_on_weapon_toggle_toggled)
 	execute_button.pressed.connect(_on_execute_pressed)
 	clear_button.pressed.connect(_on_clear_pressed)
+	SB.reset_game.connect(_on_reset_game)
 	
 	# Initialize weapon toggle
 	_update_weapon_toggle_display()
 
+func _on_reset_game():
+	_on_clear_pressed()
+	print("fuel: ",PlayerManager.get_fuel() )
+	update_fuel(PlayerManager.get_fuel())
+	
 
 func _process(_delta: float) -> void:
 	is_hovered = background.get_global_rect().has_point(get_global_mouse_position())

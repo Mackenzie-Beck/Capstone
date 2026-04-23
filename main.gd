@@ -49,11 +49,7 @@ func _on_game_win():
 	object_layer.reset_grid()
 	
 func _process(delta: float) -> void:
-	#TODO: remove the NextTurn input
-	if Input.is_action_just_pressed("NextTurn"):
-		turnEnd()
-		turnStart()
-	elif Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause"):
 		UIcontrol.switch_view(UIcontrol.VIEWS.PAUSE)
 	
 
@@ -84,12 +80,6 @@ func newgame():
 	player_location = to_global(object_layer.map_to_local(PlayerManager.get_position()))
 	enemy_action = enemy.start(player_location)
 	turnStart()
-
-	
-	#TODO: remove this function
-func gameEnd():
-	$DeathPopup.show()
-	pass
 	
 func turnStart():
 	#remove previous enemy attack and movement indicator
@@ -164,8 +154,6 @@ func enemyHitReg():
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
 		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
 		PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
-	if PlayerManager.get_health() <= 0:
-		gameEnd()
 
 func playerActionDisplay(expression_data) -> void:
 	for child in self.get_children():

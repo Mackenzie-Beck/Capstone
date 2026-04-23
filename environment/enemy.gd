@@ -16,7 +16,6 @@ func _process(delta: float) -> void:
 	pass
 	
 func start(player_location):
-	#get_parent().object_layer.set_enemy_coords(get_parent().object_layer.enemy_coords)
 	var attack = newAttack(player_location)
 	return [get_parent().object_layer.enemy_coords, attack]
 

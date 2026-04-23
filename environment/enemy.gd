@@ -24,6 +24,7 @@ func turnEnd(player_location:Vector2i):
 	var move = makeLocation()
 	var attack = newAttack(player_location)
 	if get_parent().object_layer.is_coord_in_bomb(move):
+		print("enemy is in bomb (turnend on enemy.gd)")
 		SB.enemy_takes_damage.emit()
 	return [move, attack]
 	

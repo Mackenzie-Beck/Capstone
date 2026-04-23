@@ -264,9 +264,9 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	# check if player is in bomb area
 	#print("player health before bomb: ", PlayerManager.get_health())
-	if is_coord_in_bomb(movement_tile):
+	if is_coord_in_bomb(movement_tile) or is_coord_in_bomb(prev_player_coords):
 		SB.player_health_update.emit(-1)
-		print("player landed in bomb")
+		print("player landed in bomb in _on_movement_expression_applied")
 	#if check_laser:
 		#print("check laser")
 	
@@ -461,19 +461,3 @@ func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_e
 	var corrected_end = Vector2i(end_coords.x, -end_coords.y)
 	#print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
 	return segment_crosses_line(start_coords, end_coords, laser_equation["m"], laser_equation["b"])
-	#var eq = parse_linear_exp_string(laser_expression)
-	#var m = eq["m"]
-	#var b = eq["b"]
-#
-	#var dx = float(end_coords.x - start_coords.x)
-	#var dy = float(end_coords.y - start_coords.y)
-	#var sx = float(start_coords.x)
-	#var sy = float(start_coords.y)
-#
-	## Denominator is zero when the enemy's path is parallel to the laser
-	#var denom = -m * dx - dy
-	#if abs(denom) < 0.0001:
-		#return false
-#
-	#var t = (sy + m * sx + b) / denom
-	#return t >= 0.0 and t <= 1.0

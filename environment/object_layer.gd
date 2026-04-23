@@ -227,6 +227,10 @@ func bomb_projection(center_coord: Vector2i) -> void:
 			if Vector2i(center_coord.x+x, center_coord.y+y) not in all_bomb_coords:
 				highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_projection_coords)
 				projected_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+	if prev_bomb_tile1 == null:
+		prev_bomb_tile1 = center_coord
+	if prev_bomb_tile2 == null:
+		prev_bomb_tile2 = center_coord
 
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()

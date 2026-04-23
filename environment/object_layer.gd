@@ -24,7 +24,7 @@ extends TileMapLayer
 @export var highlight_shoot_coords: Vector2i = Vector2i(3,0)
 @export var highlight_purple_coords: Vector2i = Vector2i(4,0)
 
-var last_hovered_tile: Vector2i = Vector2i(-1, -1)
+var last_hovered_tile: Vector2i = Vector2i(-100, -100)
 
 
 var movement_tile : Vector2i
@@ -196,7 +196,7 @@ func _process(_delta: float) -> void:
 		highlight_layer.set_cell(hovered_tile, 0, highlight_atlas_coords)
 		last_hovered_tile = hovered_tile
 	else:
-		last_hovered_tile = Vector2i(-1, -1)
+		last_hovered_tile = Vector2i(-100, -100)
 
 	# Set the text of the coord_label
 	UIcontrol.coord_label.text = str(hovered_tile.x) + "," +str(-hovered_tile.y)  
@@ -228,6 +228,10 @@ func bomb_projection(center_coord: Vector2i) -> void:
 			if Vector2i(center_coord.x+x, center_coord.y+y) not in all_bomb_coords:
 				highlight_layer.set_cell(Vector2i(center_coord.x+x, center_coord.y+y), 0, highlight_bomb_projection_coords)
 				projected_bomb_coords.append(Vector2i(center_coord.x+x, center_coord.y+y))
+	if prev_bomb_tile1 == null:
+		prev_bomb_tile1 = center_coord
+	if prev_bomb_tile2 == null:
+		prev_bomb_tile2 = center_coord
 
 func laser(shooting_expr:String) -> void:
 	#var enemy_move_expression = UIcontrol.player_control_ui.get_movement_expression()

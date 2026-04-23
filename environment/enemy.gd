@@ -23,6 +23,8 @@ func start(player_location):
 func turnEnd(player_location:Vector2i):
 	var move = makeLocation()
 	var attack = newAttack(player_location)
+	if get_parent().object_layer.is_coord_in_bomb(move):
+		SB.enemy_takes_damage.emit()
 	return [move, attack]
 	
 func newAttack(player_location:Vector2i):
@@ -57,6 +59,7 @@ func newAttack(player_location:Vector2i):
 									  rng.randi_range(player_location[1]-d-i,player_location[1]+d+i))
 				d += 1 #to prevent infinte loops in very edge cases
 			attacks.append(bombCenter)
+		SB.enemy_bomb.emit()
 	return [attacks,type]
 
 func get_enemy_attack_expression(angle : Vector2i):

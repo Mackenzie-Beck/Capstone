@@ -4,11 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://hd5gf2co6i4c" path="res://assets/sprites/Spaceship Pack/player2_ship.png" id="2_4c57u"]
 [ext_resource type="Texture2D" uid="uid://b4j5qd7vnouat" path="res://assets/sprites/Spaceship Pack/enemy_ship.png" id="2_efxa6"]
 [ext_resource type="Texture2D" uid="uid://npeu0pgjlyew" path="res://assets/sprites/Spaceship Pack/player_ship.png" id="3_dg77c"]
-[ext_resource type="PackedScene" uid="uid://4oa4tj0x8vpj" path="res://environment/player.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://eqbr33tbg5pl" path="res://environment/object_layer.gd" id="4_kek77"]
 [ext_resource type="Texture2D" uid="uid://cs37fvsr1b0v4" path="res://assets/sprites/gridlines.png" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://ckxuoa1jcs4mq" path="res://environment/enemy.tscn" id="5_kek77"]
-[ext_resource type="Texture2D" uid="uid://d08klnkecw5rv" path="res://environment/art/death.jpg" id="6_4c57u"]
 [ext_resource type="Texture2D" uid="uid://28driiyqcp5n" path="res://assets/backgrounds/Untitled.png" id="7_dg77c"]
 [ext_resource type="Script" uid="uid://b7ftp8emh7567" path="res://environment/camera_2d.gd" id="10_4c57u"]
 
@@ -91,38 +89,9 @@ texture = ExtResource("7_dg77c")
 [node name="HighlightLayer" type="TileMapLayer" parent="." unique_id=1810625907]
 tile_set = SubResource("TileSet_ycdy4")
 
-[node name="Player" parent="." unique_id=1912713505 instance=ExtResource("4_5vw27")]
-visible = false
-top_level = true
-position = Vector2(-101, 0.99999994)
-scale = Vector2(0.4, 0.4)
-script = null
-
-[node name="StartPosition" type="Marker2D" parent="Player" unique_id=182408695]
-visible = false
-
-[node name="HealthBar" type="ProgressBar" parent="Player" unique_id=633608191]
-visible = false
-z_index = 10
-offset_left = -95.0
-offset_top = -14.999992
-offset_right = 94.99997
-offset_bottom = 12.000008
-step = 1.0
-show_percentage = false
-
 [node name="Enemy" parent="." unique_id=1452845296 instance=ExtResource("5_kek77")]
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
-
-[node name="DeathPopup" type="TextureRect" parent="." unique_id=1666793433]
-visible = false
-offset_left = 420.0
-offset_top = 286.0
-offset_right = 584.0
-offset_bottom = 326.0
-scale = Vector2(2, 2)
-texture = ExtResource("6_4c57u")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=489169775]
 zoom = Vector2(0.75, 0.75)

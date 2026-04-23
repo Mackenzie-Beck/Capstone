@@ -364,11 +364,18 @@ func parse_linear_exp_string(expression : String) -> Dictionary:
 		#print("bstr: " ,b_str)
 		if m_str =="" and b_str != "":
 			var b_parts = b_str.split("+") if "+" in b_str else b_str.split("-")
+			#print("b_parts:", b_parts)
 			if b_parts[0] == "":
 				m=1
 			else:
 				m = float(b_parts[0])
-			b = float(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
+			if b_parts.size() >0:
+				for part in b_parts:
+					b += float(part)
+				#print("b is : ", b)
+			else:
+				b= 0
+			#b = float(b_str.substr(b_parts[0].length())) if b_parts.size() > 1 else 0
 			# re add the - sign if split was on -
 			if "+" not in b_str and b_parts.size() > 1:
 				b = -b

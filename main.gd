@@ -49,6 +49,7 @@ func _on_game_win():
 	object_layer.reset_grid()
 	
 func _process(delta: float) -> void:
+	#TODO: remove the NextTurn input
 	if Input.is_action_just_pressed("NextTurn"):
 		turnEnd()
 		turnStart()
@@ -85,6 +86,7 @@ func newgame():
 	turnStart()
 
 	
+	#TODO: remove this function
 func gameEnd():
 	$DeathPopup.show()
 	pass

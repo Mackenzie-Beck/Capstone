@@ -60,6 +60,7 @@ func reset_grid():
 	
 	all_bomb_coords.clear()
 	projected_bomb_coords.clear()
+	movement_tile = Vector2i(0,0)
 	
 	for cell in highlight_layer.get_used_cells():
 		highlight_layer.set_cell(cell, -1)
@@ -459,30 +460,7 @@ func segment_crosses_line(start: Vector2, end: Vector2, m: float, b: float) -> b
 func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_expression: String) -> bool:
 	var laser_equation = parse_linear_exp_string(laser_expression)
 	#print("laser expression: ", laser_equation)
-<<<<<<< HEAD
 	var corrected_start = Vector2(start_coords.x, -start_coords.y)
 	var corrected_end = Vector2(end_coords.x, -end_coords.y)
 	#print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
 	return segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"])
-=======
-	var corrected_start = Vector2i(start_coords.x, -start_coords.y)
-	var corrected_end = Vector2i(end_coords.x, -end_coords.y)
-	#print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
-	return segment_crosses_line(start_coords, end_coords, laser_equation["m"], laser_equation["b"])
-	#var eq = parse_linear_exp_string(laser_expression)
-	#var m = eq["m"]
-	#var b = eq["b"]
-#
-	#var dx = float(end_coords.x - start_coords.x)
-	#var dy = float(end_coords.y - start_coords.y)
-	#var sx = float(start_coords.x)
-	#var sy = float(start_coords.y)
-#
-	## Denominator is zero when the enemy's path is parallel to the laser
-	#var denom = -m * dx - dy
-	#if abs(denom) < 0.0001:
-		#return false
-#
-	#var t = (sy + m * sx + b) / denom
-	#return t >= 0.0 and t <= 1.0
->>>>>>> trunk

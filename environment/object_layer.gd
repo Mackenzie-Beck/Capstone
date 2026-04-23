@@ -57,6 +57,8 @@ func reset_grid():
 	highlight_layer.clear()
 	clear()
 	
+	all_bomb_coords.clear()
+	projected_bomb_coords.clear()
 	
 	for cell in highlight_layer.get_used_cells():
 		highlight_layer.set_cell(cell, -1)
@@ -445,8 +447,8 @@ func segment_crosses_line(start: Vector2, end: Vector2, m: float, b: float) -> b
 	
 func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_expression: String) -> bool:
 	var laser_equation = parse_linear_exp_string(laser_expression)
-	print("laser expression: ", laser_equation)
+	#print("laser expression: ", laser_equation)
 	var corrected_start = Vector2(start_coords.x, -start_coords.y)
 	var corrected_end = Vector2(end_coords.x, -end_coords.y)
-	print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
+	#print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
 	return segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"])

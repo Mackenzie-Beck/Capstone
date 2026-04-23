@@ -95,7 +95,7 @@ func remove_term(term: DraggableTerm) -> void:
 	var index = terms.find(term)
 	if index >= 0:
 		terms.remove_at(index)
-		#print(term.original_position)
+		#(term.original_position)
 		term._return_to_original()
 		#Disconnect the signal for right click removal
 		term.gui_input.disconnect(_on_term_clicked)

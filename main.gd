@@ -108,6 +108,7 @@ func turnEnd():
 		#print("laser is not empty and player is in laser mode")
 		#print("enemey coords:", object_layer.enemy_coords)
 		#print("move coords: ", enemy_action[0])
+		print("did enemy cross laser: ", object_layer.did_enemy_cross_laser(object_layer.enemy_coords, enemy_action[0], laser_expr))
 		if object_layer.did_enemy_cross_laser(object_layer.enemy_coords, enemy_action[0], laser_expr):
 			SB.enemy_takes_damage.emit()
 			print("enemy crossed laser")

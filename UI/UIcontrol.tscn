@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://b6uf0bagls6d8" path="res://UI/pause_menu.tscn" id="2_b5g8g"]
 [ext_resource type="PackedScene" uid="uid://cm723ap6pxluj" path="res://UI/player_control_ui.tscn" id="2_cq43x"]
 [ext_resource type="PackedScene" uid="uid://hy0evxgos04h" path="res://UI/main_menu.tscn" id="4_62gio"]
-[ext_resource type="PackedScene" path="res://UI/coord_label.tscn" id="5_4c5at"]
-[ext_resource type="PackedScene" path="res://UI/game_status.tscn" id="6_ptnnf"]
-[ext_resource type="PackedScene" path="res://UI/health_display.tscn" id="7_a5ama"]
+[ext_resource type="PackedScene" uid="uid://ex02q6emeakv" path="res://UI/coord_label.tscn" id="5_4c5at"]
+[ext_resource type="PackedScene" uid="uid://bkqhgcsafvvwd" path="res://UI/game_status.tscn" id="6_ptnnf"]
+[ext_resource type="PackedScene" uid="uid://dqaqwnwn205kt" path="res://UI/health_display.tscn" id="7_a5ama"]
 [ext_resource type="PackedScene" path="res://UI/game_win.tscn" id="8_j1p37"]
-[ext_resource type="PackedScene" path="res://UI/game_over.tscn" id="9_2uoqc"]
+[ext_resource type="PackedScene" uid="uid://ns5kf52wuh2i" path="res://UI/game_over.tscn" id="9_2uoqc"]
 
 [node name="UIcontrol" type="Control" unique_id=400551499]
 process_mode = 3
@@ -37,9 +37,14 @@ size_flags_horizontal = 8
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=2093296234 instance=ExtResource("2_b5g8g")]
 process_mode = 3
-visible = false
+offset_left = -384.0
+offset_right = 384.0
+offset_bottom = 1119.0
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=567213599 instance=ExtResource("4_62gio")]
+offset_left = -384.0
+offset_right = 384.0
+offset_bottom = 1121.0
 
 [node name="CoordLabel" parent="CanvasLayer" unique_id=939518047 instance=ExtResource("5_4c5at")]
 visible = false

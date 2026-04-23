@@ -266,7 +266,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	#print("player health before bomb: ", PlayerManager.get_health())
 	if is_coord_in_bomb(movement_tile) or is_coord_in_bomb(prev_player_coords):
 		SB.player_health_update.emit(-1)
-		print("player landed in bomb in _on_movement_expression_applied")
+		#print("player landed in bomb in _on_movement_expression_applied")
 	#if check_laser:
 		#print("check laser")
 	
@@ -320,7 +320,7 @@ func is_coord_in_bomb(coord: Vector2i):
 	if highlight_layer.get_cell_atlas_coords(coord) == highlight_bomb_coords:
 		return true
 	else:
-		false
+		return false
 
 func did_player_cross_laser(prev_coords, coords):
 	#print("prev coords: ", prev_coords)
@@ -460,4 +460,4 @@ func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_e
 	var corrected_start = Vector2i(start_coords.x, -start_coords.y)
 	var corrected_end = Vector2i(end_coords.x, -end_coords.y)
 	#print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
-	return segment_crosses_line(start_coords, end_coords, laser_equation["m"], laser_equation["b"])
+	return segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"])

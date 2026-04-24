@@ -14,3 +14,6 @@ func _on_quit_pressed() -> void:
 func _on_start_multiplayer_game_pressed() -> void:
 	PlayerManager.multiplayer_check = true
 	SB.start_game.emit()
+	
+func _on_load_pressed() -> void:
+	Utils.load_game()

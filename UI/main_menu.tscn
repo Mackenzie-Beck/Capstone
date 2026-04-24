@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cgy1fewdpy18n"]
+[gd_scene format=3 uid="uid://hy0evxgos04h"]
 
 [ext_resource type="Script" uid="uid://c71v08ri0ryq" path="res://UI/main_menu.gd" id="1_p8ccj"]
 [ext_resource type="Texture2D" uid="uid://b1lxsybt60dcs" path="res://assets/backgrounds/Untitled1.png" id="2_tk8dj"]
@@ -50,6 +50,10 @@ text = "Play the Game"
 [node name="StartMultiplayerGame" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2002486794]
 layout_mode = 2
 text = "Start Multiplayer Game"
+
+[node name="LoadButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1558005403]
+layout_mode = 2
+text = "Load Game"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1416617117]
 layout_mode = 2

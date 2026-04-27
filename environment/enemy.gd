@@ -138,3 +138,4 @@ func on_load_game(saved_data:SavedData) -> void:
 	get_parent().enemy_action = [Vector2i(0,0), -1]
 	#print("curretn coords: ", current_coords)
 	health = saved_data.health
+	UIcontrol.health_display.update_enemy_hbar(saved_data.health)

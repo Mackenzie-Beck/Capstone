@@ -81,6 +81,7 @@ func switch_view(view: VIEWS) -> void:
 			hide_views()
 			main_menu.show()
 			SB.game_closed.emit()
+			SB.reset_game.emit()
 		VIEWS.GAMEOVER:
 			hide_views()
 			game_over.show()

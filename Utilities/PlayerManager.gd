@@ -26,6 +26,7 @@ func _ready() -> void:
 	SB.turn_change.connect(swap_player)
 	SB.player_moved.connect(_on_player_moved)
 
+
 func swap_player() -> void:
 	# Toggle between player 0 and 1
 	if current_player == 0:
@@ -97,12 +98,12 @@ func on_load_game(saved_data:SavedData) -> void:
 	current_player = saved_data.player_index
 	
 	set_fuel(saved_data.fuel)
-	SB.fuel_used.emit(0)
+	UIcontrol.player_control_ui.update_fuel(saved_data.fuel)
 	
-	print("saved_data.health: ", saved_data.health)
-	print("playermanager health: ", get_health())
+	#print("saved_data.health: ", saved_data.health)
+	#print("playermanager health: ", get_health())
 	set_health(saved_data.health)
-	print("playermanager health after set_health: ", get_health())
+	#print("playermanager health after set_health: ", get_health())
 	SB.player_health_update.emit(saved_data.health)
 	
 	set_position(saved_data.position)

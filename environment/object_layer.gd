@@ -57,16 +57,18 @@ func _ready() -> void:
 	
 
 func _on_start_game():
-	if PlayerManager.multiplayer_check:
-		PlayerManager.swap_player()
-		set_player_coords(Vector2i(-4,-4))
-		PlayerManager.swap_player()
+	reset_grid()
+	#if PlayerManager.multiplayer_check:
+		#PlayerManager.swap_player()
+		#set_player_coords(Vector2i(-4,-4))
+		#PlayerManager.swap_player()
 	
 
 func reset_grid():
 	#print("reset grid")
 	highlight_layer.clear()
 	clear()
+	PlayerManager.reset_players()
 	
 	all_bomb_coords.clear()
 	projected_bomb_coords.clear()
@@ -79,8 +81,10 @@ func reset_grid():
 		set_cell(cell,-1)
 	update_internals()
 	if PlayerManager.multiplayer_check:
-		set_cell(PlayerManager.get_position(), 2, player_sprite_atlas_coords)
-		set_cell(PlayerManager.get_position(), 0, player2_sprite_atlas_coords)
+		set_cell(Vector2.ZERO, 2, player_sprite_atlas_coords)
+		PlayerManager.player1_save_data.position = Vector2.ZERO
+		set_cell(Vector2(-4,-4), 0, player2_sprite_atlas_coords)
+		PlayerManager.player2_save_data.position = Vector2(-4,-4)
 		set_enemy_coords(Vector2i(5,5))
 	else:
 		set_player_coords(Vector2i(0,0))
@@ -89,7 +93,7 @@ func reset_grid():
 		
 	get_parent().clear_lines()
 	SB.reset_game.emit()
-	PlayerManager.reset_players()
+	
 #	for tile in self.til
 
 

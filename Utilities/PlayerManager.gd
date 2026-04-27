@@ -38,9 +38,11 @@ func swap_player() -> void:
 func reset_players():
 	player_array.clear()
 	player1_save_data = PlayerSavedData.new()
+	player1_save_data.player_index = 0
 	player_array.append(player1_save_data)
 	
 	player2_save_data = PlayerSavedData.new()
+	player2_save_data.player_index = 1
 	player_array.append(player2_save_data)
 	
 	
@@ -119,5 +121,8 @@ func on_load_game(saved_data:SavedData) -> void:
 	
 	set_position(saved_data.position)
 	Utils.main_scene.object_layer.set_player_coords(saved_data.position)
+	
+	# reset player
+	current_player = 0
 
 	

@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	SB.turn_change.connect(swap_player)
 	SB.player_moved.connect(_on_player_moved)
+	SB.player_health_update.connect(_on_player_health_update)
 
 
 func swap_player() -> void:
@@ -53,6 +54,8 @@ func get_fuel() -> int:
 func get_position() -> Vector2:
 	return player_array[current_player].position
 
+func _on_player_health_update(value:int):
+	set_health(player_array[current_player].health+value)
 
 func set_health(health:int) -> void:
 	player_array[current_player].health = health
@@ -79,9 +82,11 @@ func on_save_game(saved_data:Array[SavedData]) -> void:
 	if multiplayer_check:
 		for player_save_data in player_array:
 			#print("player saved data: ", player_save_data)
+			player_save_data.multiplayer_check = multiplayer_check
 			saved_data.append(player_save_data)
 	else:
 		#print("player saved data: ", player_array[current_player])
+		player_array[current_player].multiplayer_check = multiplayer_check
 		saved_data.append(player_array[current_player])
 			
 
@@ -104,7 +109,13 @@ func on_load_game(saved_data:SavedData) -> void:
 	#print("playermanager health: ", get_health())
 	set_health(saved_data.health)
 	#print("playermanager health after set_health: ", get_health())
-	SB.player_health_update.emit(saved_data.health)
+	if saved_data.multiplayer_check == true:
+		if saved_data.player_index == 0:
+			UIcontrol.health_display.update_player_hbar(saved_data.health)
+		elif saved_data.player_index == 1:
+			UIcontrol.health_display.update_player2_hbar(saved_data.health)
+	else:
+		UIcontrol.health_display.update_player_hbar(saved_data.health)
 	
 	set_position(saved_data.position)
 	Utils.main_scene.object_layer.set_player_coords(saved_data.position)

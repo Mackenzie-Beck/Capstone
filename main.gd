@@ -153,10 +153,12 @@ func enemyHitReg():
 		for i in enemy_action[1][0]:
 			for j in range(0,3):
 				if i.get_point_position(j) == player_location:
-					PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
+					#PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
+					print("player crossed laser")
 	if PlayerManager.get_position() in object_layer.all_bomb_coords:
 		AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.BOMB)
-		PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
+		#PlayerManager.set_health(PlayerManager.get_health()-enemy.damage)
+		print("player entered bomb")
 
 func playerActionDisplay(expression_data) -> void:
 	for child in self.get_children():

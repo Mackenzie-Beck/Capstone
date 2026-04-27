@@ -292,6 +292,7 @@ func _on_movement_expression_applied(movement_expr:String) -> void:
 	
 	if did_player_cross_laser(prev_player_coords,PlayerManager.get_position()) and check_laser:
 		SB.player_health_update.emit(-1)
+
 		#print("player crossed laser")
 	
 	

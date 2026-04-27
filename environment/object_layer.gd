@@ -47,12 +47,20 @@ func _ready() -> void:
 	
 	PlayerManager.pre_load.connect(_on_pre_load)
 	
+	SB.start_game.connect(_on_start_game)
 	SB.enemy_attack.connect(_on_enemy_attack)
 	SB.enemy_laser.connect(_on_enemy_laser)
 	SB.enemy_bomb.connect(_on_enemy_bomb)
 	SB.enemy_move.connect(_on_enemy_move)
 	set_player_coords(Vector2i(0,0))
 	set_enemy_coords(Vector2i(5,5))
+	
+
+func _on_start_game():
+	if PlayerManager.multiplayer_check:
+		PlayerManager.swap_player()
+		set_player_coords(Vector2i(-4,-4))
+		PlayerManager.swap_player()
 	
 
 func reset_grid():

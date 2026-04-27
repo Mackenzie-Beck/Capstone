@@ -67,7 +67,7 @@ sources/0 = SubResource("TileSetAtlasSource_dg77c")
 [node name="Main" type="Node2D" unique_id=668301661]
 script = ExtResource("1_ig7tw")
 
-[node name="ObjectLayer" type="TileMapLayer" parent="." unique_id=768193495 node_paths=PackedStringArray("highlight_layer")]
+[node name="ObjectLayer" type="TileMapLayer" parent="." unique_id=768193495 node_paths=PackedStringArray("highlight_layer") groups=["persist"]]
 top_level = true
 z_index = 19
 tile_set = SubResource("TileSet_5vw27")

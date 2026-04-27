@@ -481,3 +481,21 @@ func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_e
 	var corrected_end = Vector2(end_coords.x, -end_coords.y)
 	#print("does the segment cross the line: ", segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"]))
 	return segment_crosses_line(corrected_start, corrected_end, laser_equation["m"], laser_equation["b"])
+
+
+
+func on_save_game(saved_data:Array[SavedData]) -> void:
+	print("on save game on object layer")
+	var board_saved_data = BoardSavedData.new()
+	board_saved_data.all_bomb_coords = all_bomb_coords
+	saved_data.append(board_saved_data)
+	
+func on_load_game(saved_data:SavedData) -> void:
+	all_bomb_coords = saved_data.all_bomb_coords
+	print("all b coords", all_bomb_coords)
+	set_bomb_coords()
+	
+	
+func set_bomb_coords():
+	for coord in all_bomb_coords:
+		highlight_layer.set_cell(Vector2i(coord.x, coord.y), 0, highlight_bomb_coords)

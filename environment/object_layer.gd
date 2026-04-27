@@ -148,13 +148,14 @@ func _process(_delta: float) -> void:
 				elif prev_bomb_tile1 != null and prev_bomb_tile1 in projected_bomb_coords:
 					highlight_layer.set_cell(prev_bomb_tile1, 0, highlight_bomb_projection_coords)
 					prev_bomb_tile1 = null
-				else:
-					if movement_tile != null:
-						if movement_tile in all_bomb_coords:
-							#highlight_layer.erase_cell(movement_tile)
-							highlight_layer.set_cell(movement_tile,0,highlight_bomb_coords)
-						else:
-							highlight_layer.erase_cell(movement_tile)
+				if movement_tile != null:
+					if movement_tile in all_bomb_coords:
+						#highlight_layer.erase_cell(movement_tile)
+						highlight_layer.set_cell(movement_tile,0,highlight_bomb_coords)
+					elif movement_tile in projected_bomb_coords:
+						highlight_layer.set_cell(movement_tile,0,highlight_bomb_projection_coords)
+					else:
+						highlight_layer.erase_cell(movement_tile)
 					
 				movement_tile = hovered_tile
 				if hovered_tile in all_bomb_coords:

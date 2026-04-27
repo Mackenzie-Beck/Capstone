@@ -485,14 +485,14 @@ func did_enemy_cross_laser(start_coords: Vector2i, end_coords: Vector2i, laser_e
 
 
 func on_save_game(saved_data:Array[SavedData]) -> void:
-	print("on save game on object layer")
+	#print("on save game on object layer")
 	var board_saved_data = BoardSavedData.new()
 	board_saved_data.all_bomb_coords = all_bomb_coords
 	saved_data.append(board_saved_data)
 	
 func on_load_game(saved_data:SavedData) -> void:
 	all_bomb_coords = saved_data.all_bomb_coords
-	print("all b coords", all_bomb_coords)
+	#print("all b coords", all_bomb_coords)
 	set_bomb_coords()
 	
 	

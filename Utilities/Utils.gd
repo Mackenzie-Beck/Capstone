@@ -71,7 +71,7 @@ func save() -> void:
 	
 	var saved_data:Array[SavedData] = []
 	get_tree().call_group("persist", "on_save_game", saved_data)
-	print("saved data after call", saved_data)
+	#print("saved data after call", saved_data)
 	# this walks over all the nodes in the game tree to be saved, and then calls the on_save_game function (which a savable node MUST have). 
 	# And stores the data in the saved_data array
 	saved_game.saved_data = saved_data	

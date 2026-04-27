@@ -99,11 +99,13 @@ func on_load_game(saved_data:SavedData) -> void:
 	set_fuel(saved_data.fuel)
 	SB.fuel_used.emit(0)
 	
+	print("saved_data.health: ", saved_data.health)
+	print("playermanager health: ", get_health())
 	set_health(saved_data.health)
+	print("playermanager health after set_health: ", get_health())
 	SB.player_health_update.emit(saved_data.health)
 	
 	set_position(saved_data.position)
 	Utils.main_scene.object_layer.set_player_coords(saved_data.position)
-	#reset player
-	current_player = 0
+
 	

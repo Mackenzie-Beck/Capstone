@@ -35,7 +35,7 @@ func reset_health():
 		update_enemy_hbar(EnemyHealth.value)
 
 func _on_player_health_update(value):
-	print("_on_player_health_update in health_display")
+	#print("_on_player_health_update in health_display")
 	AudioControl.create_audio(SoundEffect.SOUND_EFFECT_TYPE.ROBO1)
 	if PlayerManager.multiplayer_check:
 		if PlayerManager.current_player == 0:
@@ -46,7 +46,7 @@ func _on_player_health_update(value):
 		update_player_hbar(Player1Health.value+value)
 
 func update_player_hbar(val: int) -> void:
-	print("update_player_hbar in health_display")
+	#print("update_player_hbar in health_display")
 	if PlayerManager.multiplayer_check:
 		Player1HealthMulti.value = val
 	else:

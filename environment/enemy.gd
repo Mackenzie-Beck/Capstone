@@ -12,7 +12,8 @@ var current_coords : Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health = rng.randi_range(10,25)
+	#health = rng.randi_range(10,25)
+	health = 10
 	SB.enemy_takes_damage.connect(_on_enemy_takes_damage)
 	SB.reset_game.connect(_on_reset_game)
 

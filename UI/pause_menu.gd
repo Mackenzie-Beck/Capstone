@@ -20,5 +20,7 @@ func _on_resume_pressed() -> void:
 	UIcontrol.switch_view(UIcontrol.VIEWS.PLAYER)
 
 
-func _on_button_pressed() -> void:
-	SB.game_win.emit()
+
+
+func _on_load_button_pressed() -> void:
+	Utils.load_game()

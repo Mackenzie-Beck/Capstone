@@ -89,7 +89,7 @@ texture = ExtResource("7_dg77c")
 [node name="HighlightLayer" type="TileMapLayer" parent="." unique_id=1810625907]
 tile_set = SubResource("TileSet_ycdy4")
 
-[node name="Enemy" parent="." unique_id=1452845296 instance=ExtResource("5_kek77")]
+[node name="Enemy" parent="." unique_id=1452845296 groups=["persist"] instance=ExtResource("5_kek77")]
 position = Vector2(-39.999992, -1.9073486e-06)
 scale = Vector2(0.4, 0.4)
 

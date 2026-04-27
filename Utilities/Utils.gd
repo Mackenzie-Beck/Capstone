@@ -89,6 +89,9 @@ func load_game() -> void:
 	for item in saved_game.saved_data:
 		if item is PlayerSavedData:
 			PlayerManager.on_load_game(item)
+		elif item is EnemySavedData:
+			print("EnemySavedData: ", item)
+			main_scene.enemy.on_load_game(item)
 		else:
 			var scene = load(item.scene_path) as PackedScene
 			var restored_node = scene.instantiate()

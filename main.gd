@@ -122,6 +122,7 @@ func turnEnd():
 func move_enemy(new_coords):
 	object_layer.erase_cell(object_layer.enemy_coords)
 	object_layer.set_enemy_coords(new_coords)
+	enemy.current_coords = new_coords
 
 func enemyDisplayAttack(attacks):
 	#add new attack indicator

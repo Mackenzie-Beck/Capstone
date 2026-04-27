@@ -6,3 +6,4 @@ extends SavedData
 
 @export var health : int = 11
 @export var fuel : int = 50
+@export var player_index : int = -1

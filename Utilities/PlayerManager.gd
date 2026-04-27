@@ -12,11 +12,15 @@ extends Node
 var player1_coords : Vector2i
 var player2_coords : Vector2i
 
+signal pre_load
+
 func _ready() -> void:
 	player1_save_data = PlayerSavedData.new()
+	player1_save_data.player_index = 0
 	player_array.append(player1_save_data)
 	
 	player2_save_data = PlayerSavedData.new()
+	player2_save_data.player_index = 1
 	player_array.append(player2_save_data)
 	
 	SB.turn_change.connect(swap_player)
@@ -71,10 +75,35 @@ func set_position(pos:Vector2) -> void:
 
 
 func on_save_game(saved_data:Array[SavedData]) -> void:
-	saved_data.append(player_array[current_player])
+	if multiplayer_check:
+		for player_save_data in player_array:
+			#print("player saved data: ", player_save_data)
+			saved_data.append(player_save_data)
+	else:
+		#print("player saved data: ", player_array[current_player])
+		saved_data.append(player_array[current_player])
+			
+
 	
 func on_before_load_game() -> void:
-	pass
+	player_array.clear()
+	pre_load.emit()
 	
 func on_load_game(saved_data:SavedData) -> void:
-	player_array[current_player] = saved_data
+	#print("on load game")
+	#print("player array before append: ", player_array)
+	player_array.append(saved_data)
+	#print("player array after append: ", player_array)
+	current_player = saved_data.player_index
+	
+	set_fuel(saved_data.fuel)
+	SB.fuel_used.emit(0)
+	
+	set_health(saved_data.health)
+	SB.player_health_update.emit(saved_data.health)
+	
+	set_position(saved_data.position)
+	Utils.main_scene.object_layer.set_player_coords(saved_data.position)
+	#reset player
+	current_player = 0
+	

@@ -45,6 +45,8 @@ func _ready() -> void:
 	UIcontrol.player_control_ui.movement_expression_applied.connect(_on_movement_expression_applied)
 	UIcontrol.player_control_ui.shooting_expression_applied.connect(_on_shooting_expression_applied)
 	
+	PlayerManager.pre_load.connect(_on_pre_load)
+	
 	SB.enemy_attack.connect(_on_enemy_attack)
 	SB.enemy_laser.connect(_on_enemy_laser)
 	SB.enemy_bomb.connect(_on_enemy_bomb)
@@ -83,6 +85,21 @@ func reset_grid():
 #	for tile in self.til
 
 
+func _on_pre_load():
+	highlight_layer.clear()
+	clear()
+	all_bomb_coords.clear()
+	projected_bomb_coords.clear()
+	movement_tile = Vector2i(0,0)
+	for cell in highlight_layer.get_used_cells():
+		highlight_layer.set_cell(cell, -1)
+	highlight_layer.update_internals()
+	for cell in get_used_cells():
+		set_cell(cell,-1)
+	update_internals()
+	get_parent().clear_lines()
+	
+	
 # Will need to change the second arg of set_cell when the tilemap resource is created
 func set_player_coords(coords : Vector2i):
 	#TODO: change logic so that player tile is set depending on the current player

@@ -135,5 +135,6 @@ func on_save_game(saved_data:Array[SavedData]) -> void:
 func on_load_game(saved_data:SavedData) -> void:
 	current_coords = Vector2(saved_data.position)
 	get_parent().move_enemy(current_coords)
+	get_parent().enemy_action = [Vector2i(0,0), -1]
 	#print("curretn coords: ", current_coords)
 	health = saved_data.health

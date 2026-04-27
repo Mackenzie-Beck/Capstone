@@ -87,6 +87,8 @@ func turnStart():
 		if child is Line2D:
 			if child.default_color == Color(0,1,0) or child.default_color == Color(1,0,0):
 				child.queue_free()
+				
+	enemy_action = enemy.turnEnd(PlayerManager.get_position())
 	#generate new actions
 	if typeof(enemy_action[1]) != typeof(1):
 		enemyDisplayAttack(enemy_action[1])

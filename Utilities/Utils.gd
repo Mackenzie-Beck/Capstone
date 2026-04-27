@@ -100,5 +100,7 @@ func load_game() -> void:
 			main_scene.add_child(restored_node)
 			if restored_node.has_method("on_load_game"):
 				restored_node.on_load_game(item)
+	main_scene.turnStart()
+	SB.game_loaded.emit()
 	
 	

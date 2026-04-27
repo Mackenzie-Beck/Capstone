@@ -18,3 +18,4 @@ signal game_closed()
 signal reset_game()
 signal enemy_bomb()
 signal start_turn() # used for checking bomb on start of turn
+signal game_loaded()
